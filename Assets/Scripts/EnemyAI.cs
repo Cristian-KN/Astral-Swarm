@@ -35,11 +35,24 @@ public class EnemyAI : MonoBehaviour
     {
         if (playerTransform == null) return;
 
-        // 1. Calcular dirección hacia el jugador
+        EnemyStats stats = GetComponent<EnemyStats>();
+        EnemyVariantType variant = stats != null ? stats.variant : EnemyVariantType.Normal;
+
+        // 1. Calcular dirección (normalmente hacia el jugador)
         Vector2 direction = (playerTransform.position - transform.position).normalized;
 
-        // 2. Mover el RigidBody
-        rb.velocity = direction * moveSpeed;
+        // Comportamiento Especial: Amarillo huye
+        if (variant == EnemyVariantType.Amarilla)
+        {
+            direction = -direction; // Invertir dirección
+        }
+
+        // 2. Mover el RigidBody (Aplicando multiplicador de velocidad si es necesario)
+        float currentSpeed = moveSpeed;
+        if (variant == EnemyVariantType.Amarilla) currentSpeed *= 1.5f; // Los amarillos corren más
+        if (variant == EnemyVariantType.Verde) currentSpeed *= 1.2f;
+
+        rb.velocity = direction * currentSpeed;
 
         // 3. Voltear el sprite según la dirección
         if (direction.x != 0)

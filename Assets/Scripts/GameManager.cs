@@ -6,14 +6,16 @@ public class GameManager : MonoBehaviour
     [Header("Progresión del Jugador")]
     public int currentLevel = 1;
     public int currentExp = 0;
+    public int currentGold = 0;
     public int expToNextLevel = 100;
     [Tooltip("Multiplicador para hacer más difícil subir de nivel cada vez.")]
     public float expScalingFactor = 1.5f;
 
     [Header("Tiempo de Partida")]
+    public float timeRemaining;
     [Tooltip("Tiempo en segundos que el jugador debe sobrevivir (Ej: 180s = 3 mins)")]
     public float timeToSurvive = 180f;
-    private float timeRemaining;
+    private float elapsedTime = 0f;
 
     [Header("Estado del Juego")]
     public bool isGameOver = false;
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
 
         // Bajar el temporizador
         timeRemaining -= Time.deltaTime;
+        elapsedTime += Time.deltaTime;
         
         // Actualizar UI del reloj
         if (uiManager != null)
@@ -58,6 +61,15 @@ public class GameManager : MonoBehaviour
             TriggerVictory();
         }
     }
+
+    public void AddGold(int amount)
+    {
+        currentGold += amount;
+        // if (uiManager != null) uiManager.UpdateGoldText(currentGold);
+    }
+
+    public float GetElapsedTime() => elapsedTime;
+    public int GetCurrentLevel() => currentLevel;
 
     /// <summary>
     /// Invocado por ExperienceGem.cs cuando el jugador la recoge.

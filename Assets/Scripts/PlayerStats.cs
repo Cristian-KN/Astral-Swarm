@@ -5,18 +5,26 @@ using UnityEngine.UI; // Necesario si usamos UI clásica de Unity
 public class PlayerStats : MonoBehaviour
 {
     [Header("Estadísticas de Vida")]
-    public int maxHealth = 100;
-    private int currentHealth;
+    public float maxHealth = 100;
+    private float currentHealth;
 
-    [Header("Retroalimentación y Usabilidad")]
-    [Tooltip("Tiempo de invulnerabilidad tras recibir daño (i-frames).")]
+    [Header("Feedback")]
     [SerializeField] private float invulnerabilityTime = 1f;
-    [Tooltip("Duración del efecto de color rojo (feedback visual).")]
     [SerializeField] private float redFlashDuration = 0.15f;
 
-    [Header("Referencias Opcionales para UI (para la memoria)")]
-    // [SerializeField] private Slider healthSlider; // PENDIENTE: Asignar en Fase 5
-    // [SerializeField] private AudioClip hitSound;  // PENDIENTE: Asignar audio
+    [Header("Estadísticas de Combate")]
+    public float attackPower = 10f;
+    public float attackSpeed = 1f;
+    public float luck = 1f;
+    public float defense = 0f; // Reducción plana o porcentual
+    public float cooldownReduction = 0f; // 0 a 1 (0.2 = 20% menos)
+    public float difficulty = 0f; // Aumenta con items de Sacrificio
+
+    [Header("Multiplicadores (Suma de objetos)")]
+    public float attackMultiplier = 1f;
+    public float speedMultiplier = 1f;
+    public float luckMultiplier = 1f;
+    public float difficultyMultiplier = 1f;
 
     private SpriteRenderer spriteRenderer;
     private bool isInvulnerable = false;
@@ -33,11 +41,13 @@ public class PlayerStats : MonoBehaviour
     /// <summary>
     /// Función principal de usabilidad y daño. Se puede llamar desde los enemigos cuando tocan al jugador.
     /// </summary>
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
-        if (isInvulnerable) return; // Ignora el daño si está invulnerable.
+        if (isInvulnerable) return;
 
-        currentHealth -= damage;
+        // Aplicar defensa (Reducción plana, mínimo 1 de daño)
+        float finalDamage = Mathf.Max(1, damage - defense);
+        currentHealth -= finalDamage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         // Actualizar UI
