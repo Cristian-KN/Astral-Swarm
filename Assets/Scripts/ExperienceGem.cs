@@ -14,15 +14,17 @@ public class ExperienceGem : MonoBehaviour
     private SpriteRenderer sr;
     private float          spawnY;
     private float          bobPhase;
+    private GameManager    gameManager;
 
     private static Sprite sharedCircle;
 
     private void Awake()
     {
-        sr        = GetComponent<SpriteRenderer>();
-        sr.sprite = GetCircleSprite();
-        spawnY    = transform.position.y;
-        bobPhase  = Random.Range(0f, Mathf.PI * 2f);
+        sr          = GetComponent<SpriteRenderer>();
+        sr.sprite   = GetCircleSprite();
+        spawnY      = transform.position.y;
+        bobPhase    = Random.Range(0f, Mathf.PI * 2f);
+        gameManager = FindObjectOfType<GameManager>();
         ApplyColorTier();
 
         Collider2D col = GetComponent<Collider2D>();
@@ -31,12 +33,14 @@ public class ExperienceGem : MonoBehaviour
 
     private void Update()
     {
-        if (isMagnetized && playerTarget != null)
+        if (isMagnetized)
         {
+            if (playerTarget == null) { Destroy(gameObject); return; }
+
             transform.position = Vector3.MoveTowards(
                 transform.position, playerTarget.position, magnetSpeed * Time.deltaTime);
 
-            if (Vector3.Distance(transform.position, playerTarget.position) < 0.2f)
+            if ((transform.position - playerTarget.position).sqrMagnitude < 0.04f)
                 CollectGem();
         }
         else
@@ -90,8 +94,7 @@ public class ExperienceGem : MonoBehaviour
 
     private void CollectGem()
     {
-        GameManager gm = FindObjectOfType<GameManager>();
-        if (gm != null) gm.AddExperience(experienceAmount);
+        if (gameManager != null) gameManager.AddExperience(experienceAmount);
         Destroy(gameObject);
     }
 }
