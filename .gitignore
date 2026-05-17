@@ -1,0 +1,38 @@
+# Unity generated
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+UserSettings/
+MemoryCaptures/
+Recordings/
+
+# Visual Studio
+.vs/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Asset meta files (optional — comment out if you want to track them)
+# *.meta
+
+# Rider
+.idea/
+
+# VSCode
+.vscode/
+
+# Claude
+.claude/settings.local.json
