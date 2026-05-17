@@ -21,7 +21,7 @@ public static class AstralSwarmSetup
     private const string SpritesEnemiesFolder = "Assets/Sprites/Enemies";
     private const string AnimationsFolder = "Assets/Animations";
     private const string ScenesFolder = "Assets/Scenes";
-    private const string ScenePath = "Assets/Scenes/SampleScene.unity";
+    private const string ScenePath = "Assets/Scenes/Game.unity";
 
     // ---------- Prefab Paths ----------
     private const string ProjectilePrefabPath = "Assets/Prefabs/Projectile.prefab";
@@ -30,7 +30,6 @@ public static class AstralSwarmSetup
     private const string PlayerPrefabPath = "Assets/Prefabs/Player.prefab";
 
     // ---------- Layers / Tags ----------
-    private const int EnemyLayer = 6;
     private const string PlayerTag = "Player";
     private const string EnemyTag = "Enemy";
 
@@ -142,7 +141,13 @@ public static class AstralSwarmSetup
 
         // Tag & Layer
         TrySetTag(go, EnemyTag);
-        go.layer = EnemyLayer;
+        int enemyLayerIndex = LayerMask.NameToLayer("Enemy");
+        if (enemyLayerIndex == -1)
+        {
+            Debug.LogWarning("AstralSwarmSetup: Layer 'Enemy' not found. Set it in Project Settings → Tags and Layers.");
+            enemyLayerIndex = 6; // fallback
+        }
+        go.layer = enemyLayerIndex;
 
         Rigidbody2D rb = go.AddComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
@@ -218,7 +223,13 @@ public static class AstralSwarmSetup
         if (layerProp != null)
         {
             // LayerMask is serialized as an int bitmask.
-            layerProp.intValue = 1 << EnemyLayer;
+            int enemyLayerIndex = LayerMask.NameToLayer("Enemy");
+            if (enemyLayerIndex == -1)
+            {
+                Debug.LogWarning("AstralSwarmSetup: Layer 'Enemy' not found. Set it in Project Settings → Tags and Layers.");
+                enemyLayerIndex = 6; // fallback
+            }
+            layerProp.intValue = 1 << enemyLayerIndex;
         }
         else
         {
