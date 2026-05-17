@@ -43,16 +43,10 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Si choca con un enemigo
         if (collision.CompareTag("Enemy"))
         {
-            // Aquí en la Fase 4 llamaremos al EnemyStats del enemigo para restarle vida
-            // EnemyStats enemy = collision.GetComponent<EnemyStats>();
-            // if (enemy != null) enemy.TakeDamage(damage);
-
-            Debug.Log("¡El proyectil ha impactado un enemigo!");
-
-            // Destruimos el proyectil al impactar
+            EnemyStats enemy = collision.GetComponent<EnemyStats>();
+            if (enemy != null) enemy.TakeDamage(damage);
             Destroy(gameObject);
         }
     }
