@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
+using UnityEditor.Animations;
 using UnityEditor.Events;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -566,6 +569,227 @@ public static class AstralSwarmSetup
             return;
         }
         prop.objectReferenceValue = value;
+    }
+
+    // =====================================================================
+    // SPRITE & ANIMATOR CONFIGURATION
+    // =====================================================================
+
+    [MenuItem("Astral Swarm/Configure Sprites and Animator")]
+    public static void ConfigureSpritesAndAnimator()
+    {
+        try
+        {
+            EditorUtility.DisplayProgressBar("Astral Swarm", "Configurando sprites...", 0.2f);
+            ConfigureAllSpriteSheets();
+
+            EditorUtility.DisplayProgressBar("Astral Swarm", "Creando Animator...", 0.5f);
+            CreatePlayerAnimator();
+
+            EditorUtility.DisplayProgressBar("Astral Swarm", "Asignando sprites a prefabs...", 0.8f);
+            AssignPrefabSprites();
+
+            EditorUtility.ClearProgressBar();
+            EditorUtility.DisplayDialog("Astral Swarm", "¡Sprites y Animator configurados! Ya puedes hacer Play.", "OK");
+        }
+        catch (System.Exception e)
+        {
+            EditorUtility.ClearProgressBar();
+            Debug.LogError($"AstralSwarmSetup error: {e}");
+            EditorUtility.DisplayDialog("Error", e.Message, "OK");
+        }
+    }
+
+    private static void ConfigureAllSpriteSheets()
+    {
+        // Ensure Animations folder exists for later animator creation
+        if (!AssetDatabase.IsValidFolder(AnimationsFolder))
+        {
+            AssetDatabase.CreateFolder("Assets", "Animations");
+        }
+
+        ConfigureSpriteSheet("Assets/Sprites/Player/Hero.png", 32, 32, 32);
+        ConfigureSpriteSheet("Assets/Sprites/Enemies/slime.png", 64, 64, 32);
+        ConfigureSpriteSheet("Assets/Sprites/Enemies/bat.png", 64, 64, 32);
+        ConfigureSpriteSheet("Assets/Sprites/Enemies/ghost.png", 64, 64, 32);
+        ConfigureSpriteSheet("Assets/Sprites/Enemies/eyeball.png", 64, 64, 32);
+        ConfigureSpriteSheet("Assets/Sprites/Enemies/big_worm.png", 64, 64, 32);
+        ConfigureSpriteSheet("Assets/Sprites/Enemies/small_worm.png", 64, 64, 32);
+        ConfigureSpriteSheet("Assets/Sprites/Enemies/bee.png", 64, 64, 32);
+        ConfigureSpriteSheet("Assets/Sprites/slime-projectile.png", 16, 16, 16);
+
+        AssetDatabase.Refresh();
+    }
+
+    private static void ConfigureSpriteSheet(string assetPath, int cellW, int cellH, int ppu)
+    {
+        var importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+        if (importer == null) { Debug.LogWarning($"Sprite not found: {assetPath}"); return; }
+
+        importer.textureType = TextureImporterType.Sprite;
+        importer.spriteImportMode = SpriteImportMode.Multiple;
+        importer.filterMode = FilterMode.Point;
+        importer.textureCompression = TextureImporterCompression.Uncompressed;
+        importer.spritePixelsPerUnit = ppu;
+        importer.isReadable = true;
+
+        // Slice by grid - Unity stores rect from BOTTOM-LEFT
+        // We need to know texture height to flip Y from top-left to bottom-left coords
+        // Load the raw texture temporarily
+        TextureImporter ti2 = importer; // same ref, just for clarity
+        ti2.SaveAndReimport(); // first pass to make it readable
+
+        var tex = AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
+        if (tex == null) return;
+
+        int cols = tex.width / cellW;
+        int rows = tex.height / cellH;
+        var metaList = new List<SpriteMetaData>();
+
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                // Unity Rect origin is bottom-left, image row 0 is at TOP
+                float x = col * cellW;
+                float y = tex.height - (row + 1) * cellH; // flip Y
+                metaList.Add(new SpriteMetaData
+                {
+                    name = $"frame_r{row}_c{col}",
+                    rect = new Rect(x, y, cellW, cellH),
+                    pivot = new Vector2(0.5f, 0.5f),
+                    alignment = (int)SpriteAlignment.Center
+                });
+            }
+        }
+
+        importer.spritesheet = metaList.ToArray();
+        importer.SaveAndReimport();
+    }
+
+    private static void CreatePlayerAnimator()
+    {
+        if (!AssetDatabase.IsValidFolder(AnimationsFolder))
+        {
+            AssetDatabase.CreateFolder("Assets", "Animations");
+        }
+
+        string controllerPath = "Assets/Animations/PlayerAnimator.controller";
+
+        // Load Hero sprites (after import, frames are sub-assets)
+        var allSprites = AssetDatabase.LoadAllAssetRepresentationsAtPath("Assets/Sprites/Player/Hero.png")
+            .OfType<Sprite>().OrderBy(s => s.name).ToArray();
+
+        if (allSprites.Length == 0)
+        {
+            Debug.LogWarning("No Hero sprites found. Configure sprites first.");
+            return;
+        }
+
+        // Create Idle clip (first frame only, looping)
+        var idleClip = CreateSpriteAnimClip("PlayerIdle", new[] { allSprites[0] }, 4f, true);
+        AssetDatabase.CreateAsset(idleClip, "Assets/Animations/PlayerIdle.anim");
+
+        // Create Run clip (all frames, looping)
+        var runClip = CreateSpriteAnimClip("PlayerRun", allSprites, 8f, true);
+        AssetDatabase.CreateAsset(runClip, "Assets/Animations/PlayerRun.anim");
+
+        // Create Animator Controller
+        var controller = AnimatorController.CreateAnimatorControllerAtPath(controllerPath);
+        controller.AddParameter("IsRunning", AnimatorControllerParameterType.Bool);
+
+        var rootSM = controller.layers[0].stateMachine;
+        var idleState = rootSM.AddState("Idle");
+        idleState.motion = idleClip;
+        rootSM.defaultState = idleState;
+
+        var runState = rootSM.AddState("Run");
+        runState.motion = runClip;
+
+        // Idle → Run
+        var t1 = idleState.AddTransition(runState);
+        t1.hasExitTime = false;
+        t1.duration = 0f;
+        t1.AddCondition(AnimatorConditionMode.If, 0, "IsRunning");
+
+        // Run → Idle
+        var t2 = runState.AddTransition(idleState);
+        t2.hasExitTime = false;
+        t2.duration = 0f;
+        t2.AddCondition(AnimatorConditionMode.IfNot, 0, "IsRunning");
+
+        AssetDatabase.SaveAssets();
+
+        // Assign controller to Player prefab
+        var playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Player.prefab");
+        if (playerPrefab != null)
+        {
+            using (var scope = new PrefabUtility.EditPrefabContentsScope("Assets/Prefabs/Player.prefab"))
+            {
+                var animator = scope.prefabContentsRoot.GetComponent<Animator>();
+                if (animator != null) animator.runtimeAnimatorController = controller;
+
+                var sr = scope.prefabContentsRoot.GetComponent<SpriteRenderer>();
+                if (sr != null && allSprites.Length > 0) sr.sprite = allSprites[0];
+            }
+        }
+    }
+
+    private static AnimationClip CreateSpriteAnimClip(string name, Sprite[] sprites, float fps, bool loop)
+    {
+        var clip = new AnimationClip();
+        clip.name = name;
+        clip.frameRate = fps;
+
+        if (loop)
+        {
+            var settings = AnimationUtility.GetAnimationClipSettings(clip);
+            settings.loopTime = true;
+            AnimationUtility.SetAnimationClipSettings(clip, settings);
+        }
+
+        var binding = EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite");
+        var keyframes = new ObjectReferenceKeyframe[sprites.Length];
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            keyframes[i] = new ObjectReferenceKeyframe
+            {
+                time = i / fps,
+                value = sprites[i]
+            };
+        }
+        AnimationUtility.SetObjectReferenceCurve(clip, binding, keyframes);
+
+        return clip;
+    }
+
+    private static void AssignPrefabSprites()
+    {
+        // Enemy prefab → slime.png first frame
+        var slimeSprites = AssetDatabase.LoadAllAssetRepresentationsAtPath("Assets/Sprites/Enemies/slime.png")
+            .OfType<Sprite>().OrderBy(s => s.name).ToArray();
+        if (slimeSprites.Length > 0)
+        {
+            using (var scope = new PrefabUtility.EditPrefabContentsScope("Assets/Prefabs/Enemy.prefab"))
+            {
+                var sr = scope.prefabContentsRoot.GetComponent<SpriteRenderer>();
+                if (sr != null) sr.sprite = slimeSprites[0];
+            }
+        }
+
+        // Projectile prefab → slime-projectile.png first frame
+        var projSprites = AssetDatabase.LoadAllAssetRepresentationsAtPath("Assets/Sprites/slime-projectile.png")
+            .OfType<Sprite>().OrderBy(s => s.name).ToArray();
+        if (projSprites.Length > 0)
+        {
+            using (var scope = new PrefabUtility.EditPrefabContentsScope("Assets/Prefabs/Projectile.prefab"))
+            {
+                var sr = scope.prefabContentsRoot.GetComponent<SpriteRenderer>();
+                if (sr != null) sr.sprite = projSprites[0];
+            }
+        }
+
+        AssetDatabase.SaveAssets();
     }
 }
 #endif
