@@ -102,8 +102,8 @@ public class PlayerStats : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("¡El Hechicero ha caído! Fin de la partida.");
-        // Aquí conectaremos con el GameManager en la Fase 6 para mostrar la pantalla de Game Over.
-        gameObject.SetActive(false); // Por ahora, lo ocultamos.
+        GameManager gm = FindObjectOfType<GameManager>();
+        if (gm != null) gm.TriggerGameOver();
+        gameObject.SetActive(false);
     }
 }
