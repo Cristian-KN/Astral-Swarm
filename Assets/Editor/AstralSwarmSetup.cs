@@ -289,9 +289,8 @@ public static class AstralSwarmSetup
             Debug.LogWarning("[AstralSwarmSetup] Could not find 'enemyPrefabs' on EnemySpawner.");
         }
 
-        GameObject inventoryGO = new GameObject("InventoryManager");
-        inventoryGO.AddComponent<InventoryManager>();
-        inventoryGO.AddComponent<ShopManager>();
+        GameObject shopGO = new GameObject("ShopManager");
+        shopGO.AddComponent<ShopManager>();
 
         // ----- World: Player -----
         GameObject playerInstance = (GameObject)PrefabUtility.InstantiatePrefab(playerPrefab);
