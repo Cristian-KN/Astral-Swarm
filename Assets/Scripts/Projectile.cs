@@ -29,10 +29,13 @@ public class Projectile : MonoBehaviour
     public void SetDirection(Vector2 direction)
     {
         moveDirection = direction;
-        
-        // Rotar el sprite del proyectil para que mire hacia su dirección de movimiento
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
     }
 
     private void FixedUpdate()

@@ -1,0 +1,1066 @@
+fileFormatVersion: 2
+guid: 718731fd709f039409defe5b764bf18d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3046128777859555289
+    second: small_worm_0
+  - first:
+      213: 1873588987517449444
+    second: small_worm_1
+  - first:
+      213: 6475428226038459301
+    second: small_worm_2
+  - first:
+      213: -7151869264383091667
+    second: small_worm_3
+  - first:
+      213: 4454976191692178358
+    second: small_worm_4
+  - first:
+      213: 2236143811760210195
+    second: small_worm_5
+  - first:
+      213: -2361238038854912372
+    second: small_worm_6
+  - first:
+      213: -2381956676186226929
+    second: small_worm_7
+  - first:
+      213: 5315122482703788366
+    second: small_worm_8
+  - first:
+      213: 713693387347097722
+    second: small_worm_9
+  - first:
+      213: 6619330511627506027
+    second: small_worm_10
+  - first:
+      213: -948037184618488396
+    second: small_worm_11
+  - first:
+      213: 2578777453769124552
+    second: small_worm_12
+  - first:
+      213: 8048199545514148838
+    second: small_worm_13
+  - first:
+      213: 1487251844293513903
+    second: small_worm_14
+  - first:
+      213: 8330020374696124500
+    second: small_worm_15
+  - first:
+      213: 6590019677743013348
+    second: small_worm_16
+  - first:
+      213: 5725840632282378149
+    second: small_worm_17
+  - first:
+      213: 8926770614416700655
+    second: small_worm_18
+  - first:
+      213: -213685623167377778
+    second: small_worm_19
+  - first:
+      213: 985087838166257578
+    second: small_worm_20
+  - first:
+      213: -8246546489861720550
+    second: small_worm_21
+  - first:
+      213: -3629919199350924829
+    second: small_worm_22
+  - first:
+      213: -4635813174228090485
+    second: small_worm_23
+  - first:
+      213: -5340318234430717475
+    second: small_worm_24
+  - first:
+      213: -7744363720958801250
+    second: small_worm_25
+  - first:
+      213: 6061669208956661420
+    second: small_worm_26
+  - first:
+      213: -4445550992295630352
+    second: small_worm_27
+  - first:
+      213: -7964327401855949681
+    second: small_worm_28
+  - first:
+      213: -5215893828457146622
+    second: small_worm_29
+  - first:
+      213: 287272410026594164
+    second: small_worm_30
+  - first:
+      213: 9174179694954787986
+    second: small_worm_31
+  - first:
+      213: -4773049194203034182
+    second: small_worm_32
+  - first:
+      213: 6475608853508874709
+    second: small_worm_33
+  - first:
+      213: 4548695109741285365
+    second: small_worm_34
+  - first:
+      213: -2477799771170712841
+    second: small_worm_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: small_worm_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 207
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dfd9600cf5064a20800000000000000
+      internalID: 3046128777859555289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_1
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 207
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e4bf08e143500a10800000000000000
+      internalID: 1873588987517449444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_2
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 207
+        width: 16
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ab6f8dc9a75dd950800000000000000
+      internalID: 6475428226038459301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_3
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 210
+        width: 29
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2c5968dbc47fbc90800000000000000
+      internalID: -7151869264383091667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_4
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 203
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b382ac2e3143dd30800000000000000
+      internalID: 4454976191692178358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_5
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 205
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 311c7aef2f0680f10800000000000000
+      internalID: 2236143811760210195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_6
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 207
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c86b9e793823b3fd0800000000000000
+      internalID: -2361238038854912372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_7
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 207
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0fbc8de50791fed0800000000000000
+      internalID: -2381956676186226929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_8
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 207
+        width: 17
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e49604fbcbb13c940800000000000000
+      internalID: 5315122482703788366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_9
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 143
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a787e5fba5c87e900800000000000000
+      internalID: 713693387347097722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_10
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 143
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b61567497069cdb50800000000000000
+      internalID: 6619330511627506027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_11
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 143
+        width: 16
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bd14f81435e7d2f0800000000000000
+      internalID: -948037184618488396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_12
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 146
+        width: 29
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cae1b66e68a9c320800000000000000
+      internalID: 2578777453769124552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_13
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 139
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e3c4df68d2f0bf60800000000000000
+      internalID: 8048199545514148838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_14
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 141
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa2d8ae2ca7c3a410800000000000000
+      internalID: 1487251844293513903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_15
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 143
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 450678d756d2a9370800000000000000
+      internalID: 8330020374696124500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_16
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 143
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4edd4b24bf3747b50800000000000000
+      internalID: 6590019677743013348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_17
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 143
+        width: 17
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5af60bfd7b5467f40800000000000000
+      internalID: 5725840632282378149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_18
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 79
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe4f3b7e39242eb70800000000000000
+      internalID: 8926770614416700655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_19
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 79
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8e1081de06d80df0800000000000000
+      internalID: -213685623167377778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_20
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 79
+        width: 16
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaf057a6b2cbbad00800000000000000
+      internalID: 985087838166257578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_21
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 82
+        width: 29
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a163c08d8a16e8d80800000000000000
+      internalID: -8246546489861720550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_22
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 75
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e9515768bfef9dc0800000000000000
+      internalID: -3629919199350924829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_23
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 77
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b810f09ca784aafb0800000000000000
+      internalID: -4635813174228090485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_24
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 79
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd147392cd063e5b0800000000000000
+      internalID: -5340318234430717475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_25
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 79
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9a04d82a3e768490800000000000000
+      internalID: -7744363720958801250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_26
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 79
+        width: 17
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caee8c987006f1450800000000000000
+      internalID: 6061669208956661420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_27
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 15
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f965511dea3e42c0800000000000000
+      internalID: -4445550992295630352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_28
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 15
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f846771cc66097190800000000000000
+      internalID: -7964327401855949681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_29
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 15
+        width: 16
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 207d8a0b23c6d97b0800000000000000
+      internalID: -5215893828457146622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_30
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 18
+        width: 29
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47fc7612cb89cf300800000000000000
+      internalID: 287272410026594164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_31
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 11
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 294b16f53db315f70800000000000000
+      internalID: 9174179694954787986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_32
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 13
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abd401ceb09b2cdb0800000000000000
+      internalID: -4773049194203034182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_33
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 15
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d165c961fbfdd950800000000000000
+      internalID: 6475608853508874709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_34
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 15
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ff8faf2a16302f30800000000000000
+      internalID: 4548695109741285365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_worm_35
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 15
+        width: 17
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f253de6c361d9dd0800000000000000
+      internalID: -2477799771170712841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      small_worm_0: 3046128777859555289
+      small_worm_1: 1873588987517449444
+      small_worm_10: 6619330511627506027
+      small_worm_11: -948037184618488396
+      small_worm_12: 2578777453769124552
+      small_worm_13: 8048199545514148838
+      small_worm_14: 1487251844293513903
+      small_worm_15: 8330020374696124500
+      small_worm_16: 6590019677743013348
+      small_worm_17: 5725840632282378149
+      small_worm_18: 8926770614416700655
+      small_worm_19: -213685623167377778
+      small_worm_2: 6475428226038459301
+      small_worm_20: 985087838166257578
+      small_worm_21: -8246546489861720550
+      small_worm_22: -3629919199350924829
+      small_worm_23: -4635813174228090485
+      small_worm_24: -5340318234430717475
+      small_worm_25: -7744363720958801250
+      small_worm_26: 6061669208956661420
+      small_worm_27: -4445550992295630352
+      small_worm_28: -7964327401855949681
+      small_worm_29: -5215893828457146622
+      small_worm_3: -7151869264383091667
+      small_worm_30: 287272410026594164
+      small_worm_31: 9174179694954787986
+      small_worm_32: -4773049194203034182
+      small_worm_33: 6475608853508874709
+      small_worm_34: 4548695109741285365
+      small_worm_35: -2477799771170712841
+      small_worm_4: 4454976191692178358
+      small_worm_5: 2236143811760210195
+      small_worm_6: -2361238038854912372
+      small_worm_7: -2381956676186226929
+      small_worm_8: 5315122482703788366
+      small_worm_9: 713693387347097722
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

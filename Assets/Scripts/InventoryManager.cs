@@ -14,10 +14,17 @@ public class InventoryManager : MonoBehaviour
 
     public List<EquippedItem> items = new List<EquippedItem>();
     private PlayerStats playerStats;
+    private PlayerAttack playerAttack;
 
     private void Start()
     {
         playerStats = GetComponent<PlayerStats>();
+        playerAttack = GetComponent<PlayerAttack>();
+    }
+
+    public void AddWeapon(ItemData weaponData)
+    {
+        playerAttack?.EquipWeapon(weaponData);
     }
 
     public void AddItem(ItemData newData)
@@ -66,12 +73,11 @@ public class InventoryManager : MonoBehaviour
 
         foreach (var item in items)
         {
-            // Aplicar bonus base por stacks
             playerStats.attackPower += item.data.attackBoost * item.stacks;
-            playerStats.defense += item.data.defenseBoost * item.stacks;
-            playerStats.difficulty += item.data.difficultyIncrease * item.stacks;
-            
-            // Aplicar multiplicadores
+            playerStats.defense     += item.data.defenseBoost * item.stacks;
+            playerStats.difficulty  += item.data.difficultyIncrease * item.stacks;
+            playerStats.speedMultiplier += item.data.speedBoost * item.stacks;
+
             if (item.data.statMultiplier > 1f)
             {
                 playerStats.attackMultiplier *= item.data.statMultiplier * item.stacks;

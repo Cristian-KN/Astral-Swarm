@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private PlayerStats playerStats;
 
     // Vector que almacenará la dirección de entrada del usuario
     private Vector2 movementDirection;
@@ -23,9 +24,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        // Evitamos que rotaciones físicas afecten al jugador en 2D
-        rb.freezeRotation = true; 
+        playerStats = GetComponent<PlayerStats>();
+        rb.freezeRotation = true;
     }
 
     private void Update()
@@ -44,9 +44,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 3. APLICACIÓN DE FÍSICAS (En FixedUpdate para sincronía con el motor de físicas motor)
-        // Aplicamos la velocidad directamente al Rigidbody2D.
-        rb.linearVelocity = movementDirection * moveSpeed;
+        float speed = moveSpeed * (playerStats != null ? playerStats.speedMultiplier : 1f);
+        rb.linearVelocity = movementDirection * speed;
     }
 
     /// <summary>
