@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,12 +9,10 @@ public class GameManager : MonoBehaviour
     public int currentExp = 0;
     public int currentGold = 0;
     public int expToNextLevel = 100;
-    [Tooltip("Multiplicador para hacer más difícil subir de nivel cada vez.")]
     public float expScalingFactor = 1.5f;
 
     [Header("Tiempo de Partida")]
     public float timeRemaining;
-    [Tooltip("Tiempo en segundos que el jugador debe sobrevivir (Ej: 180s = 3 mins)")]
     public float timeToSurvive = 180f;
     private float elapsedTime = 0f;
 
@@ -21,17 +20,16 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
     public bool isPaused = false;
 
-    // Referencias
+    [Header("Pool de Items para Level Up")]
+    [SerializeField] private List<ItemData> itemPool = new List<ItemData>();
+
     private UIManager uiManager;
-    private PlayerStats playerStats;
 
     private void Start()
     {
-        // Buscar el UIManager en la escena
         uiManager = FindObjectOfType<UIManager>();
         timeRemaining = timeToSurvive;
 
-        // Actualizar UI inicial
         if (uiManager != null)
         {
             uiManager.UpdateLevelText(currentLevel);
@@ -42,114 +40,132 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // Si el juego está en pausa, victoria o game over, no avanza el tiempo
+        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
+        {
+            bool levelingUp = uiManager != null
+                && uiManager.levelUpPanel != null
+                && uiManager.levelUpPanel.activeSelf;
+
+            if (!levelingUp)
+            {
+                if (isPaused) ResumeGame();
+                else { PauseGame(); uiManager?.ShowPauseMenu(true); }
+            }
+        }
+
         if (isGameOver || isPaused) return;
 
-        // Bajar el temporizador
         timeRemaining -= Time.deltaTime;
         elapsedTime += Time.deltaTime;
-        
-        // Actualizar UI del reloj
+
         if (uiManager != null)
-        {
             uiManager.UpdateTimer(timeRemaining);
-        }
 
-        // ¿Sobrevivió el tiempo necesario?
         if (timeRemaining <= 0)
-        {
             TriggerVictory();
-        }
     }
 
-    public void AddGold(int amount)
-    {
-        currentGold += amount;
-        // if (uiManager != null) uiManager.UpdateGoldText(currentGold);
-    }
-
+    public void AddGold(int amount) => currentGold += amount;
     public float GetElapsedTime() => elapsedTime;
     public int GetCurrentLevel() => currentLevel;
 
-    /// <summary>
-    /// Invocado por ExperienceGem.cs cuando el jugador la recoge.
-    /// </summary>
     public void AddExperience(int amount)
     {
         if (isGameOver || isPaused) return;
 
         currentExp += amount;
 
-        // Comprobamos si subimos de nivel
         if (currentExp >= expToNextLevel)
-        {
             LevelUp();
-        }
 
-        // Notificamos a la UI
         if (uiManager != null)
-        {
             uiManager.UpdateExperienceBar(currentExp, expToNextLevel);
-        }
     }
 
     private void LevelUp()
     {
         currentLevel++;
-        currentExp -= expToNextLevel; // Guardamos el excedente
-        expToNextLevel = Mathf.RoundToInt(expToNextLevel * expScalingFactor); // Aumentamos requisito
+        currentExp -= expToNextLevel;
+        expToNextLevel = Mathf.RoundToInt(expToNextLevel * expScalingFactor);
 
         if (uiManager != null)
         {
             uiManager.UpdateLevelText(currentLevel);
             uiManager.UpdateExperienceBar(currentExp, expToNextLevel);
-            uiManager.ShowLevelUpMenu(true);
+            ItemData[] choices = GenerateLevelUpChoices();
+            uiManager.ShowLevelUpChoices(choices, OnItemChosen);
         }
 
-        PauseGame(); // Pausa para elegir la mejora
+        PauseGame();
     }
 
-    // ==============================================
-    // CONTROL DE ESTADO GLOBAL (PAUSA Y FLUJOS)
-    // ==============================================
+    private ItemData[] GenerateLevelUpChoices()
+    {
+        List<ItemData> pool = new List<ItemData>(itemPool);
+        List<ItemData> choices = new List<ItemData>();
+        int count = Mathf.Min(3, pool.Count);
+        for (int i = 0; i < count; i++)
+        {
+            int idx = Random.Range(0, pool.Count);
+            choices.Add(pool[idx]);
+            pool.RemoveAt(idx);
+        }
+        return choices.ToArray();
+    }
+
+    private void OnItemChosen(ItemData chosen)
+    {
+        InventoryManager inv = FindObjectOfType<InventoryManager>();
+        if (inv != null)
+        {
+            if (chosen.type == ItemType.Weapon)
+                inv.AddWeapon(chosen);
+            else
+                inv.AddItem(chosen);
+        }
+        ResumeGame();
+    }
 
     public void PauseGame()
     {
         isPaused = true;
-        Time.timeScale = 0f; // Congela el motor de físicas y el Update()
+        Time.timeScale = 0f;
     }
 
     public void ResumeGame()
     {
         isPaused = false;
         Time.timeScale = 1f;
-        if (uiManager != null) uiManager.ShowLevelUpMenu(false);
+        if (uiManager != null)
+        {
+            uiManager.ShowLevelUpMenu(false);
+            uiManager.ShowPauseMenu(false);
+        }
     }
 
     public void TriggerGameOver()
     {
         isGameOver = true;
-        PauseGame(); // Congelar pantalla
+        PauseGame();
         if (uiManager != null) uiManager.ShowGameOver();
     }
 
     public void TriggerVictory()
     {
         isGameOver = true;
-        PauseGame(); // Congelar pantalla
+        PauseGame();
         if (uiManager != null) uiManager.ShowVictory();
     }
 
-    // Funciones para botones de UI (Jugar de nuevo, Volver al menú)
     public void RestartGame()
     {
-        Time.timeScale = 1f; // Restaurar el tiempo antes de recargar
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu"); // Asumiendo que nombrarán su escena 0órica como "MainMenu"
+        SceneManager.LoadScene("MainMenu");
     }
 }

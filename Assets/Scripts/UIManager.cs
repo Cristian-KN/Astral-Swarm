@@ -1,35 +1,34 @@
 using UnityEngine;
 using UnityEngine.UI;
-// using TMPro; // Descomentar si usas TextMeshPro, que es lo moderno en Unity
 
 public class UIManager : MonoBehaviour
 {
-    [Header("UI del HUD")]
-    [Tooltip("Barra superior de Experiencia")]
+    [Header("HUD")]
     public Slider xpSlider;
-    
-    [Tooltip("Texto del Nivel Actual (Ej: LVL 5)")]
-    public Text levelText; 
-    
-    [Tooltip("Reloj de Supervivencia")]
+    public Text levelText;
     public Text timerText;
 
-    [Header("Paneles de Menús (Fase 6)")]
+    [Header("Paneles")]
     public GameObject levelUpPanel;
     public GameObject gameOverPanel;
     public GameObject victoryPanel;
 
+    [Header("Pause Menu")]
+    public GameObject pausePanel;
+
+    [Header("Cartas de Level Up (3 botones)")]
+    public Button[] levelUpCards;
+    public Text[] cardNameTexts;
+    public Text[] cardDescTexts;
+
     private void Start()
     {
-        // Nos aseguramos que al inicio los menús estén ocultos
         if (levelUpPanel) levelUpPanel.SetActive(false);
         if (gameOverPanel) gameOverPanel.SetActive(false);
         if (victoryPanel) victoryPanel.SetActive(false);
+        if (pausePanel) pausePanel.SetActive(false);
     }
 
-    /// <summary>
-    /// Actualiza la barra azul de exp a medida que recogemos gemas
-    /// </summary>
     public void UpdateExperienceBar(int currentXp, int xpToNextLevel)
     {
         if (xpSlider != null)
@@ -42,16 +41,13 @@ public class UIManager : MonoBehaviour
     public void UpdateLevelText(int newLevel)
     {
         if (levelText != null)
-        {
-            levelText.text = "LVL " + newLevel.ToString();
-        }
+            levelText.text = "LVL " + newLevel;
     }
 
     public void UpdateTimer(float timeRemaining)
     {
         if (timerText != null)
         {
-            // Formatear el tiempo en Minutos:Segundos
             int minutes = Mathf.FloorToInt(timeRemaining / 60);
             int seconds = Mathf.FloorToInt(timeRemaining % 60);
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
@@ -63,6 +59,37 @@ public class UIManager : MonoBehaviour
         if (levelUpPanel != null) levelUpPanel.SetActive(show);
     }
 
+    /// <summary>
+    /// Popula las 3 cartas con los datos del item y conecta el callback de selección.
+    /// </summary>
+    public void ShowLevelUpChoices(ItemData[] choices, System.Action<ItemData> onChosen)
+    {
+        ShowLevelUpMenu(true);
+
+        if (levelUpCards == null) return;
+
+        for (int i = 0; i < levelUpCards.Length; i++)
+        {
+            if (levelUpCards[i] == null) continue;
+
+            bool hasChoice = i < choices.Length && choices[i] != null;
+            levelUpCards[i].gameObject.SetActive(hasChoice);
+
+            if (!hasChoice) continue;
+
+            ItemData item = choices[i];
+            if (cardNameTexts != null && i < cardNameTexts.Length && cardNameTexts[i] != null)
+                cardNameTexts[i].text = item.itemName;
+            if (cardDescTexts != null && i < cardDescTexts.Length && cardDescTexts[i] != null)
+                cardDescTexts[i].text = item.description;
+
+            levelUpCards[i].onClick.RemoveAllListeners();
+            // Capture loop variable
+            ItemData captured = item;
+            levelUpCards[i].onClick.AddListener(() => onChosen(captured));
+        }
+    }
+
     public void ShowGameOver()
     {
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
@@ -71,5 +98,10 @@ public class UIManager : MonoBehaviour
     public void ShowVictory()
     {
         if (victoryPanel != null) victoryPanel.SetActive(true);
+    }
+
+    public void ShowPauseMenu(bool show)
+    {
+        if (pausePanel) pausePanel.SetActive(show);
     }
 }
