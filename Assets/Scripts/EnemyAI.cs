@@ -4,14 +4,13 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [Header("Configuración de IA")]
-    [Tooltip("Velocidad a la que el enemigo persigue al jugador.")]
-    [SerializeField] private float moveSpeed = 2.5f;
     [Tooltip("Daño que causa al tocar al jugador.")]
     [SerializeField] private int collisionDamage = 15;
 
     private Transform playerTransform;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private EnemyStats stats;
 
     private void Start()
     {
@@ -29,14 +28,15 @@ public class EnemyAI : MonoBehaviour
         {
             playerTransform = player.transform;
         }
+        stats = GetComponent<EnemyStats>();
     }
 
     private void FixedUpdate()
     {
         if (playerTransform == null) return;
 
-        EnemyStats stats = GetComponent<EnemyStats>();
         EnemyVariantType variant = stats != null ? stats.variant : EnemyVariantType.Normal;
+        float currentSpeed = stats != null ? stats.moveSpeed : 2.5f;
 
         // 1. Calcular dirección (normalmente hacia el jugador)
         Vector2 direction = (playerTransform.position - transform.position).normalized;
@@ -48,10 +48,6 @@ public class EnemyAI : MonoBehaviour
         }
 
         // 2. Mover el RigidBody (Aplicando multiplicador de velocidad si es necesario)
-        float currentSpeed = moveSpeed;
-        if (variant == EnemyVariantType.Amarilla) currentSpeed *= 1.5f; // Los amarillos corren más
-        if (variant == EnemyVariantType.Verde) currentSpeed *= 1.2f;
-
         rb.velocity = direction * currentSpeed;
 
         // 3. Voltear el sprite según la dirección

@@ -1,125 +1,116 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyStats : MonoBehaviour
 {
-    [Header("Variante")]
-    public EnemyVariantType variant = EnemyVariantType.Normal;
+    [Header("Configuración Base")]
+    public EnemyArchetype archetype;
+    public EnemyVariantType variant;
 
-    [Header("Estadísticas Base (Normal)")]
-    [SerializeField] private float baseMaxHealth = 50;
-    private float currentHealth;
-    [SerializeField] private float baseRegenPerSecond = 0f;
+    [Header("Estadísticas Finales (Calculadas)")]
+    public float currentHealth;
+    public float maxHealth;
+    public float moveSpeed;
+    public float damage;
+    public int experienceDrop;
+    public int goldDrop;
 
-    [Header("Recompensas")]
-    [SerializeField] private GameObject experienceGemPrefab;
+    private EnemyColorizer colorizer;
+    private SpriteRenderer spriteRenderer;
 
-    private float healthMultiplier = 1f;
-    private float expMultiplier = 1f;
-    private float goldMultiplier = 1f;
-    private float regenAmount = 0f;
-
-    private void Start()
+    void Awake()
     {
-        ApplyVariantStats();
-        currentHealth = baseMaxHealth * healthMultiplier;
-        
-        // Aplicar color visual
-        EnemyColorizer colorizer = GetComponent<EnemyColorizer>();
-        if (colorizer != null) colorizer.ApplyColor(variant);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        InitializeEnemy();
     }
 
-    private void Update()
+    public void InitializeEnemy()
     {
-        if (regenAmount > 0 && currentHealth < baseMaxHealth * healthMultiplier)
+        // 1. Obtener valores base del arquetipo
+        float baseHp = 100;
+        float baseSpeed = 3f;
+        float baseDamage = 10f;
+        float visualScale = 1f;
+        int baseExp = 10;
+        int baseGold = 5;
+
+        switch (archetype)
         {
-            currentHealth += regenAmount * Time.deltaTime;
+            case EnemyArchetype.Fast: 
+                baseHp = 50; baseSpeed = 5.5f; baseDamage = 5; visualScale = 0.8f; break;
+            case EnemyArchetype.Ranged: 
+                baseHp = 80; baseSpeed = 2f; baseDamage = 15; visualScale = 1f; break;
+            case EnemyArchetype.Tank: 
+                baseHp = 400; baseSpeed = 1.5f; baseDamage = 25; visualScale = 1.6f; break;
+            case EnemyArchetype.Boss: 
+                baseHp = 2000; baseSpeed = 2.5f; baseDamage = 50; visualScale = 3f; break;
+        }
+
+        // 2. Aplicar multiplicadores de variante
+        float statMult = GetVariantMultiplier(variant);
+        
+        maxHealth = baseHp * statMult;
+        currentHealth = maxHealth;
+        damage = baseDamage * statMult;
+        
+        // La velocidad solo aumenta significativamente en la variante Amarilla
+        moveSpeed = baseSpeed * (variant == EnemyVariantType.Amarilla ? 1.5f : 1.0f);
+
+        // 3. Calcular Drops según la tabla de EnemyVariants.md
+        CalculateDrops(baseExp, baseGold);
+
+        // 4. Aplicar transformaciones visuales
+        transform.localScale = Vector3.one * visualScale;
+        ApplyVariantColor();
+    }
+
+    float GetVariantMultiplier(EnemyVariantType v)
+    {
+        switch (v) {
+            case EnemyVariantType.Verde:    return 1.5f;
+            case EnemyVariantType.Amarilla: case EnemyVariantType.Azul: return 2f;
+            case EnemyVariantType.Morada:   return 3f;
+            case EnemyVariantType.Negra:    return 9f;
+            case EnemyVariantType.Roja:     return 27f;
+            default: return 1f;
         }
     }
 
-    private void ApplyVariantStats()
+    void CalculateDrops(int bExp, int bGold)
     {
         switch (variant)
         {
-            case EnemyVariantType.Normal:
-                healthMultiplier = 1f;
-                expMultiplier = 1f;
-                goldMultiplier = 1f;
-                break;
-            case EnemyVariantType.Verde:
-                healthMultiplier = 1.5f;
-                expMultiplier = 3f;
-                goldMultiplier = 3f;
-                regenAmount = 2f; // Regeneración moderada
-                break;
-            case EnemyVariantType.Amarilla:
-                healthMultiplier = 2f;
-                expMultiplier = 2f;
-                goldMultiplier = 10f; // Especializado en Oro
-                break;
-            case EnemyVariantType.Azul:
-                healthMultiplier = 2f;
-                expMultiplier = 10f; // Especializado en Exp
-                goldMultiplier = 2f;
-                break;
-            case EnemyVariantType.Morada:
-                healthMultiplier = 3f;
-                expMultiplier = 4f;
-                goldMultiplier = 4f;
-                // Aquí se podría añadir lógica de anti-knockback
-                break;
-            case EnemyVariantType.Negra:
-                healthMultiplier = 9f;
-                expMultiplier = 15f;
-                goldMultiplier = 15f;
-                break;
-            case EnemyVariantType.Roja:
-                healthMultiplier = 27f;
-                expMultiplier = 100f;
-                goldMultiplier = 100f;
-                regenAmount = 10f; // Regeneración alta (nerfeada)
-                break;
+            case EnemyVariantType.Verde:    experienceDrop = bExp * 3; goldDrop = bGold * 3; break;
+            case EnemyVariantType.Amarilla: experienceDrop = bExp * 2; goldDrop = bGold * 10; break;
+            case EnemyVariantType.Azul:     experienceDrop = bExp * 10; goldDrop = bGold * 2; break;
+            case EnemyVariantType.Morada:   experienceDrop = bExp * 4; goldDrop = bGold * 4; break;
+            case EnemyVariantType.Negra:    experienceDrop = bExp * 15; goldDrop = bGold * 15; break;
+            case EnemyVariantType.Roja:     experienceDrop = bExp * 100; goldDrop = bGold * 100; break;
+            default:                        experienceDrop = bExp; goldDrop = bGold; break;
         }
     }
 
-    public void TakeDamage(int damageAmount)
+    void ApplyVariantColor() 
+    { 
+        if (colorizer == null) colorizer = GetComponent<EnemyColorizer>();
+        if (colorizer != null)
+        {
+            colorizer.ApplyColor(variant);
+        }
+    }
+
+    public void TakeDamage(float amount)
     {
-        currentHealth -= damageAmount;
+        currentHealth -= amount;
         if (currentHealth <= 0) Die();
     }
 
     private void Die()
     {
-        CalculateAndDropRewards();
-        Destroy(gameObject); 
-    }
+        // Notificar al inventario para items evolutivos
+        InventoryManager inv = FindObjectOfType<InventoryManager>();
+        if (inv != null) inv.OnEnemyKilled();
 
-    private void CalculateAndDropRewards()
-    {
-        GameManager gm = FindObjectOfType<GameManager>();
-        if (gm == null) return;
-
-        // Fórmula Base: 1 + Nivel + (Tiempo / 60)
-        float baseDrop = 1 + gm.GetCurrentLevel() + (gm.GetElapsedTime() / 60f);
-
-        int totalExp = Mathf.RoundToInt(baseDrop * expMultiplier);
-        int totalGold = Mathf.RoundToInt(baseDrop * goldMultiplier);
-
-        // Enviar recompensas al GameManager
-        gm.AddExperience(totalExp);
-        gm.AddGold(totalGold);
-
-        // Notificar al Inventario para objetos evolutivos
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            InventoryManager inv = player.GetComponent<InventoryManager>();
-            if (inv != null) inv.OnEnemyKilled();
-        }
-
-        // Feedback visual (opcional: instanciar gema)
-        if (experienceGemPrefab != null)
-        {
-            Instantiate(experienceGemPrefab, transform.position, Quaternion.identity);
-        }
+        Destroy(gameObject);
     }
 }
