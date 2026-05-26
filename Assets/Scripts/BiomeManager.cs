@@ -198,53 +198,54 @@ public class BiomeManager : MonoBehaviour
         {
             normalBiomes = new BiomeData[]
             {
-                CreateBiome(BiomeType.VoidSpace, "Vacío Espacial",
-                    new Color(0.05f, 0.05f, 0.12f), new Color(0.08f, 0.08f, 0.18f), new Color(0.2f, 0.2f, 0.4f),
+                // Biomas terrestres tipo Vampire Survivors
+                CreateBiome(BiomeType.VoidSpace, "Pradera Verde",
+                    new Color(0.15f, 0.35f, 0.15f), new Color(0.2f, 0.5f, 0.2f), new Color(0.4f, 0.7f, 0.3f),
                     0.015f, 0.2f, 1.0f, 1.0f, 1.0f, 0f, 0),
 
-                CreateBiome(BiomeType.CrimsonNebula, "Nebulosa Carmesí",
-                    new Color(0.15f, 0.02f, 0.05f), new Color(0.25f, 0.05f, 0.1f), new Color(0.8f, 0.2f, 0.3f),
+                CreateBiome(BiomeType.CrimsonNebula, "Bosque Carmesí",
+                    new Color(0.3f, 0.1f, 0.1f), new Color(0.4f, 0.15f, 0.1f), new Color(0.8f, 0.2f, 0.2f),
                     0.02f, 0.5f, 1.2f, 1.0f, 1.0f, 0f, 0),
 
-                CreateBiome(BiomeType.FrozenVoid, "Vacío Helado",
-                    new Color(0.02f, 0.08f, 0.15f), new Color(0.05f, 0.12f, 0.25f), new Color(0.3f, 0.6f, 0.9f),
+                CreateBiome(BiomeType.FrozenVoid, "Tundra Helada",
+                    new Color(0.7f, 0.8f, 0.9f), new Color(0.8f, 0.85f, 0.95f), new Color(0.9f, 0.95f, 1.0f),
                     0.025f, 0.3f, 1.1f, 1.0f, 1.0f, 0f, 0),
 
-                CreateBiome(BiomeType.ToxicCloud, "Nube Tóxica",
-                    new Color(0.05f, 0.12f, 0.02f), new Color(0.08f, 0.18f, 0.05f), new Color(0.4f, 0.9f, 0.3f),
+                CreateBiome(BiomeType.ToxicCloud, "Pantano Tóxico",
+                    new Color(0.2f, 0.3f, 0.1f), new Color(0.25f, 0.4f, 0.15f), new Color(0.4f, 0.7f, 0.2f),
                     0.01f, 0.6f, 1.3f, 1.1f, 1.0f, 0f, 1),
 
-                CreateBiome(BiomeType.ElectricStorm, "Tormenta Eléctrica",
-                    new Color(0.12f, 0.12f, 0.02f), new Color(0.2f, 0.2f, 0.05f), new Color(0.9f, 0.9f, 0.3f),
+                CreateBiome(BiomeType.ElectricStorm, "Desierto de Tormenta",
+                    new Color(0.6f, 0.5f, 0.3f), new Color(0.7f, 0.6f, 0.4f), new Color(0.9f, 0.8f, 0.4f),
                     0.03f, 0.4f, 1.4f, 1.1f, 1.1f, 0.05f, 1),
 
-                CreateBiome(BiomeType.DeepAbyss, "Abismo Profundo",
-                    new Color(0.08f, 0.02f, 0.12f), new Color(0.12f, 0.05f, 0.2f), new Color(0.6f, 0.3f, 0.9f),
+                CreateBiome(BiomeType.DeepAbyss, "Caverna Oscura",
+                    new Color(0.1f, 0.08f, 0.12f), new Color(0.15f, 0.12f, 0.18f), new Color(0.3f, 0.2f, 0.4f),
                     0.018f, 0.5f, 1.5f, 1.2f, 1.1f, 0f, 1),
 
-                CreateBiome(BiomeType.SolarFlare, "Llamarada Solar",
-                    new Color(0.18f, 0.08f, 0.02f), new Color(0.3f, 0.15f, 0.05f), new Color(0.9f, 0.5f, 0.2f),
+                CreateBiome(BiomeType.SolarFlare, "Volcán Ardiente",
+                    new Color(0.4f, 0.2f, 0.1f), new Color(0.5f, 0.25f, 0.1f), new Color(0.9f, 0.4f, 0.1f),
                     0.02f, 0.4f, 1.6f, 1.2f, 1.2f, 0.05f, 2),
 
-                CreateBiome(BiomeType.CosmicRift, "Grieta Cósmica",
-                    new Color(0.1f, 0.05f, 0.15f), new Color(0.15f, 0.08f, 0.25f), new Color(0.8f, 0.4f, 0.9f),
+                CreateBiome(BiomeType.CosmicRift, "Jardín Místico",
+                    new Color(0.25f, 0.2f, 0.35f), new Color(0.35f, 0.25f, 0.45f), new Color(0.6f, 0.4f, 0.8f),
                     0.035f, 0.6f, 1.7f, 1.3f, 1.2f, 0.1f, 2),
 
-                CreateBiome(BiomeType.DarkMatter, "Materia Oscura",
-                    new Color(0.02f, 0.02f, 0.02f), new Color(0.05f, 0.05f, 0.08f), new Color(0.3f, 0.3f, 0.5f),
+                CreateBiome(BiomeType.DarkMatter, "Cementerio Sombrío",
+                    new Color(0.1f, 0.1f, 0.12f), new Color(0.15f, 0.15f, 0.18f), new Color(0.25f, 0.25f, 0.3f),
                     0.008f, 0.2f, 1.8f, 1.3f, 1.3f, 0f, 2),
 
-                CreateBiome(BiomeType.VoidEdge, "Borde del Vacío",
-                    new Color(0.15f, 0.08f, 0.18f), new Color(0.25f, 0.15f, 0.3f), new Color(0.8f, 0.5f, 0.9f),
+                CreateBiome(BiomeType.VoidEdge, "Templo Corrupto",
+                    new Color(0.3f, 0.2f, 0.35f), new Color(0.4f, 0.25f, 0.45f), new Color(0.7f, 0.4f, 0.8f),
                     0.04f, 0.7f, 2.0f, 1.5f, 1.4f, 0.15f, 3),
             };
         }
 
         if (specialBiome == null)
         {
-            specialBiome = CreateBiome(BiomeType.GoldenAnomalySplash, "⭐ Anomalía Dorada ⭐",
-                new Color(0.15f, 0.12f, 0.02f), new Color(0.25f, 0.2f, 0.05f), new Color(0.95f, 0.8f, 0.3f),
-                0.05f, 0.4f, 2.5f, 2.0f, 2.5f, 0.25f, 1); // Early game MUY difícil
+            specialBiome = CreateBiome(BiomeType.GoldenAnomalySplash, "⭐ Jardín Dorado ⭐",
+                new Color(0.6f, 0.5f, 0.2f), new Color(0.7f, 0.6f, 0.3f), new Color(0.95f, 0.8f, 0.3f),
+                0.05f, 0.4f, 2.5f, 2.0f, 2.5f, 0.25f, 1);
         }
     }
 
