@@ -85,9 +85,16 @@ public class EnemySpawner : MonoBehaviour
 
     private EnemyVariantType GetVariantByDifficulty(float totalDifficulty)
     {
+        // Aplicar multiplicador de bioma
+        BiomeManager biomeManager = BiomeManager.Instance;
+        if (biomeManager != null)
+        {
+            totalDifficulty *= biomeManager.GetEnemyDifficultyMultiplier();
+        }
+
         float roll = Random.Range(0f, 100f) - totalDifficulty;
 
-        // Umbrales para la dificultad combinada (Tiempo + Nivel + Sacrificio)
+        // Umbrales para la dificultad combinada (Tiempo + Nivel + Sacrificio + Bioma)
         if (roll < -50) return EnemyVariantType.Roja;    // Caos absoluto
         if (roll < -20) return EnemyVariantType.Negra;
         if (roll < 5)   return EnemyVariantType.Morada;
@@ -95,6 +102,47 @@ public class EnemySpawner : MonoBehaviour
         if (roll < 45)  return EnemyVariantType.Amarilla;
         if (roll < 70)  return EnemyVariantType.Verde;
 
-        return EnemyVariantType.Normal;
+        // Tier mínimo forzado por el bioma (para biomas avanzados o especiales)
+        EnemyVariantType result = EnemyVariantType.Normal;
+        if (biomeManager != null)
+        {
+            int minTier = biomeManager.GetMinEnemyVariantTier();
+            result = EnforceMinimumTier(result, minTier);
+        }
+
+        return result;
+    }
+
+    private EnemyVariantType EnforceMinimumTier(EnemyVariantType variant, int minTier)
+    {
+        // Mapeo de variantes a tiers
+        int currentTier = variant switch
+        {
+            EnemyVariantType.Normal => 0,
+            EnemyVariantType.Verde => 1,
+            EnemyVariantType.Amarilla => 2,
+            EnemyVariantType.Azul => 3,
+            EnemyVariantType.Morada => 4,
+            EnemyVariantType.Negra => 5,
+            EnemyVariantType.Roja => 6,
+            _ => 0
+        };
+
+        if (currentTier < minTier)
+        {
+            // Upgrade al tier mínimo
+            return minTier switch
+            {
+                1 => EnemyVariantType.Verde,
+                2 => EnemyVariantType.Amarilla,
+                3 => EnemyVariantType.Azul,
+                4 => EnemyVariantType.Morada,
+                5 => EnemyVariantType.Negra,
+                6 => EnemyVariantType.Roja,
+                _ => EnemyVariantType.Normal
+            };
+        }
+
+        return variant;
     }
 }

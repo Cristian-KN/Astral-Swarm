@@ -94,7 +94,18 @@ public class ExperienceGem : MonoBehaviour
 
     private void CollectGem()
     {
-        if (gameManager != null) gameManager.AddExperience(experienceAmount);
+        if (gameManager != null)
+        {
+            // Aplicar multiplicador de bioma
+            float finalExp = experienceAmount;
+            BiomeManager biomeManager = BiomeManager.Instance;
+            if (biomeManager != null)
+            {
+                finalExp *= biomeManager.GetExpMultiplier();
+            }
+
+            gameManager.AddExperience(Mathf.RoundToInt(finalExp));
+        }
         Destroy(gameObject);
     }
 }
