@@ -66,16 +66,40 @@ public class WorldBackground : MonoBehaviour
 
     private Sprite BuildFallbackTile()
     {
-        const int size = 32;
+        const int size = 64;
         fallbackTexture = new Texture2D(size, size, TextureFormat.RGBA32, false);
         fallbackTexture.filterMode = FilterMode.Point;
+        fallbackTexture.wrapMode = TextureWrapMode.Repeat;
 
-        var bg   = new Color(0.10f, 0.10f, 0.18f, 1f);
-        var line = new Color(0.16f, 0.16f, 0.28f, 1f);
+        // Estilo Deep Space procedural
+        var baseColor = new Color(0.05f, 0.05f, 0.15f, 1f);
+        var nebulaColor = new Color(0.15f, 0.08f, 0.25f, 1f);
+        var starColor = Color.white;
 
+        int seed = 42069;
+        Random.InitState(seed);
+
+        // Fondo con Perlin noise
         for (int y = 0; y < size; y++)
+        {
             for (int x = 0; x < size; x++)
-                fallbackTexture.SetPixel(x, y, (x == 0 || y == 0) ? line : bg);
+            {
+                float noise = Mathf.PerlinNoise(x * 0.1f + seed, y * 0.1f + seed);
+                Color color = Color.Lerp(baseColor, nebulaColor, noise * 0.5f);
+                fallbackTexture.SetPixel(x, y, color);
+            }
+        }
+
+        // Añadir estrellas
+        int starCount = Mathf.RoundToInt(size * size * 0.015f);
+        for (int i = 0; i < starCount; i++)
+        {
+            int x = Random.Range(0, size);
+            int y = Random.Range(0, size);
+            float brightness = Random.Range(0.6f, 1f);
+            fallbackTexture.SetPixel(x, y, starColor * brightness);
+        }
+
         fallbackTexture.Apply();
 
         fallbackSprite = Sprite.Create(fallbackTexture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), size);
