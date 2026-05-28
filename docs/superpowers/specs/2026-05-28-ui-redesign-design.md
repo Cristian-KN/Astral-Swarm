@@ -19,11 +19,17 @@ Complete redesign of all UI screens using Unity Legacy UI (uGUI). Visual aesthet
 
 ### Scripts modificados
 - `UIManager.cs` — añadir referencias a nuevos elementos HUD (healthText, goldText) y métodos `UpdateHealth`, `UpdateGold`, `ShowShop`, `HideShop`
-- `GameManager.cs` — llamar `UpdateHealth` y `UpdateGold` cuando cambien los valores
-- `MainMenuManager.cs` — añadir flag `isPauseMenu` (bool) que en `Start()` cambia el texto del botón "JUGAR" → "CONTINUAR" y oculta/cambia el botón SALIR por "MENÚ PRINCIPAL"
+- `PlayerStats.cs` — llamar `uiManager.UpdateHealth(currentHealth, maxHealth)` en `TakeDamage()` y en `Start()`
+- `GameManager.cs` — llamar `uiManager.UpdateGold()` cuando cambie el oro. **Eliminar el bloque ESC de `Update()`** — la pausa la gestiona `PauseManager`
+- `PauseManager.cs` — añadir referencias a `settingsPanel` con slider de volumen y dropdown de modo ventana, igual que el menú principal. Añadir `isPauseMenu = true` implícitamente (siempre es pausa). Los textos de botones ("CONTINUAR", "MENÚ PRINCIPAL") se configuran directamente en el prefab del Canvas, no por flag de código.
+- `MainMenuManager.cs` — sin cambios en lógica; solo diseño visual del Canvas
 
 ### Scripts nuevos
 - `ShopUI.cs` — gestiona la generación dinámica de botones de ítem en la tienda, conectado a `ShopManager`
+- `CardHoverEffect.cs` — pequeño MonoBehaviour que aplica escala 1.05 y outline color-rareza en OnPointerEnter/Exit (EventTrigger o IPointerEnterHandler)
+
+### Conflicto ESC resuelto
+`GameManager.Update()` maneja ESC actualmente. `PauseManager.Update()` también lo hace. **Solución:** eliminar el bloque ESC de `GameManager.Update()` y dejarlo únicamente en `PauseManager`. `PauseManager.TogglePause()` llama a `GameManager.PauseGame()` / `GameManager.ResumeGame()` directamente.
 
 ### Prefabs / Canvas
 No se crean prefabs nuevos desde código. Todo se configura en el Editor de Unity.
@@ -109,23 +115,18 @@ No se crean prefabs nuevos desde código. Todo se configura en el Editor de Unit
 
 ## Menú Pausa
 
-**Activación:** tecla ESC en GameManager → `uiManager.ShowPauseMenu(true)`
+**Activación:** tecla ESC → `PauseManager.TogglePause()` (ESC ya no se gestiona en `GameManager`)
 
-Reutiliza `MainMenuManager.cs` (instancia separada en la escena Game). Flag `isPauseMenu = true` en Inspector.
+Gestionado por `PauseManager.cs` que ya existe en la escena Game. Se amplía con `settingsPanel`.
 
-**Diferencias respecto al Menú Principal:**
-- Botón "JUGAR" → texto `"CONTINUAR"` → llama `GameManager.ResumeGame()`
-- Botón "SALIR" → texto `"MENÚ PRINCIPAL"` → llama `GameManager.GoToMainMenu()`
-- Fondo del Canvas: semitransparente (no tapa completamente el juego)
-- Panel `settingsPanel` idéntico al menú principal
+**Diferencias respecto al Menú Principal (configuradas en el Canvas, no en código):**
+- Botón "CONTINUAR" → `PauseManager.ResumeGame()` → `GameManager.ResumeGame()`
+- Botón "MENÚ PRINCIPAL" → `PauseManager.QuitToMainMenu()`
+- Botón "AJUSTES" → `PauseManager.OpenSettings()` (ya existe)
+- Fondo del Canvas: Panel negro 50% opacidad (semitransparente, juego visible detrás)
+- `settingsPanel` contiene slider de volumen + dropdown modo ventana, igual que el menú principal
 
-**`MainMenuManager.Start()`** lee el flag y:
-```
-if (isPauseMenu) {
-    playButton.GetComponentInChildren<Text>().text = "CONTINUAR";
-    quitButton.GetComponentInChildren<Text>().text = "MENÚ PRINCIPAL";
-}
-```
+**`PauseManager`** ya maneja ESC para abrir/cerrar settings o toggle pausa. Sin cambios de lógica, solo añadir las referencias UI de settings.
 
 ---
 
@@ -139,25 +140,42 @@ public Text healthText;
 public Text goldText;
 public GameObject shopPanel;
 
-public void UpdateHealth(int current, int max) => healthText.text = current + " / " + max;
+public void UpdateHealth(float current, float max) => healthText.text = Mathf.CeilToInt(current) + " / " + Mathf.CeilToInt(max);
 public void UpdateGold(int gold) => goldText.text = gold.ToString();
 public void ShowShop(bool show) => shopPanel.SetActive(show);
 ```
 
-### GameManager.cs
-Añadir campo `public int currentHealth` y `public int maxHealth`.
-Llamar `uiManager.UpdateHealth` y `uiManager.UpdateGold` en los mismos sitios que ya actualiza XP/Level.
+### PlayerStats.cs
+Conectar con UIManager para actualizar vida:
+```csharp
+private UIManager uiManager;
+void Start() { uiManager = FindObjectOfType<UIManager>(); uiManager?.UpdateHealth(currentHealth, maxHealth); }
+// En TakeDamage() y en cualquier Heal: uiManager?.UpdateHealth(currentHealth, maxHealth);
+```
 
-### MainMenuManager.cs
-Añadir `public bool isPauseMenu;` y lógica en `Start()` para cambiar textos de botones.
-Añadir `public void ContinueGame()` que llama a `GameManager.ResumeGame()`.
-Añadir `public void GoToMainMenu()` que llama a `GameManager.GoToMainMenu()`.
+### GameManager.cs
+- Llamar `uiManager.UpdateGold(currentGold)` en `AddGold()`
+- **Eliminar bloque ESC de `Update()`** (lo gestiona `PauseManager`)
+- En `ResumeGame()`, eliminar `ShowPauseMenu(false)` (lo gestiona `PauseManager`)
+
+### PauseManager.cs
+- Añadir referencias `masterVolumeSlider`, `windowModeDropdown`
+- Conectar `Dropdown.onValueChanged` → `SetWindowed / SetFullscreen / SetBorderless` (mismo código que `MainMenuManager`)
+- `TogglePause()` llama `gameManager.PauseGame()` / `gameManager.ResumeGame()`
 
 ### ShopUI.cs (nuevo)
 ```csharp
 // Genera botones de ítem dinámicamente a partir de ShopManager.availableItems
-// Cada botón llama ShopManager.BuyItem(item)
-// Actualiza color de borde y estado interactable según currentGold
+// Cada botón: icono + nombre + precio, llama ShopManager.BuyItem(item)
+// Actualiza color de borde y estado interactable según gameManager.currentGold
+```
+
+### CardHoverEffect.cs (nuevo)
+```csharp
+// IPointerEnterHandler / IPointerExitHandler
+// OnEnter: transform.localScale = Vector3.one * 1.05f
+// OnExit: transform.localScale = Vector3.one
+// Color del outline: asignado desde UIManager al generar la carta según rareza
 ```
 
 ---
