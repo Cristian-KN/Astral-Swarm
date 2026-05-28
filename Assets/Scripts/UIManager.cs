@@ -8,6 +8,14 @@ public class UIManager : MonoBehaviour
     public Text levelText;
     public Text timerText;
 
+    [Header("HUD — Stats")]
+    public Text healthText;
+    public Text goldText;
+    public Text xpLabelText;
+
+    [Header("Shop")]
+    public GameObject shopPanel;
+
     [Header("Paneles")]
     public GameObject levelUpPanel;
     public GameObject gameOverPanel;
@@ -20,6 +28,7 @@ public class UIManager : MonoBehaviour
     public Button[] levelUpCards;
     public Text[] cardNameTexts;
     public Text[] cardDescTexts;
+    public Image[] cardIcons;
 
     private void Start()
     {
@@ -82,12 +91,37 @@ public class UIManager : MonoBehaviour
                 cardNameTexts[i].text = item.itemName;
             if (cardDescTexts != null && i < cardDescTexts.Length && cardDescTexts[i] != null)
                 cardDescTexts[i].text = item.description;
+            if (cardIcons != null && i < cardIcons.Length && cardIcons[i] != null)
+                cardIcons[i].sprite = item.icon;
 
             levelUpCards[i].onClick.RemoveAllListeners();
             // Capture loop variable
             ItemData captured = item;
             levelUpCards[i].onClick.AddListener(() => onChosen(captured));
         }
+    }
+
+    public void UpdateHealth(float current, float max)
+    {
+        if (healthText != null)
+            healthText.text = Mathf.CeilToInt(current) + " / " + Mathf.CeilToInt(max);
+    }
+
+    public void UpdateGold(int gold)
+    {
+        if (goldText != null)
+            goldText.text = gold.ToString();
+    }
+
+    public void UpdateXpLabel(int current, int max)
+    {
+        if (xpLabelText != null)
+            xpLabelText.text = current + " / " + max + " XP";
+    }
+
+    public void ShowShop(bool show)
+    {
+        if (shopPanel != null) shopPanel.SetActive(show);
     }
 
     public void ShowGameOver()

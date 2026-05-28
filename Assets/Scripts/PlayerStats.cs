@@ -28,14 +28,14 @@ public class PlayerStats : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private bool isInvulnerable = false;
+    private UIManager uiManager;
 
     private void Start()
     {
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        // Si tenemos UI asiganada, la actualizamos al inicio
-        // if (healthSlider != null) { healthSlider.maxValue = maxHealth; healthSlider.value = currentHealth; }
+        uiManager = FindObjectOfType<UIManager>();
+        uiManager?.UpdateHealth(currentHealth, maxHealth);
     }
 
     /// <summary>
@@ -49,13 +49,7 @@ public class PlayerStats : MonoBehaviour
         float finalDamage = Mathf.Max(1, damage - defense);
         currentHealth -= finalDamage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
-        // Actualizar UI
-        Debug.Log("Vida actual del jugador: " + currentHealth);
-        // if (healthSlider != null) healthSlider.value = currentHealth;
-
-        // Feedback Auditivo
-        // if (hitSound != null) AudioSource.PlayOneShot(hitSound);
+        uiManager?.UpdateHealth(currentHealth, maxHealth);
 
         if (currentHealth <= 0)
         {

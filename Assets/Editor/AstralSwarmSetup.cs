@@ -133,7 +133,6 @@ public static class AstralSwarmSetup
         d.weaponCooldown        = cooldown;
         d.weaponDamage          = damage;
         d.weaponDetectionRadius = radius;
-        d.weaponMaxLevel        = 5;
         AssetDatabase.CreateAsset(d, path);
         return d;
     }
@@ -148,7 +147,7 @@ public static class AstralSwarmSetup
         ItemData d = ScriptableObject.CreateInstance<ItemData>();
         d.itemName    = name;
         d.description = desc;
-        d.type        = ItemType.Stat;
+        d.type        = ItemType.Passive;
         d.speedBoost   = speedBoost;
         d.attackBoost  = attack;
         d.defenseBoost = defense;
@@ -382,73 +381,223 @@ public static class AstralSwarmSetup
         GameObject hud = CreateUIChild(canvasGO, "HUD");
         StretchToFill(hud.GetComponent<RectTransform>());
 
-        Slider xpSlider = CreateSlider(hud, "XpSlider");
-        xpSlider.minValue = 0f; xpSlider.maxValue = 100f; xpSlider.interactable = false;
-        RectTransform xpRT = xpSlider.GetComponent<RectTransform>();
-        xpRT.anchorMin = new Vector2(0.5f, 1f); xpRT.anchorMax = new Vector2(0.5f, 1f);
-        xpRT.pivot = new Vector2(0.5f, 1f);
-        xpRT.sizeDelta = new Vector2(600f, 20f);
-        xpRT.anchoredPosition = new Vector2(0f, -30f);
+        // Panel Stats (arriba-izquierda)
+        GameObject statsPanel = new GameObject("StatsPanel", typeof(RectTransform));
+        statsPanel.transform.SetParent(hud.transform, false);
+        Image statsBg = statsPanel.AddComponent<Image>();
+        statsBg.color = new Color(0.102f, 0.039f, 0.180f, 0.85f);
+        Outline statsBorder = statsPanel.AddComponent<Outline>();
+        statsBorder.effectColor = new Color(1f, 0.843f, 0f, 1f);
+        statsBorder.effectDistance = new Vector2(2f, -2f);
+        RectTransform statsRT = statsPanel.GetComponent<RectTransform>();
+        statsRT.anchorMin = new Vector2(0f, 1f); statsRT.anchorMax = new Vector2(0f, 1f);
+        statsRT.pivot     = new Vector2(0f, 1f);
+        statsRT.sizeDelta = new Vector2(200f, 120f);
+        statsRT.anchoredPosition = new Vector2(10f, -10f);
 
-        Text levelText = CreateLegacyText(hud, "LevelText", "LVL 1", 20, Color.white, TextAnchor.UpperLeft);
+        Text healthText = CreateLegacyText(statsPanel, "HealthText", "❤ 100 / 100", 14,
+            new Color(0.957f, 0.263f, 0.212f, 1f), TextAnchor.MiddleLeft);
+        RectTransform healthRT = healthText.GetComponent<RectTransform>();
+        healthRT.anchorMin = new Vector2(0f, 0.66f); healthRT.anchorMax = new Vector2(1f, 1f);
+        healthRT.offsetMin = new Vector2(8f, 0f);    healthRT.offsetMax = new Vector2(-4f, 0f);
+
+        Text levelText = CreateLegacyText(statsPanel, "LevelText", "⭐ LVL 1", 14,
+            new Color(1f, 0.843f, 0f, 1f), TextAnchor.MiddleLeft);
         RectTransform lvlRT = levelText.GetComponent<RectTransform>();
-        lvlRT.anchorMin = new Vector2(0f, 1f); lvlRT.anchorMax = new Vector2(0f, 1f);
-        lvlRT.pivot = new Vector2(0f, 1f);
-        lvlRT.sizeDelta = new Vector2(200f, 40f);
-        lvlRT.anchoredPosition = new Vector2(20f, -20f);
+        lvlRT.anchorMin = new Vector2(0f, 0.33f); lvlRT.anchorMax = new Vector2(1f, 0.66f);
+        lvlRT.offsetMin = new Vector2(8f, 0f);   lvlRT.offsetMax = new Vector2(-4f, 0f);
 
-        Text timerText = CreateLegacyText(hud, "TimerText", "03:00", 24, Color.white, TextAnchor.UpperCenter);
+        Text goldText = CreateLegacyText(statsPanel, "GoldText", "💰 0", 14,
+            new Color(1f, 0.757f, 0.027f, 1f), TextAnchor.MiddleLeft);
+        RectTransform goldRT = goldText.GetComponent<RectTransform>();
+        goldRT.anchorMin = new Vector2(0f, 0f);  goldRT.anchorMax = new Vector2(1f, 0.33f);
+        goldRT.offsetMin = new Vector2(8f, 0f); goldRT.offsetMax = new Vector2(-4f, 0f);
+
+        // Panel XP (arriba-centro)
+        GameObject xpPanel = new GameObject("XpPanel", typeof(RectTransform));
+        xpPanel.transform.SetParent(hud.transform, false);
+        Image xpBg = xpPanel.AddComponent<Image>();
+        xpBg.color = new Color(0.102f, 0.039f, 0.180f, 0.85f);
+        Outline xpBorder = xpPanel.AddComponent<Outline>();
+        xpBorder.effectColor = new Color(1f, 0.843f, 0f, 1f);
+        xpBorder.effectDistance = new Vector2(2f, -2f);
+        RectTransform xpPanelRT = xpPanel.GetComponent<RectTransform>();
+        xpPanelRT.anchorMin = new Vector2(0.5f, 1f); xpPanelRT.anchorMax = new Vector2(0.5f, 1f);
+        xpPanelRT.pivot     = new Vector2(0.5f, 1f);
+        xpPanelRT.sizeDelta = new Vector2(500f, 50f);
+        xpPanelRT.anchoredPosition = new Vector2(0f, -10f);
+
+        Slider xpSlider = CreateSlider(xpPanel, "XpSlider");
+        xpSlider.minValue = 0f; xpSlider.maxValue = 100f; xpSlider.interactable = false;
+        Transform xpFillT = xpSlider.transform.Find("Fill Area/Fill");
+        if (xpFillT != null) xpFillT.GetComponent<Image>().color = new Color(0.482f, 0.122f, 0.635f, 1f);
+        RectTransform xpRT = xpSlider.GetComponent<RectTransform>();
+        xpRT.anchorMin = Vector2.zero; xpRT.anchorMax = Vector2.one;
+        xpRT.offsetMin = new Vector2(6f, 6f); xpRT.offsetMax = new Vector2(-6f, -22f);
+
+        Text xpLabelText = CreateLegacyText(xpPanel, "XpLabel", "0 / 100 XP", 12,
+            Color.white, TextAnchor.MiddleCenter);
+        RectTransform xpLabelRT = xpLabelText.GetComponent<RectTransform>();
+        xpLabelRT.anchorMin = Vector2.zero; xpLabelRT.anchorMax = Vector2.one;
+        xpLabelRT.offsetMin = new Vector2(6f, 0f); xpLabelRT.offsetMax = new Vector2(-6f, -4f);
+
+        // Timer (arriba-derecha)
+        Text timerText = CreateLegacyText(hud, "TimerText", "03:00", 26,
+            new Color(1f, 0.843f, 0f, 1f), TextAnchor.UpperRight);
         RectTransform timerRT = timerText.GetComponent<RectTransform>();
-        timerRT.anchorMin = new Vector2(0.5f, 1f); timerRT.anchorMax = new Vector2(0.5f, 1f);
-        timerRT.pivot = new Vector2(0.5f, 1f);
-        timerRT.sizeDelta = new Vector2(200f, 40f);
-        timerRT.anchoredPosition = new Vector2(0f, -70f);
+        timerRT.anchorMin = new Vector2(1f, 1f); timerRT.anchorMax = new Vector2(1f, 1f);
+        timerRT.pivot     = new Vector2(1f, 1f);
+        timerRT.sizeDelta = new Vector2(180f, 50f);
+        timerRT.anchoredPosition = new Vector2(-10f, -10f);
 
-        // ----- Level Up Panel (3 cards side by side) -----
-        GameObject levelUpPanel = CreatePanel(canvasGO, "LevelUpPanel", new Color(0f, 0f, 0f, 0.75f));
+        // ----- Level Up Panel -----
+        GameObject levelUpPanel = CreatePanel(canvasGO, "LevelUpPanel", new Color(0f, 0f, 0f, 0.72f));
         levelUpPanel.SetActive(false);
 
-        CreateLegacyText(levelUpPanel, "TitleText", "¡SUBE DE NIVEL!", 28, Color.yellow, TextAnchor.MiddleCenter)
-            .GetComponent<RectTransform>()
-            .anchoredPosition = new Vector2(0f, 120f);
+        GameObject lupCenter = CreateStyledPanel(levelUpPanel, "LevelUpCenter");
+        RectTransform lupCenterRT = lupCenter.GetComponent<RectTransform>();
+        lupCenterRT.anchorMin = new Vector2(0.5f, 0.5f); lupCenterRT.anchorMax = new Vector2(0.5f, 0.5f);
+        lupCenterRT.pivot = new Vector2(0.5f, 0.5f);
+        lupCenterRT.sizeDelta = new Vector2(1000f, 380f); lupCenterRT.anchoredPosition = Vector2.zero;
+
+        Text lupTitle = CreateLegacyText(lupCenter, "TitleText", "¡NIVEL ALCANZADO!", 32,
+            new Color(1f, 0.843f, 0f, 1f), TextAnchor.MiddleCenter);
+        Shadow lupShadow = lupTitle.gameObject.AddComponent<Shadow>();
+        lupShadow.effectColor = new Color(0.5f, 0.3f, 0f, 0.8f);
+        lupShadow.effectDistance = new Vector2(2f, -2f);
+        RectTransform lupTitleRT = lupTitle.GetComponent<RectTransform>();
+        lupTitleRT.anchorMin = new Vector2(0f, 0.75f); lupTitleRT.anchorMax = new Vector2(1f, 1f);
+        lupTitleRT.offsetMin = Vector2.zero; lupTitleRT.offsetMax = Vector2.zero;
 
         var cards = new Button[3];
         var cardNames = new Text[3];
         var cardDescs = new Text[3];
-        Vector2[] cardPositions = { new Vector2(-320f, -30f), new Vector2(0f, -30f), new Vector2(320f, -30f) };
+        var cardIcons = new Image[3];
+        Vector2[] cardPositions = { new Vector2(-320f, -20f), new Vector2(0f, -20f), new Vector2(320f, -20f) };
         string[] defaultNames = { "Opción 1", "Opción 2", "Opción 3" };
 
         for (int i = 0; i < 3; i++)
         {
-            (cards[i], cardNames[i], cardDescs[i]) = CreateLevelUpCard(
-                levelUpPanel, "Card" + (i + 1), defaultNames[i], "...", cardPositions[i]);
+            (cards[i], cardNames[i], cardDescs[i], cardIcons[i]) = CreateStyledLevelUpCard(
+                lupCenter, "Card" + (i + 1), defaultNames[i], "...", cardPositions[i]);
         }
 
         // ----- Game Over Panel -----
-        GameObject gameOverPanel = CreatePanel(canvasGO, "GameOverPanel", new Color(0f, 0f, 0f, 0.8f));
+        GameObject gameOverPanel = CreatePanel(canvasGO, "GameOverPanel", new Color(0f, 0f, 0f, 0.80f));
         gameOverPanel.SetActive(false);
-        CreateResultText(gameOverPanel, "ResultText", "GAME OVER", 36, Color.red, new Vector2(0f, 80f));
-        CreateRestartButton(gameOverPanel, "RestartButton", "Reintentar", new Vector2(0f, -60f), gameManager);
+        GameObject goCenter = CreateStyledPanel(gameOverPanel, "GameOverCenter");
+        RectTransform goCenterRT = goCenter.GetComponent<RectTransform>();
+        goCenterRT.anchorMin = new Vector2(0.5f, 0.5f); goCenterRT.anchorMax = new Vector2(0.5f, 0.5f);
+        goCenterRT.pivot = new Vector2(0.5f, 0.5f);
+        goCenterRT.sizeDelta = new Vector2(500f, 300f); goCenterRT.anchoredPosition = Vector2.zero;
+        CreateResultText(goCenter, "ResultText", "GAME OVER", 36, new Color(0.957f, 0.263f, 0.212f, 1f), new Vector2(0f, 80f));
+        CreateRestartButton(goCenter, "RestartButton", "Reintentar", new Vector2(0f, -20f), gameManager);
+        Button goMenuBtn = CreateButton(goCenter, "MenuButton", "Menú Principal", new Vector2(0f, -110f));
+        UnityEventTools.AddPersistentListener(goMenuBtn.onClick,
+            new UnityEngine.Events.UnityAction(gameManager.GoToMainMenu));
 
         // ----- Victory Panel -----
-        GameObject victoryPanel = CreatePanel(canvasGO, "VictoryPanel", new Color(0f, 0f, 0f, 0.8f));
+        GameObject victoryPanel = CreatePanel(canvasGO, "VictoryPanel", new Color(0f, 0f, 0f, 0.80f));
         victoryPanel.SetActive(false);
-        CreateResultText(victoryPanel, "ResultText", "¡VICTORIA!", 36, Color.yellow, new Vector2(0f, 80f));
-        CreateRestartButton(victoryPanel, "RestartButton", "Reintentar", new Vector2(0f, -60f), gameManager);
+        GameObject vicCenter = CreateStyledPanel(victoryPanel, "VictoryCenter");
+        RectTransform vicCenterRT = vicCenter.GetComponent<RectTransform>();
+        vicCenterRT.anchorMin = new Vector2(0.5f, 0.5f); vicCenterRT.anchorMax = new Vector2(0.5f, 0.5f);
+        vicCenterRT.pivot = new Vector2(0.5f, 0.5f);
+        vicCenterRT.sizeDelta = new Vector2(500f, 300f); vicCenterRT.anchoredPosition = Vector2.zero;
+        CreateResultText(vicCenter, "ResultText", "¡VICTORIA!", 36, new Color(1f, 0.843f, 0f, 1f), new Vector2(0f, 80f));
+        CreateRestartButton(vicCenter, "RestartButton", "Reintentar", new Vector2(0f, -20f), gameManager);
+        Button vicMenuBtn = CreateButton(vicCenter, "MenuButton", "Menú Principal", new Vector2(0f, -110f));
+        UnityEventTools.AddPersistentListener(vicMenuBtn.onClick,
+            new UnityEngine.Events.UnityAction(gameManager.GoToMainMenu));
 
         // ----- Pause Panel -----
-        GameObject pausePanel = CreatePanel(canvasGO, "PausePanel", new Color(0f, 0f, 0f, 0.8f));
+        GameObject pausePanel = CreatePanel(canvasGO, "PausePanel", new Color(0f, 0f, 0f, 0.50f));
         pausePanel.SetActive(false);
-        CreateResultText(pausePanel, "PauseTitle", "PAUSA", 36, Color.white, new Vector2(0f, 120f));
-        Button resumeBtn  = CreateButton(pausePanel, "ResumeButton",   "Continuar", new Vector2(0f,   30f));
-        Button restartBtn = CreateButton(pausePanel, "RestartButton2", "Reiniciar", new Vector2(0f,  -70f));
-        Button quitBtn    = CreateButton(pausePanel, "QuitButton",     "Salir",     new Vector2(0f, -170f));
-        UnityEventTools.AddPersistentListener(resumeBtn.onClick,
-            new UnityEngine.Events.UnityAction(gameManager.ResumeGame));
-        UnityEventTools.AddPersistentListener(restartBtn.onClick,
-            new UnityEngine.Events.UnityAction(gameManager.RestartGame));
-        UnityEventTools.AddPersistentListener(quitBtn.onClick,
-            new UnityEngine.Events.UnityAction(gameManager.GoToMainMenu));
+        GameObject pauseCenter = CreateStyledPanel(pausePanel, "PauseCenter");
+        RectTransform pauseCenterRT = pauseCenter.GetComponent<RectTransform>();
+        pauseCenterRT.anchorMin = new Vector2(0.5f, 0.5f); pauseCenterRT.anchorMax = new Vector2(0.5f, 0.5f);
+        pauseCenterRT.pivot = new Vector2(0.5f, 0.5f);
+        pauseCenterRT.sizeDelta = new Vector2(400f, 420f); pauseCenterRT.anchoredPosition = Vector2.zero;
+        CreateResultText(pauseCenter, "PauseTitle", "PAUSA", 30, new Color(1f, 0.843f, 0f, 1f), new Vector2(0f, 160f));
+
+        PauseManager pauseManager = gmGO.AddComponent<PauseManager>();
+
+        Button continueBtn = CreateButton(pauseCenter, "ContinueButton", "Continuar",      new Vector2(0f,  60f));
+        Button settingsBtn = CreateButton(pauseCenter, "SettingsButton", "Ajustes",        new Vector2(0f, -30f));
+        Button menuBtn2    = CreateButton(pauseCenter, "MenuButton",     "Menú Principal", new Vector2(0f, -120f));
+        UnityEventTools.AddPersistentListener(continueBtn.onClick,
+            new UnityEngine.Events.UnityAction(pauseManager.ResumeGame));
+        UnityEventTools.AddPersistentListener(settingsBtn.onClick,
+            new UnityEngine.Events.UnityAction(pauseManager.OpenSettings));
+        UnityEventTools.AddPersistentListener(menuBtn2.onClick,
+            new UnityEngine.Events.UnityAction(pauseManager.QuitToMainMenu));
+
+        // ----- Settings Panel (pausa) -----
+        GameObject pauseSettingsPanel = CreateStyledPanel(canvasGO, "PauseSettingsPanel");
+        pauseSettingsPanel.SetActive(false);
+        RectTransform pspRT = pauseSettingsPanel.GetComponent<RectTransform>();
+        pspRT.anchorMin = new Vector2(0.5f, 0.5f); pspRT.anchorMax = new Vector2(0.5f, 0.5f);
+        pspRT.pivot = new Vector2(0.5f, 0.5f);
+        pspRT.sizeDelta = new Vector2(400f, 300f); pspRT.anchoredPosition = Vector2.zero;
+        CreateResultText(pauseSettingsPanel, "SettingsTitle", "AJUSTES", 24,
+            new Color(1f, 0.843f, 0f, 1f), new Vector2(0f, 110f));
+
+        Slider volSlider = CreateSlider(pauseSettingsPanel, "VolumeSlider");
+        volSlider.minValue = 0f; volSlider.maxValue = 1f; volSlider.value = 1f;
+        RectTransform volRT = volSlider.GetComponent<RectTransform>();
+        volRT.anchorMin = new Vector2(0.5f, 0.5f); volRT.anchorMax = new Vector2(0.5f, 0.5f);
+        volRT.pivot = new Vector2(0.5f, 0.5f);
+        volRT.sizeDelta = new Vector2(320f, 30f); volRT.anchoredPosition = new Vector2(0f, 30f);
+        CreateLegacyText(pauseSettingsPanel, "VolLabel", "VOLUMEN", 14,
+            new Color(1f, 0.843f, 0f, 1f), TextAnchor.MiddleCenter)
+            .GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, 70f);
+
+        Dropdown windowDD = CreateDropdown(pauseSettingsPanel, "WindowDropdown", new Vector2(0f, -30f));
+        Button pauseBackBtn = CreateButton(pauseSettingsPanel, "BackButton", "Atrás", new Vector2(0f, -110f));
+        UnityEventTools.AddPersistentListener(pauseBackBtn.onClick,
+            new UnityEngine.Events.UnityAction(pauseManager.CloseSettings));
+
+        // Wire PauseManager
+        SerializedObject pmSO = new SerializedObject(pauseManager);
+        SetRef(pmSO, "pausePanel",         pausePanel);
+        SetRef(pmSO, "settingsPanel",      pauseSettingsPanel);
+        SetRef(pmSO, "masterVolumeSlider", volSlider);
+        SetRef(pmSO, "windowModeDropdown", windowDD);
+        pmSO.ApplyModifiedPropertiesWithoutUndo();
+
+        // ----- Shop Panel -----
+        GameObject shopPanel = CreateStyledPanel(canvasGO, "ShopPanel");
+        shopPanel.SetActive(false);
+        RectTransform shopRT = shopPanel.GetComponent<RectTransform>();
+        shopRT.anchorMin = new Vector2(0.5f, 0.5f); shopRT.anchorMax = new Vector2(0.5f, 0.5f);
+        shopRT.pivot = new Vector2(0.5f, 0.5f);
+        shopRT.sizeDelta = new Vector2(700f, 500f); shopRT.anchoredPosition = Vector2.zero;
+        CreateResultText(shopPanel, "ShopTitle", "TIENDA", 28,
+            new Color(1f, 0.843f, 0f, 1f), new Vector2(0f, 210f));
+
+        Button closeShopBtn = CreateButton(shopPanel, "CloseButton", "✕", new Vector2(290f, 210f));
+        closeShopBtn.GetComponent<RectTransform>().sizeDelta = new Vector2(50f, 50f);
+
+        GameObject gridGO = new GameObject("ItemGrid", typeof(RectTransform));
+        gridGO.transform.SetParent(shopPanel.transform, false);
+        GridLayoutGroup grid = gridGO.AddComponent<GridLayoutGroup>();
+        grid.cellSize = new Vector2(120f, 150f);
+        grid.spacing  = new Vector2(15f, 15f);
+        grid.padding  = new RectOffset(15, 15, 15, 15);
+        RectTransform gridRT = gridGO.GetComponent<RectTransform>();
+        gridRT.anchorMin = Vector2.zero; gridRT.anchorMax = Vector2.one;
+        gridRT.offsetMin = new Vector2(0f, 0f); gridRT.offsetMax = new Vector2(0f, -60f);
+
+        ShopUI shopUI = shopGO.AddComponent<ShopUI>();
+        SerializedObject shopUISO = new SerializedObject(shopUI);
+        SetRef(shopUISO, "shopPanel", shopPanel);
+        SerializedProperty itemGridProp = shopUISO.FindProperty("itemGrid");
+        if (itemGridProp != null) { itemGridProp.objectReferenceValue = gridGO.transform; shopUISO.ApplyModifiedPropertiesWithoutUndo(); }
+        else shopUISO.ApplyModifiedPropertiesWithoutUndo();
+
+        // Close shop button event (wire to ShopUI.CloseShop)
+        UnityEventTools.AddPersistentListener(closeShopBtn.onClick,
+            new UnityEngine.Events.UnityAction(shopUI.CloseShop));
 
         // ----- Minimap -----
         GameObject minimapGO = new GameObject("Minimap", typeof(RectTransform));
@@ -473,6 +622,10 @@ public static class AstralSwarmSetup
         SetRef(uiSO, "xpSlider",     xpSlider);
         SetRef(uiSO, "levelText",    levelText);
         SetRef(uiSO, "timerText",    timerText);
+        SetRef(uiSO, "healthText",   healthText);
+        SetRef(uiSO, "goldText",     goldText);
+        SetRef(uiSO, "xpLabelText",  xpLabelText);
+        SetRef(uiSO, "shopPanel",    shopPanel);
         SetRef(uiSO, "levelUpPanel", levelUpPanel);
         SetRef(uiSO, "gameOverPanel", gameOverPanel);
         SetRef(uiSO, "victoryPanel", victoryPanel);
@@ -480,6 +633,7 @@ public static class AstralSwarmSetup
         SetRefArray(uiSO, "levelUpCards",   cards);
         SetRefArray(uiSO, "cardNameTexts",  cardNames);
         SetRefArray(uiSO, "cardDescTexts",  cardDescs);
+        SetRefArray(uiSO, "cardIcons",      cardIcons);
         uiSO.ApplyModifiedPropertiesWithoutUndo();
 
         // ----- Save scene -----
@@ -566,73 +720,34 @@ public static class AstralSwarmSetup
         return panel;
     }
 
-    /// <summary>
-    /// Creates a level-up card button with a Name text and a Description text.
-    /// No persistent onClick — UIManager wires it dynamically at runtime.
-    /// </summary>
-    private static (Button btn, Text nameText, Text descText) CreateLevelUpCard(
-        GameObject parent, string name, string itemName, string desc, Vector2 anchoredPos)
-    {
-        GameObject cardGO = new GameObject(name, typeof(RectTransform));
-        cardGO.transform.SetParent(parent.transform, false);
-        Image img = cardGO.AddComponent<Image>();
-        img.color = new Color(0.12f, 0.18f, 0.32f, 1f);
-        Button btn = cardGO.AddComponent<Button>();
-        btn.targetGraphic = img;
-
-        // Highlight color on hover
-        ColorBlock cb = btn.colors;
-        cb.highlightedColor = new Color(0.2f, 0.35f, 0.6f, 1f);
-        cb.pressedColor = new Color(0.08f, 0.12f, 0.22f, 1f);
-        btn.colors = cb;
-
-        RectTransform rt = cardGO.GetComponent<RectTransform>();
-        rt.anchorMin = new Vector2(0.5f, 0.5f);
-        rt.anchorMax = new Vector2(0.5f, 0.5f);
-        rt.pivot = new Vector2(0.5f, 0.5f);
-        rt.sizeDelta = new Vector2(280f, 180f);
-        rt.anchoredPosition = anchoredPos;
-
-        // Name (top ~40%)
-        Text nameT = CreateLegacyText(cardGO, "CardName", itemName, 18, Color.yellow, TextAnchor.UpperCenter);
-        RectTransform nameRT = nameT.GetComponent<RectTransform>();
-        nameRT.anchorMin = new Vector2(0f, 0.6f);
-        nameRT.anchorMax = new Vector2(1f, 1f);
-        nameRT.offsetMin = new Vector2(8f, 0f);
-        nameRT.offsetMax = new Vector2(-8f, -6f);
-        nameT.horizontalOverflow = HorizontalWrapMode.Wrap;
-        nameT.verticalOverflow = VerticalWrapMode.Truncate;
-
-        // Description (bottom ~60%)
-        Text descT = CreateLegacyText(cardGO, "CardDesc", desc, 13, Color.white, TextAnchor.UpperLeft);
-        RectTransform descRT = descT.GetComponent<RectTransform>();
-        descRT.anchorMin = new Vector2(0f, 0f);
-        descRT.anchorMax = new Vector2(1f, 0.6f);
-        descRT.offsetMin = new Vector2(8f, 6f);
-        descRT.offsetMax = new Vector2(-8f, 0f);
-        descT.horizontalOverflow = HorizontalWrapMode.Wrap;
-        descT.verticalOverflow = VerticalWrapMode.Truncate;
-
-        return (btn, nameT, descT);
-    }
 
     private static Button CreateButton(GameObject parent, string name, string label, Vector2 anchoredPos)
     {
         GameObject btnGO = new GameObject(name, typeof(RectTransform));
         btnGO.transform.SetParent(parent.transform, false);
         Image img = btnGO.AddComponent<Image>();
-        img.color = new Color(0.25f, 0.25f, 0.35f, 1f);
+        img.color = new Color(0.176f, 0.106f, 0.306f, 1f);
         Button btn = btnGO.AddComponent<Button>();
         btn.targetGraphic = img;
+
+        ColorBlock cb = btn.colors;
+        cb.normalColor      = new Color(0.176f, 0.106f, 0.306f, 1f);
+        cb.highlightedColor = new Color(0.280f, 0.180f, 0.450f, 1f);
+        cb.pressedColor     = new Color(0.100f, 0.060f, 0.190f, 1f);
+        btn.colors = cb;
+
+        Outline border = btnGO.AddComponent<Outline>();
+        border.effectColor    = new Color(1f, 0.843f, 0f, 0.6f);
+        border.effectDistance = new Vector2(2f, -2f);
 
         RectTransform rt = btnGO.GetComponent<RectTransform>();
         rt.anchorMin = new Vector2(0.5f, 0.5f);
         rt.anchorMax = new Vector2(0.5f, 0.5f);
         rt.pivot = new Vector2(0.5f, 0.5f);
-        rt.sizeDelta = new Vector2(300f, 80f);
+        rt.sizeDelta = new Vector2(300f, 70f);
         rt.anchoredPosition = anchoredPos;
 
-        Text lbl = CreateLegacyText(btnGO, "Text", label, 22, Color.white, TextAnchor.MiddleCenter);
+        Text lbl = CreateLegacyText(btnGO, "Text", label, 22, new Color(1f, 0.843f, 0f, 1f), TextAnchor.MiddleCenter);
         StretchToFill(lbl.GetComponent<RectTransform>());
         return btn;
     }
@@ -655,6 +770,96 @@ public static class AstralSwarmSetup
         rt.pivot = new Vector2(0.5f, 0.5f);
         rt.sizeDelta = new Vector2(600f, 80f);
         rt.anchoredPosition = anchoredPos;
+    }
+
+    private static GameObject CreateStyledPanel(GameObject parent, string name)
+    {
+        GameObject panel = new GameObject(name, typeof(RectTransform));
+        panel.transform.SetParent(parent.transform, false);
+        Image img = panel.AddComponent<Image>();
+        img.color = new Color(0.102f, 0.039f, 0.180f, 0.97f);
+        Outline border = panel.AddComponent<Outline>();
+        border.effectColor = new Color(1f, 0.843f, 0f, 1f);
+        border.effectDistance = new Vector2(3f, -3f);
+        StretchToFill(panel.GetComponent<RectTransform>());
+        return panel;
+    }
+
+    private static Dropdown CreateDropdown(GameObject parent, string name, Vector2 anchoredPos)
+    {
+        GameObject ddGO = new GameObject(name, typeof(RectTransform));
+        ddGO.transform.SetParent(parent.transform, false);
+        Image ddBg = ddGO.AddComponent<Image>();
+        ddBg.color = new Color(0.176f, 0.106f, 0.306f, 1f);
+        Dropdown dd = ddGO.AddComponent<Dropdown>();
+        dd.targetGraphic = ddBg;
+        RectTransform ddRT = ddGO.GetComponent<RectTransform>();
+        ddRT.anchorMin = new Vector2(0.5f, 0.5f); ddRT.anchorMax = new Vector2(0.5f, 0.5f);
+        ddRT.pivot = new Vector2(0.5f, 0.5f);
+        ddRT.sizeDelta = new Vector2(320f, 40f);
+        ddRT.anchoredPosition = anchoredPos;
+        Text ddLabel = CreateLegacyText(ddGO, "Label", "Ventana", 14,
+            new Color(1f, 0.843f, 0f, 1f), TextAnchor.MiddleLeft);
+        StretchToFill(ddLabel.GetComponent<RectTransform>());
+        dd.captionText = ddLabel;
+        return dd;
+    }
+
+    private static (Button btn, Text nameText, Text descText, Image iconImg) CreateStyledLevelUpCard(
+        GameObject parent, string name, string itemName, string desc, Vector2 anchoredPos)
+    {
+        GameObject cardGO = new GameObject(name, typeof(RectTransform));
+        cardGO.transform.SetParent(parent.transform, false);
+        Image img = cardGO.AddComponent<Image>();
+        img.color = new Color(0.176f, 0.106f, 0.306f, 1f);
+        Button btn = cardGO.AddComponent<Button>();
+        btn.targetGraphic = img;
+
+        ColorBlock cb = btn.colors;
+        cb.highlightedColor = new Color(0.250f, 0.160f, 0.420f, 1f);
+        cb.pressedColor     = new Color(0.100f, 0.060f, 0.190f, 1f);
+        btn.colors = cb;
+
+        Outline border = cardGO.AddComponent<Outline>();
+        border.effectColor    = new Color(1f, 0.843f, 0f, 0.5f);
+        border.effectDistance = new Vector2(2f, -2f);
+
+        cardGO.AddComponent<CardHoverEffect>();
+
+        RectTransform rt = cardGO.GetComponent<RectTransform>();
+        rt.anchorMin = new Vector2(0.5f, 0.5f); rt.anchorMax = new Vector2(0.5f, 0.5f);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.sizeDelta = new Vector2(280f, 220f);
+        rt.anchoredPosition = anchoredPos;
+
+        // Icono
+        GameObject iconGO = new GameObject("Icon", typeof(RectTransform));
+        iconGO.transform.SetParent(cardGO.transform, false);
+        Image iconImg = iconGO.AddComponent<Image>();
+        iconImg.color = Color.white;
+        iconImg.preserveAspect = true;
+        RectTransform iconRT = iconGO.GetComponent<RectTransform>();
+        iconRT.anchorMin = new Vector2(0.5f, 0.65f); iconRT.anchorMax = new Vector2(0.5f, 1f);
+        iconRT.offsetMin = new Vector2(-28f, -8f);   iconRT.offsetMax = new Vector2(28f,  -8f);
+
+        // Nombre
+        Text nameT = CreateLegacyText(cardGO, "CardName", itemName, 16,
+            new Color(1f, 0.843f, 0f, 1f), TextAnchor.UpperCenter);
+        RectTransform nameRT = nameT.GetComponent<RectTransform>();
+        nameRT.anchorMin = new Vector2(0f, 0.45f); nameRT.anchorMax = new Vector2(1f, 0.65f);
+        nameRT.offsetMin = new Vector2(8f, 0f);    nameRT.offsetMax = new Vector2(-8f, 0f);
+        nameT.horizontalOverflow = HorizontalWrapMode.Wrap;
+        nameT.verticalOverflow   = VerticalWrapMode.Truncate;
+
+        // Descripción
+        Text descT = CreateLegacyText(cardGO, "CardDesc", desc, 12, Color.white, TextAnchor.UpperLeft);
+        RectTransform descRT = descT.GetComponent<RectTransform>();
+        descRT.anchorMin = new Vector2(0f, 0f);  descRT.anchorMax = new Vector2(1f, 0.45f);
+        descRT.offsetMin = new Vector2(8f, 6f);  descRT.offsetMax = new Vector2(-8f, 0f);
+        descT.horizontalOverflow = HorizontalWrapMode.Wrap;
+        descT.verticalOverflow   = VerticalWrapMode.Truncate;
+
+        return (btn, nameT, descT, iconImg);
     }
 
     private static void SetRef(SerializedObject so, string prop, Object value)
@@ -870,6 +1075,127 @@ public static class AstralSwarmSetup
         }
 
         AssetDatabase.SaveAssets();
+    }
+    // =====================================================================
+    // MAIN MENU SCENE
+    // =====================================================================
+
+    private const string MainMenuScenePath = "Assets/Scenes/MainMenu.unity";
+
+    [MenuItem("Astral Swarm/Setup Main Menu Scene")]
+    public static void SetupMainMenuScene()
+    {
+        Scene scene = System.IO.File.Exists(MainMenuScenePath)
+            ? EditorSceneManager.OpenScene(MainMenuScenePath, OpenSceneMode.Single)
+            : EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+
+        foreach (GameObject root in scene.GetRootGameObjects())
+            Object.DestroyImmediate(root);
+
+        // Camera
+        GameObject camGO = new GameObject("Main Camera");
+        camGO.tag = "MainCamera";
+        Camera cam = camGO.AddComponent<Camera>();
+        cam.orthographic = true;
+        cam.clearFlags = CameraClearFlags.SolidColor;
+        cam.backgroundColor = new Color(0.039f, 0f, 0.078f, 1f);
+        camGO.AddComponent<AudioListener>();
+
+        // Canvas
+        GameObject canvasGO = new GameObject("Canvas");
+        Canvas canvas = canvasGO.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        CanvasScaler scaler = canvasGO.AddComponent<CanvasScaler>();
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(1920f, 1080f);
+        scaler.matchWidthOrHeight = 0.5f;
+        canvasGO.AddComponent<GraphicRaycaster>();
+
+        // Fondo
+        GameObject bgGO = CreatePanel(canvasGO, "Background", new Color(0.039f, 0f, 0.078f, 1f));
+        StretchToFill(bgGO.GetComponent<RectTransform>());
+
+        // Panel principal
+        GameObject mainPanel = CreateStyledPanel(canvasGO, "MainPanel");
+        RectTransform mpRT = mainPanel.GetComponent<RectTransform>();
+        mpRT.anchorMin = new Vector2(0.5f, 0.5f); mpRT.anchorMax = new Vector2(0.5f, 0.5f);
+        mpRT.pivot = new Vector2(0.5f, 0.5f);
+        mpRT.sizeDelta = new Vector2(500f, 500f); mpRT.anchoredPosition = Vector2.zero;
+
+        // Título
+        Text titleText = CreateLegacyText(mainPanel, "TitleText", "ASTRAL SWARM", 48,
+            new Color(1f, 0.843f, 0f, 1f), TextAnchor.MiddleCenter);
+        Shadow titleShadow = titleText.gameObject.AddComponent<Shadow>();
+        titleShadow.effectColor = new Color(0.5f, 0.2f, 0f, 1f);
+        titleShadow.effectDistance = new Vector2(3f, -3f);
+        Outline titleOutline = titleText.gameObject.AddComponent<Outline>();
+        titleOutline.effectColor = new Color(1f, 0.6f, 0f, 0.5f);
+        titleOutline.effectDistance = new Vector2(1f, -1f);
+        RectTransform titleRT = titleText.GetComponent<RectTransform>();
+        titleRT.anchorMin = new Vector2(0f, 0.75f); titleRT.anchorMax = new Vector2(1f, 1f);
+        titleRT.offsetMin = Vector2.zero; titleRT.offsetMax = Vector2.zero;
+
+        // Manager
+        GameObject managerGO = new GameObject("MainMenuManager");
+        MainMenuManager mmManager = managerGO.AddComponent<MainMenuManager>();
+
+        Button playBtn     = CreateButton(mainPanel, "PlayButton",     "JUGAR",   new Vector2(0f,  100f));
+        Button settingsBtn = CreateButton(mainPanel, "SettingsButton", "AJUSTES", new Vector2(0f,    0f));
+        Button quitBtn     = CreateButton(mainPanel, "QuitButton",     "SALIR",   new Vector2(0f, -100f));
+        UnityEventTools.AddPersistentListener(playBtn.onClick,
+            new UnityEngine.Events.UnityAction(mmManager.PlayGame));
+        UnityEventTools.AddPersistentListener(settingsBtn.onClick,
+            new UnityEngine.Events.UnityAction(mmManager.ShowSettings));
+        UnityEventTools.AddPersistentListener(quitBtn.onClick,
+            new UnityEngine.Events.UnityAction(mmManager.QuitGame));
+
+        // Panel Ajustes
+        GameObject settingsPanel = CreateStyledPanel(canvasGO, "SettingsPanel");
+        settingsPanel.SetActive(false);
+        RectTransform spRT = settingsPanel.GetComponent<RectTransform>();
+        spRT.anchorMin = new Vector2(0.5f, 0.5f); spRT.anchorMax = new Vector2(0.5f, 0.5f);
+        spRT.pivot = new Vector2(0.5f, 0.5f);
+        spRT.sizeDelta = new Vector2(500f, 380f); spRT.anchoredPosition = Vector2.zero;
+
+        CreateResultText(settingsPanel, "SettingsTitle", "AJUSTES", 28,
+            new Color(1f, 0.843f, 0f, 1f), new Vector2(0f, 150f));
+
+        Slider volSlider = CreateSlider(settingsPanel, "VolumeSlider");
+        volSlider.minValue = 0f; volSlider.maxValue = 1f; volSlider.value = 1f;
+        RectTransform volRT = volSlider.GetComponent<RectTransform>();
+        volRT.anchorMin = new Vector2(0.5f, 0.5f); volRT.anchorMax = new Vector2(0.5f, 0.5f);
+        volRT.pivot = new Vector2(0.5f, 0.5f);
+        volRT.sizeDelta = new Vector2(380f, 30f); volRT.anchoredPosition = new Vector2(0f, 50f);
+        CreateLegacyText(settingsPanel, "VolLabel", "VOLUMEN", 14,
+            new Color(1f, 0.843f, 0f, 1f), TextAnchor.MiddleCenter)
+            .GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, 90f);
+
+        Dropdown windowDD = CreateDropdown(settingsPanel, "WindowDropdown", new Vector2(0f, -10f));
+
+        Button backBtn = CreateButton(settingsPanel, "BackButton", "ATRÁS", new Vector2(0f, -100f));
+        UnityEventTools.AddPersistentListener(backBtn.onClick,
+            new UnityEngine.Events.UnityAction(mmManager.HideSettings));
+
+        // Wire MainMenuManager
+        SerializedObject mmSO = new SerializedObject(mmManager);
+        SetRef(mmSO, "mainPanel",            mainPanel);
+        SetRef(mmSO, "settingsPanel",        settingsPanel);
+        SetRef(mmSO, "masterVolumeSlider",   volSlider);
+        SetRef(mmSO, "windowModeDropdown",   windowDD);
+        mmSO.ApplyModifiedPropertiesWithoutUndo();
+
+        // EventSystem
+        GameObject esGO = new GameObject("EventSystem");
+        esGO.AddComponent<EventSystem>();
+        esGO.AddComponent<StandaloneInputModule>();
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene, MainMenuScenePath);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+
+        EditorUtility.DisplayDialog("Astral Swarm",
+            "¡Menú Principal configurado!\nAñade MainMenu a Build Settings (índice 0).", "OK");
     }
 }
 #endif
