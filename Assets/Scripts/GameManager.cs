@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,24 +36,12 @@ public class GameManager : MonoBehaviour
             uiManager.UpdateLevelText(currentLevel);
             uiManager.UpdateExperienceBar(currentExp, expToNextLevel);
             uiManager.UpdateTimer(timeRemaining);
+            uiManager.UpdateGold(currentGold);
         }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
-        {
-            bool levelingUp = uiManager != null
-                && uiManager.levelUpPanel != null
-                && uiManager.levelUpPanel.activeSelf;
-
-            if (!levelingUp)
-            {
-                if (isPaused) ResumeGame();
-                else { PauseGame(); uiManager?.ShowPauseMenu(true); }
-            }
-        }
-
         if (isGameOver || isPaused) return;
 
         timeRemaining -= Time.deltaTime;
@@ -65,7 +54,11 @@ public class GameManager : MonoBehaviour
             TriggerVictory();
     }
 
-    public void AddGold(int amount) => currentGold += amount;
+    public void AddGold(int amount)
+    {
+        currentGold += amount;
+        uiManager?.UpdateGold(currentGold);
+    }
     public float GetElapsedTime() => elapsedTime;
     public int GetCurrentLevel() => currentLevel;
 
@@ -101,15 +94,64 @@ public class GameManager : MonoBehaviour
 
     private ItemData[] GenerateLevelUpChoices()
     {
-        List<ItemData> pool = new List<ItemData>(itemPool);
+        InventoryManager inv = FindObjectOfType<InventoryManager>();
+        if (inv == null) return new ItemData[0];
+
+        List<ItemData> candidates = new List<ItemData>();
+        var owned = inv.GetOwnedItems();
+
+        // 1. Upgrades and Evolutions of owned items
+        foreach (var item in owned)
+        {
+            if (item.nextRarityUpgrade != null) candidates.Add(item.nextRarityUpgrade);
+            
+            if (item.evolutionTarget != null)
+            {
+                // Evolution requirement: owning the required passive (Megabonk)
+                if (item.requiredPassive == null || owned.Contains(item.requiredPassive))
+                {
+                    candidates.Add(item.evolutionTarget);
+                }
+            }
+        }
+
+        // 2. New items from pool (if slots available)
+        foreach (var pItem in itemPool)
+        {
+            if (owned.Contains(pItem)) continue; // Already have this version
+
+            bool canAdd = false;
+            switch (pItem.type)
+            {
+                case ItemType.Weapon: if (inv.HasWeaponSpace()) canAdd = true; break;
+                case ItemType.ActiveSkill: if (inv.HasActiveSpace()) canAdd = true; break;
+                case ItemType.Passive:
+                case ItemType.Growth: canAdd = true; break;
+            }
+
+            if (canAdd)
+            {
+                // Only allow adding the "Common" or "Starting" version from pool
+                // Higher rarities are reached through upgrades
+                if (pItem.rarity == ItemRarity.Common)
+                {
+                    candidates.Add(pItem);
+                }
+            }
+        }
+
+        // 3. Select 3 unique random choices
         List<ItemData> choices = new List<ItemData>();
-        int count = Mathf.Min(3, pool.Count);
+        candidates = candidates.Distinct().ToList(); // Remove duplicates
+        
+        int count = Mathf.Min(3, candidates.Count);
         for (int i = 0; i < count; i++)
         {
-            int idx = Random.Range(0, pool.Count);
-            choices.Add(pool[idx]);
-            pool.RemoveAt(idx);
+            int idx = Random.Range(0, candidates.Count);
+            choices.Add(candidates[idx]);
+            candidates.RemoveAt(idx);
         }
+
         return choices.ToArray();
     }
 
@@ -118,10 +160,18 @@ public class GameManager : MonoBehaviour
         InventoryManager inv = FindObjectOfType<InventoryManager>();
         if (inv != null)
         {
-            if (chosen.type == ItemType.Weapon)
-                inv.AddWeapon(chosen);
+            // Check if this is an upgrade for an existing item
+            var owned = inv.GetOwnedItems();
+            ItemData baseItem = owned.Find(o => o.nextRarityUpgrade == chosen || o.evolutionTarget == chosen);
+            
+            if (baseItem != null)
+            {
+                inv.UpgradeItem(baseItem, chosen);
+            }
             else
+            {
                 inv.AddItem(chosen);
+            }
         }
         ResumeGame();
     }
@@ -137,10 +187,7 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         if (uiManager != null)
-        {
             uiManager.ShowLevelUpMenu(false);
-            uiManager.ShowPauseMenu(false);
-        }
     }
 
     public void TriggerGameOver()
