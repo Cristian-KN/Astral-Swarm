@@ -41,7 +41,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" class="menu-footer">
-                <ui:Label text="v0.1.0 · ALPHA" class="version"/>
+                <ui:Label text="v1.0.0" class="version"/>
             </ui:VisualElement>
         </ui:VisualElement>
 

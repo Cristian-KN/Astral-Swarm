@@ -1,6 +1,6 @@
 # Astral Swarm
 
-> **Sobrevive al enjambre.** — *v0.1.0 · ALPHA*
+> **Sobrevive al enjambre.** — *v1.0.0*
 
 Astral Swarm es un juego de acción y supervivencia *(estilo "survivor")* en pixel art:
 eliges un héroe, sobrevives a oleadas crecientes de enemigos, recoges gemas de
@@ -106,4 +106,4 @@ Assets/
 
 ---
 
-*Astral Swarm — v0.1.0 ALPHA.*
+*Astral Swarm — v1.0.0.*
