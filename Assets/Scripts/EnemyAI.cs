@@ -33,18 +33,21 @@ public class EnemyAI : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private float fireTimer;
+    private float collisionDamageTimer;
     private GameManager gameManager;
+    private EnemyStats stats; // Cached to avoid GetComponent in FixedUpdate
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        stats = GetComponent<EnemyStats>(); // Cache once
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb.freezeRotation = true;
         rb.gravityScale = 0f;
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) playerTransform = player.transform;
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     /// <summary>Factor de dificultad por tiempo: empieza bajo y sube hasta el máximo.</summary>
@@ -59,7 +62,9 @@ public class EnemyAI : MonoBehaviour
     {
         if (playerTransform == null) return;
 
-        EnemyStats stats = GetComponent<EnemyStats>();
+        if (collisionDamageTimer > 0f)
+            collisionDamageTimer -= Time.fixedDeltaTime;
+
         EnemyVariantType variant = stats != null ? stats.variant : EnemyVariantType.Normal;
 
         Vector2 toPlayer = (Vector2)(playerTransform.position - transform.position);
@@ -104,8 +109,9 @@ public class EnemyAI : MonoBehaviour
     private void Shoot(Vector2 direction)
     {
         if (projectilePrefab == null) return;
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayMonsterAttackSound();
         GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        var ep = proj.GetComponent<EnemyProjectile>();
+        EnemyProjectile ep = proj.GetComponent<EnemyProjectile>();
         if (ep != null)
         {
             ep.SetDirection(direction);
@@ -115,10 +121,14 @@ public class EnemyAI : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && collisionDamageTimer <= 0f)
         {
             PlayerStats stats = collision.gameObject.GetComponent<PlayerStats>();
-            if (stats != null) stats.TakeDamage(collisionDamage);
+            if (stats != null)
+            {
+                stats.TakeDamage(collisionDamage);
+                collisionDamageTimer = 1f; // Cooldown de 1 segundo entre golpes
+            }
         }
     }
 }

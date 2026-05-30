@@ -55,7 +55,7 @@ public class BiomeManager : MonoBehaviour
     {
         if (backgroundGenerator == null)
         {
-            backgroundGenerator = FindObjectOfType<SpaceBackgroundGenerator>();
+            backgroundGenerator = FindFirstObjectByType<SpaceBackgroundGenerator>();
         }
 
         // Decidir si la partida empieza con bioma especial

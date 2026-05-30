@@ -33,7 +33,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -60,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -112,19 +112,19 @@ TextureImporter:
       name: Archer_Run_0
       rect:
         serializedVersion: 2
-        x: 56
-        y: 55
-        width: 72
-        height: 87
+        x: 0
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0dfb5ef19e1954b70800000000000000
+      spriteID: ba6b83995cc9a124fb2aa0a36f7c22d4
       internalID: 8882666270506729424
       vertices: []
       indices: 
@@ -134,19 +134,19 @@ TextureImporter:
       name: Archer_Run_1
       rect:
         serializedVersion: 2
-        x: 248
-        y: 55
-        width: 75
-        height: 91
+        x: 192
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ad64f4d9277c4d470800000000000000
+      spriteID: c729506905dd54d49ad723bc6e13b01b
       internalID: 8418572898541717210
       vertices: []
       indices: 
@@ -156,19 +156,19 @@ TextureImporter:
       name: Archer_Run_2
       rect:
         serializedVersion: 2
-        x: 442
-        y: 55
-        width: 73
-        height: 92
+        x: 384
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c13bedad5ea7d3440800000000000000
+      spriteID: dd9a5903e1353fc499e02571c7ed7c77
       internalID: 4917221495796577052
       vertices: []
       indices: 
@@ -178,19 +178,19 @@ TextureImporter:
       name: Archer_Run_3
       rect:
         serializedVersion: 2
-        x: 634
-        y: 55
-        width: 71
-        height: 91
+        x: 576
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f8314b0d710f93210800000000000000
+      spriteID: 3e4235dc2729e09419a9b7c394b0b418
       internalID: 1313344751431586703
       vertices: []
       indices: 
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e97f927797102a243b9b0d32f7686862
     internalID: 0
     vertices: []
     indices: 

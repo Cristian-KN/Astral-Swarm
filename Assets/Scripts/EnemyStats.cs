@@ -8,22 +8,23 @@ public class EnemyStats : MonoBehaviour
     [Header("Estadísticas Base (Normal)")]
     [SerializeField] private float baseMaxHealth = 50;
     private float currentHealth;
-    [SerializeField] private float baseRegenPerSecond = 0f;
 
     [Header("Recompensas")]
     [SerializeField] private GameObject[] gemPrefabs;
     [SerializeField] private GameObject[] moneyPrefabs;
 
     private float healthMultiplier = 1f;
-private float expMultiplier = 1f;
+    private float expMultiplier = 1f;
     private float goldMultiplier = 1f;
     private float regenAmount = 0f;
+    private GameManager gameManager;
 
     private void Start()
     {
         ApplyVariantStats();
         currentHealth = baseMaxHealth * healthMultiplier;
-        
+        gameManager = FindFirstObjectByType<GameManager>();
+
         // Aplicar color visual
         EnemyColorizer colorizer = GetComponent<EnemyColorizer>();
         if (colorizer != null) colorizer.ApplyColor(variant);
@@ -104,16 +105,16 @@ private float expMultiplier = 1f;
     private void Die()
     {
         CalculateAndDropRewards();
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayEnemyDeathSound();
         Destroy(gameObject); 
     }
 
     private void CalculateAndDropRewards()
     {
-        GameManager gm = FindObjectOfType<GameManager>();
-        if (gm == null) return;
+        if (gameManager == null) return;
 
         // Fórmula Base: 1 + Nivel + (Tiempo / 60)
-        float baseDrop = 1 + gm.GetCurrentLevel() + (gm.GetElapsedTime() / 60f);
+        float baseDrop = 1 + gameManager.GetCurrentLevel() + (gameManager.GetElapsedTime() / 60f);
 
         int totalExp = Mathf.RoundToInt(baseDrop * expMultiplier);
         int totalGold = Mathf.RoundToInt(baseDrop * goldMultiplier);

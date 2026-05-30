@@ -37,13 +37,13 @@
     -unity-background-scale-mode: stretch-to-fill;
     /* background-image (radial) + tint set from code; flicker animated in code */
 }
-/* positions as px on the 1408x768 stage, centered on the point */
-.t-moon    { left: 530px;  top: 160px;  width: 380px; height: 380px; margin-left: -190px; margin-top: -190px; }
-.t-gate    { left: 340px;  top: 380px; width: 220px; height: 220px; margin-left: -110px; margin-top: -110px; }
-.t-path    { left: 300px;  top: 520px; width: 300px; height: 300px; margin-left: -150px; margin-top: -150px; }
-.t-village { left: 1120px; top: 500px; width: 280px; height: 280px; margin-left: -140px; margin-top: -140px; }
-.t-fire    { left: 1180px; top: 620px; width: 500px; height: 500px; margin-left: -250px; margin-top: -250px; }
-.t-lantern { left: 370px; top: 280px; width: 200px; height: 200px; margin-left: -100px; margin-top: -100px; }
+/* Coordenadas exactas del Event System (centradas con márgenes negativos según el tamaño de cada glow) */
+.t-moon    { position: absolute; left: 307px; top: 410px; width: 300px; height: 300px; margin-left: -150px; margin-top: -150px; }
+.t-gate    { position: absolute; left: 245px; top: 122px; width: 220px; height: 220px; margin-left: -110px; margin-top: -110px; }
+.t-path    { position: absolute; left: 589px; top: 142px; width: 220px; height: 220px; margin-left: -110px; margin-top: -110px; }
+.t-village { display: none; }
+.t-fire    { position: absolute; left: 690px; top: 70px; width: 400px; height: 400px; margin-left: -200px; margin-top: -200px; }
+.t-lantern { position: absolute; left: 769px; top: 91px; width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; }
 
 /* drifting embers */
 .embers {
@@ -257,7 +257,34 @@
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
 }
 
-/* segmented display-mode toggle */
+.dropdown {
+    height: 44px;
+    background-color: var(--seg-bg);
+    border-width: 3px;
+    border-color: var(--panel-border);
+    margin: 0 5px 20px 5px;
+    color: var(--btn-text);
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 18px;
+}
+
+.dropdown:hover {
+    background-color: var(--seg-bg-hi);
+}
+
+.dropdown .unity-base-field__label {
+    display: none;
+}
+
+.dropdown .unity-base-popup-field__input {
+    background-color: transparent;
+    border-width: 0;
+    padding: 0 10px;
+    height: 100%;
+    align-items: center;
+}
+
+/* sliders */
 .seg {
     flex-direction: row;
     justify-content: space-between;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PixelifySans
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.TextCore.Text.FontAsset
   m_Version: 1.1.0
-  m_Material: {fileID: 6581555332682786947}
+  m_Material: {fileID: 1930897679849709645}
   m_SourceFontFileGUID: 74e5133c4ffa46a41b515737063ac982
   m_fontAssetCreationEditorSettings:
     sourceFontFileGUID: 
@@ -1887,7 +1887,7 @@ MonoBehaviour:
     m_GlyphIndex: 200
     m_Scale: 1
   m_AtlasTextures:
-  - {fileID: 7701268424504258137}
+  - {fileID: 3272538656475864181}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 1
   m_GetFontFeatures: 1
@@ -2525,7 +2525,7 @@ MonoBehaviour:
   m_BoldStyleSpacing: 7
   m_ItalicStyleSlant: 35
   m_TabMultiple: 10
---- !u!21 &6581555332682786947
+--- !u!21 &1930897679849709645
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -2549,7 +2549,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 7701268424504258137}
+        m_Texture: {fileID: 3272538656475864181}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -2582,7 +2582,7 @@ Material:
     - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!28 &7701268424504258137
+--- !u!28 &3272538656475864181
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

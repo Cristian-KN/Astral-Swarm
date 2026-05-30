@@ -77,9 +77,9 @@ public class BiomeUIDisplay : MonoBehaviour
             biomeNameText.color = isSpecial ? specialBiomeColor : normalBiomeColor;
 
             // Animación de entrada (simple scale pulse)
-            LeanTween.cancel(biomeNameText.gameObject);
+            // LeanTween.cancel(biomeNameText.gameObject);
             biomeNameText.transform.localScale = Vector3.one * 1.5f;
-            LeanTween.scale(biomeNameText.gameObject, Vector3.one, 0.5f).setEaseOutBack();
+            // LeanTween.scale(biomeNameText.gameObject, Vector3.one, 0.5f).setEaseOutBack();
         }
 
         // Mostrar notificación temporal

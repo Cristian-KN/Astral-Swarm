@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Jersey25
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.TextCore.Text.FontAsset
   m_Version: 1.1.0
-  m_Material: {fileID: 7447353301243893423}
+  m_Material: {fileID: 8351288098067309730}
   m_SourceFontFileGUID: 21e85a804920d8c469f56fa8f9c42fcb
   m_fontAssetCreationEditorSettings:
     sourceFontFileGUID: 
@@ -1887,7 +1887,7 @@ MonoBehaviour:
     m_GlyphIndex: 177
     m_Scale: 1
   m_AtlasTextures:
-  - {fileID: 1942319851980084336}
+  - {fileID: 2439320162126642629}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 1
   m_GetFontFeatures: 1
@@ -2589,7 +2589,7 @@ MonoBehaviour:
   m_BoldStyleSpacing: 7
   m_ItalicStyleSlant: 35
   m_TabMultiple: 10
---- !u!28 &1942319851980084336
+--- !u!28 &2439320162126642629
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2635,7 +2635,7 @@ Texture2D:
     offset: 0
     size: 0
     path: 
---- !u!21 &7447353301243893423
+--- !u!21 &8351288098067309730
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -2659,7 +2659,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 1942319851980084336}
+        m_Texture: {fileID: 2439320162126642629}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []

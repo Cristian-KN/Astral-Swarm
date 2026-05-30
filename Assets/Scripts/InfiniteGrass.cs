@@ -17,17 +17,17 @@ public class InfiniteGrass : MonoBehaviour
 
     [Header("Decoración con colisión (árboles, rocas)")]
     public Sprite[] obstacleSprites;
-    [Range(0f, 1f)] public float obstacleChance = 0.04f;
+    [Range(0f, 1f)] public float obstacleChance = 0f; // DESACTIVADO - usa ObstacleSpawner
     public Vector2 obstacleScaleRange = new Vector2(1.4f, 2.2f);
 
     [Header("Decoración sin colisión (arbustos, flores)")]
     public Sprite[] decorSprites;
-    [Range(0f, 1f)] public float decorChance = 0.05f;
-    public Vector2 decorScaleRange = new Vector2(0.8f, 1.3f);
+    [Range(0f, 1f)] public float decorChance = 0.0005f; // Muy bajo
+    public Vector2 decorScaleRange = new Vector2(0.6f, 0.9f);
 
     [Header("General")]
-    [Tooltip("Radio libre de obstáculos alrededor del jugador.")]
-    public float clearRadius = 3.5f;
+    [Tooltip("Radio libre de obstáculos alrededor del jugador (área visible).")]
+    public float clearRadius = 8f;
 
     private Tilemap tilemap;
     private Transform player;
@@ -47,7 +47,15 @@ public class InfiniteGrass : MonoBehaviour
         GameObject p = GameObject.FindWithTag("Player");
         if (p != null) player = p.transform;
         PaintAround(force: true);
+
+        // Desactivar generación de decoración si quieres solo césped
+        // Descomenta la siguiente línea para desactivar obstáculos:
+        // enabled = false;
     }
+
+    private float updateTimer = 0f;
+    [Tooltip("Intervalo en segundos para actualizar el césped (mayor = mejor rendimiento)")]
+    public float updateInterval = 0.5f; // Solo actualizar cada medio segundo
 
     private void Update()
     {
@@ -57,7 +65,14 @@ public class InfiniteGrass : MonoBehaviour
             if (p != null) player = p.transform;
             return;
         }
-        PaintAround(force: false);
+
+        // OPTIMIZACIÓN: Solo actualizar cada X segundos, no cada frame
+        updateTimer += Time.deltaTime;
+        if (updateTimer >= updateInterval)
+        {
+            updateTimer = 0f;
+            PaintAround(force: false);
+        }
     }
 
     private void PaintAround(bool force)
@@ -122,7 +137,20 @@ public class InfiniteGrass : MonoBehaviour
         go.transform.localScale = Vector3.one * scale;
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = sprite;
-        sr.sortingOrder = Mathf.RoundToInt(-pos.y * 100);
+
+        // Y-sorting: MISMA fórmula que el jugador y obstáculos
+        // Para decoraciones pequeñas (plantas), usar su posición Y directamente
+        float sortY = pos.y;
+
+        // Si es decoración sin colisión, ajustar ligeramente hacia abajo
+        // para que aparezca detrás si está al mismo nivel
+        if (name == "Decor")
+        {
+            sortY -= 0.1f; // Pequeño offset para que esté detrás del jugador
+        }
+
+        sr.sortingOrder = Mathf.RoundToInt((100 - sortY) * 10);
+
         return go;
     }
 }

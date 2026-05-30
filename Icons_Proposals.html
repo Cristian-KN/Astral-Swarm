@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astral Swarm - Propuestas de Icono</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 40px;
+      background: #1a1520;
+      font-family: 'Pirata One', serif;
+      color: #ecdcb6;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .icon-proposal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .icon-container {
+      width: 512px;
+      height: 512px;
+      position: relative;
+      border: 4px solid #3a2414;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .icon-title {
+      font-size: 28px;
+      color: #d24b3a;
+      text-align: center;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .download-note {
+      font-size: 14px;
+      color: #999;
+      text-align: center;
+      max-width: 512px;
+    }
+
+    /* ICONO 1: Minimalista Gothic */
+    #icon1 {
+      background: linear-gradient(135deg, #2c1d13 0%, #1a0f09 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #icon1 .as-letters {
+      font-family: 'UnifrakturCook', serif;
+      font-size: 320px;
+      font-weight: 700;
+      color: #ecdcb6;
+      line-height: 0.8;
+      text-shadow:
+        4px 4px 0 #1c0d09,
+        0 0 40px rgba(210, 75, 58, 0.4),
+        0 0 80px rgba(210, 75, 58, 0.2);
+    }
+
+    /* ICONO 2: Castillo en silueta */
+    #icon2 {
+      background:
+        radial-gradient(circle at 30% 20%, rgba(150, 180, 220, 0.15), transparent 40%),
+        linear-gradient(180deg, #1a1530 0%, #0d0a18 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #icon2 .moon {
+      position: absolute;
+      top: 60px;
+      right: 80px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, #e8dcc0 0%, #c0b090 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 60px rgba(232, 220, 192, 0.4);
+    }
+
+    #icon2 .castle-silhouette {
+      position: absolute;
+      bottom: 60px;
+      width: 300px;
+      height: 200px;
+      background: #0a0610;
+      clip-path: polygon(
+        0% 100%,
+        0% 60%,
+        10% 60%,
+        10% 40%,
+        15% 40%,
+        15% 30%,
+        20% 30%,
+        20% 20%,
+        30% 20%,
+        30% 35%,
+        40% 35%,
+        40% 15%,
+        50% 15%,
+        50% 10%,
+        60% 10%,
+        60% 15%,
+        70% 15%,
+        70% 35%,
+        80% 35%,
+        80% 20%,
+        90% 20%,
+        90% 40%,
+        95% 40%,
+        95% 60%,
+        100% 60%,
+        100% 100%
+      );
+    }
+
+    #icon2 .as-letters-overlay {
+      font-family: 'UnifrakturCook', serif;
+      font-size: 240px;
+      font-weight: 700;
+      color: #d24b3a;
+      text-shadow:
+        3px 3px 0 #0a0610,
+        0 0 50px rgba(210, 75, 58, 0.6);
+      z-index: 10;
+    }
+
+    /* ICONO 3: Emblema Circular */
+    #icon3 {
+      background: linear-gradient(135deg, #3a2517 0%, #1a0d07 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    #icon3 .emblem-circle {
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, #ddc492 0%, #c9a876 40%, #8a6a4a 100%);
+      border: 8px solid #3a2414;
+      box-shadow:
+        inset 0 0 60px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(210, 75, 58, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    #icon3 .emblem-circle::before {
+      content: '';
+      position: absolute;
+      inset: 20px;
+      border-radius: 50%;
+      border: 4px solid rgba(210, 75, 58, 0.4);
+    }
+
+    #icon3 .as-emblem {
+      font-family: 'UnifrakturCook', serif;
+      font-size: 220px;
+      font-weight: 700;
+      color: #1c0d09;
+      text-shadow:
+        2px 2px 0 rgba(255, 250, 235, 0.3),
+        0 0 30px rgba(210, 75, 58, 0.4);
+      z-index: 2;
+    }
+
+    /* ICONO 4: Escudo Medieval */
+    #icon4 {
+      background:
+        radial-gradient(ellipse at center, #2a1a20 0%, #0a0508 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    #icon4 .shield {
+      width: 350px;
+      height: 420px;
+      background: linear-gradient(135deg, #5a3a2a 0%, #3a2214 50%, #2a180c 100%);
+      clip-path: polygon(
+        50% 0%,
+        100% 15%,
+        100% 70%,
+        50% 100%,
+        0% 70%,
+        0% 15%
+      );
+      border: 6px solid #1a0d07;
+      box-shadow:
+        inset 4px 4px 0 rgba(255, 220, 160, 0.2),
+        inset -4px -4px 0 rgba(0, 0, 0, 0.6),
+        0 10px 40px rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    #icon4 .shield::before {
+      content: '';
+      position: absolute;
+      inset: 30px;
+      clip-path: inherit;
+      border: 3px solid rgba(210, 75, 58, 0.5);
+    }
+
+    #icon4 .as-shield {
+      font-family: 'UnifrakturCook', serif;
+      font-size: 200px;
+      font-weight: 700;
+      color: #ecdcb6;
+      text-shadow:
+        3px 3px 0 #1c0d09,
+        0 0 30px rgba(210, 75, 58, 0.5);
+      margin-top: -40px;
+      z-index: 2;
+    }
+
+    #icon4 .banner {
+      position: absolute;
+      bottom: 40px;
+      width: 280px;
+      height: 50px;
+      background: #d24b3a;
+      clip-path: polygon(
+        10% 0%,
+        90% 0%,
+        100% 50%,
+        90% 100%,
+        10% 100%,
+        0% 50%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Pirata One', serif;
+      font-size: 20px;
+      color: #fff0e6;
+      letter-spacing: 6px;
+      text-shadow: 2px 2px 0 #000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="icon-proposal">
+    <div class="icon-container" id="icon1">
+      <div class="as-letters">AS</div>
+    </div>
+    <h2 class="icon-title">Opción 1: Minimalista Gothic</h2>
+    <p class="download-note">Click derecho → Guardar como PNG (512x512)</p>
+  </div>
+
+  <div class="icon-proposal">
+    <div class="icon-container" id="icon2">
+      <div class="moon"></div>
+      <div class="castle-silhouette"></div>
+      <div class="as-letters-overlay">AS</div>
+    </div>
+    <h2 class="icon-title">Opción 2: Castillo Nocturno</h2>
+    <p class="download-note">Con silueta de castillo y luna</p>
+  </div>
+
+  <div class="icon-proposal">
+    <div class="icon-container" id="icon3">
+      <div class="emblem-circle">
+        <div class="as-emblem">AS</div>
+      </div>
+    </div>
+    <h2 class="icon-title">Opción 3: Emblema Circular</h2>
+    <p class="download-note">Estilo moneda/sello medieval</p>
+  </div>
+
+  <div class="icon-proposal">
+    <div class="icon-container" id="icon4">
+      <div class="shield">
+        <div class="as-shield">AS</div>
+        <div class="banner">ASTRAL</div>
+      </div>
+    </div>
+    <h2 class="icon-title">Opción 4: Escudo Medieval</h2>
+    <p class="download-note">Con banner decorativo</p>
+  </div>
+
+  <div style="width: 100%; text-align: center; padding: 40px; color: #666;">
+    <p style="font-size: 18px;">Usa la tecla de Windows + Shift + S para recortar cada icono manualmente<br>
+    O usa la herramienta Recortes de Windows (Win + Shift + S)</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    // Función para descargar icono
+    function downloadIcon(iconId, fileName) {
+      const icon = document.getElementById(iconId);
+
+      html2canvas(icon, {
+        width: 512,
+        height: 512,
+        scale: 1,
+        backgroundColor: null,
+        logging: false
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+
+    // Añadir botones de descarga
+    document.querySelectorAll('.icon-proposal').forEach((proposal, index) => {
+      const iconId = `icon${index + 1}`;
+      const button = document.createElement('button');
+      button.textContent = '📥 DESCARGAR PNG';
+      button.style.cssText = `
+        background: #d24b3a;
+        color: #fff0e6;
+        border: 3px solid #3a2414;
+        padding: 12px 24px;
+        font-family: 'Pirata One', serif;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        transition: all 0.2s;
+      `;
+      button.onmouseover = () => button.style.background = '#a32f25';
+      button.onmouseout = () => button.style.background = '#d24b3a';
+      button.onclick = () => downloadIcon(iconId, `AstralSwarm_Icon_${index + 1}.png`);
+      proposal.appendChild(button);
+    });
+  </script>
+
+</body>
+</html>

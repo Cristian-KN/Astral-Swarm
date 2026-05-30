@@ -15,13 +15,19 @@ public class MoneyPickup : MonoBehaviour
     private float          bobPhase;
     private GameManager    gameManager;
 
+    private static GameManager cachedGameManager;
+
     public void SetAmount(int amount) => moneyAmount = amount;
 
     private void Awake()
     {
         spawnY      = transform.position.y;
         bobPhase    = Random.Range(0f, Mathf.PI * 2f);
-        gameManager = FindObjectOfType<GameManager>();
+
+        // Cache GameManager to avoid expensive FindObjectOfType on every pickup
+        if (cachedGameManager == null)
+            cachedGameManager = FindFirstObjectByType<GameManager>();
+        gameManager = cachedGameManager;
 
         Collider2D col = GetComponent<Collider2D>();
         if (col != null) col.isTrigger = true;
@@ -59,6 +65,7 @@ public class MoneyPickup : MonoBehaviour
     private void Collect()
     {
         if (gameManager != null) gameManager.AddGold(moneyAmount);
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayPickupSound();
         Destroy(gameObject);
     }
 }

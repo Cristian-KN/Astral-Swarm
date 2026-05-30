@@ -17,7 +17,8 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         // Importante para proyectiles en 2D
         rb.gravityScale = 0f;
-        rb.isKinematic = true; // Para que lo movamos por código puro de forma constante, o se puede usar Dynamic. Usaremos velocidad.
+        rb.bodyType = RigidbodyType2D.Dynamic; // Use Dynamic for velocity-based movement
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation; // Prevent physics rotation
 
         // Autodestruir el proyectil a los 'maxLifeTime' segundos si no choca
         Destroy(gameObject, maxLifeTime);

@@ -14,9 +14,6 @@ public class MainMenuManager : MonoBehaviour
     public Slider musicVolumeSlider;
     public Slider sfxVolumeSlider;
 
-    [Header("Window Mode")]
-    public Dropdown windowModeDropdown;
-
     [Header("Animation")]
     [SerializeField] private float transitionTime = 0.25f;
 
@@ -28,20 +25,6 @@ public class MainMenuManager : MonoBehaviour
         if (masterVolumeSlider != null) masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
         if (musicVolumeSlider != null) musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
         if (sfxVolumeSlider != null) sfxVolumeSlider.onValueChanged.AddListener(SetSfxVolume);
-
-        if (windowModeDropdown != null)
-        {
-            windowModeDropdown.ClearOptions();
-            windowModeDropdown.AddOptions(new System.Collections.Generic.List<string>
-                { "Ventana", "Pantalla Completa", "Sin Bordes" });
-            windowModeDropdown.onValueChanged.AddListener(idx => {
-                switch (idx) {
-                    case 0: SetWindowed();   break;
-                    case 1: SetFullscreen(); break;
-                    case 2: SetBorderless(); break;
-                }
-            });
-        }
     }
 
     public void PlayGame() => SceneManager.LoadScene("Game");
@@ -91,7 +74,21 @@ public class MainMenuManager : MonoBehaviour
     public void SetBorderless() => Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
     public void SetWindowed() => Screen.fullScreenMode = FullScreenMode.Windowed;
 
-    public void SetMasterVolume(float v) => AudioListener.volume = v;
-    public void SetMusicVolume(float v) => Debug.Log("Music: " + v);
-    public void SetSfxVolume(float v) => Debug.Log("SFX: " + v);
+    public void SetMasterVolume(float v)
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetMasterVolume(v);
+    }
+
+    public void SetMusicVolume(float v)
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetMusicVolume(v);
+    }
+
+    public void SetSfxVolume(float v)
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetSfxVolume(v);
+    }
 }

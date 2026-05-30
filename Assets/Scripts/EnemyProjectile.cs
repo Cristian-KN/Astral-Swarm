@@ -18,7 +18,8 @@ public class EnemyProjectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
-        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.bodyType = RigidbodyType2D.Dynamic; // Use Dynamic for velocity-based movement
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation; // Prevent physics rotation
         Destroy(gameObject, maxLifeTime);
     }
 

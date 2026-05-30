@@ -195,7 +195,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   variant: 0
   baseMaxHealth: 50
-  baseRegenPerSecond: 0
   gemPrefabs:
   - {fileID: 8463666662686291133, guid: f9b7b1ad9e95d2d429098e55e802f56a, type: 3}
   - {fileID: 7886694253936948626, guid: 291e17dc9ce016345ace77d07427e0ca, type: 3}

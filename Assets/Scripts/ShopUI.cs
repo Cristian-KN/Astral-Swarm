@@ -13,8 +13,8 @@ public class ShopUI : MonoBehaviour
 
     private void Awake()
     {
-        shopManager = FindObjectOfType<ShopManager>();
-        gameManager = FindObjectOfType<GameManager>();
+        shopManager = FindFirstObjectByType<ShopManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     public void OpenShop()

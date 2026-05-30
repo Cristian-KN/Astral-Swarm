@@ -13,7 +13,7 @@ public class ShopManager : MonoBehaviour
 
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     public void OpenShop()
@@ -26,10 +26,11 @@ public class ShopManager : MonoBehaviour
     public void BuyItem(ItemData item)
     {
         int price = CalculatePrice(item);
-        
+
         if (gameManager.currentGold >= price)
         {
-            gameManager.currentGold -= price;
+            // Use AddGold to properly update UI
+            gameManager.AddGold(-price);
             
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)

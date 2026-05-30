@@ -45,7 +45,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -72,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -124,19 +124,19 @@ TextureImporter:
       name: Warrior_Idle_0
       rect:
         serializedVersion: 2
-        x: 61
-        y: 54
-        width: 81
-        height: 91
+        x: 0
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b15e03eace44a7660800000000000000
+      spriteID: 668093692bbb219409543f2ffa921f9a
       internalID: 7384290322352760091
       vertices: []
       indices: 
@@ -146,19 +146,19 @@ TextureImporter:
       name: Warrior_Idle_1
       rect:
         serializedVersion: 2
-        x: 253
-        y: 54
-        width: 81
-        height: 91
+        x: 192
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cf8d012b5f0222d40800000000000000
+      spriteID: 1e1e92381122dfe438d998ce44a7eb65
       internalID: 5558041129755138300
       vertices: []
       indices: 
@@ -168,19 +168,19 @@ TextureImporter:
       name: Warrior_Idle_2
       rect:
         serializedVersion: 2
-        x: 445
-        y: 54
-        width: 81
-        height: 90
+        x: 384
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 968327294a2314c40800000000000000
+      spriteID: 5b3b97b58e0618340b96f3cb4ba580ee
       internalID: 5494728702781700201
       vertices: []
       indices: 
@@ -190,19 +190,19 @@ TextureImporter:
       name: Warrior_Idle_3
       rect:
         serializedVersion: 2
-        x: 635
-        y: 54
-        width: 83
-        height: 88
+        x: 576
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3738a78a2f501eb00800000000000000
+      spriteID: f81d8a1d316326243b7694b9fdc5f40c
       internalID: 855971943943930739
       vertices: []
       indices: 
@@ -212,19 +212,19 @@ TextureImporter:
       name: Warrior_Idle_4
       rect:
         serializedVersion: 2
-        x: 826
-        y: 54
-        width: 85
-        height: 87
+        x: 768
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ed58d7a3649b63770800000000000000
+      spriteID: 29c359eefe7765b45b8d3961261a2735
       internalID: 8590257050535953886
       vertices: []
       indices: 
@@ -234,19 +234,19 @@ TextureImporter:
       name: Warrior_Idle_5
       rect:
         serializedVersion: 2
-        x: 1019
-        y: 54
-        width: 85
-        height: 87
+        x: 960
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6bb2c7f1f58e0bfe0800000000000000
+      spriteID: 973c429040e26f44991d3302cc9b52dd
       internalID: -1175184007495930954
       vertices: []
       indices: 
@@ -256,19 +256,19 @@ TextureImporter:
       name: Warrior_Idle_6
       rect:
         serializedVersion: 2
-        x: 1211
-        y: 54
-        width: 84
-        height: 89
+        x: 1152
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: de7f384472dbb1fb0800000000000000
+      spriteID: 6c4b2044ab8992944b168a08f7b3c0ef
       internalID: -4675935811743254547
       vertices: []
       indices: 
@@ -278,19 +278,19 @@ TextureImporter:
       name: Warrior_Idle_7
       rect:
         serializedVersion: 2
-        x: 1404
-        y: 54
-        width: 82
-        height: 90
+        x: 1344
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 24108ad4f2d278910800000000000000
+      spriteID: 7f195c4e592766a419f3a6f9f8e32a0d
       internalID: 1839488653993705794
       vertices: []
       indices: 
@@ -300,7 +300,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0afe953e88c6f3a4fb0027e4b068bbad
     internalID: 0
     vertices: []
     indices: 

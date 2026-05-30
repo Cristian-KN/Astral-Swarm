@@ -8,12 +8,12 @@ public class TerrainGenerator : MonoBehaviour
 {
     [Header("Referencias")]
     [SerializeField] private Transform player;
-    [SerializeField] private GameObject obstaclePrefab; // Prefab simple con collider
+    [SerializeField] private GameObject obstaclePrefab; 
+    [SerializeField] private Sprite grassSprite; 
 
     [Header("Configuración del Césped")]
-    [SerializeField] private int grassTileSize = 2;
-    [SerializeField] private int grassTilesX = 15;
-    [SerializeField] private int grassTilesY = 15;
+    [SerializeField] private float grassTileSize = 2f;
+    [SerializeField] private int viewDistance = 3; 
 
     [Header("Configuración de Obstáculos")]
     [Tooltip("Densidad de obstáculos (0.0 - 1.0)")]
@@ -31,14 +31,16 @@ public class TerrainGenerator : MonoBehaviour
     private Transform obstacleContainer;
     private Dictionary<Vector2Int, GameObject> grassTiles = new Dictionary<Vector2Int, GameObject>();
     private Dictionary<Vector2Int, GameObject> obstacles = new Dictionary<Vector2Int, GameObject>();
-    private Vector2Int lastPlayerChunk;
+    private Vector2Int lastPlayerChunk = new Vector2Int(-999, -999);
 
     // Colores actuales del bioma
-    private Color currentGrassColor;
-    private Color currentObstacleColor;
+    private Color currentGrassColor = Color.white;
+    private Color currentObstacleColor = Color.white;
 
     private void Start()
     {
+        InitializeContainers();
+
         if (player == null)
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -47,31 +49,30 @@ public class TerrainGenerator : MonoBehaviour
 
         Random.InitState(seed);
 
-        // Crear contenedores
-        grassContainer = new GameObject("GrassContainer").transform;
-        grassContainer.SetParent(transform);
-
-        obstacleContainer = new GameObject("ObstacleContainer").transform;
-        obstacleContainer.SetParent(transform);
-
-        // Suscribirse a cambios de bioma
         if (BiomeManager.Instance != null)
         {
             BiomeManager.Instance.OnBiomeChange += OnBiomeChanged;
-        }
-
-        // Generar terreno inicial
-        GenerateInitialTerrain();
-
-        // Aplicar colores del bioma actual
-        if (BiomeManager.Instance != null)
-        {
             OnBiomeChanged(BiomeManager.Instance.GetCurrentBiome(), BiomeManager.Instance.IsSpecialBiome());
         }
         else
         {
-            // Colores por defecto
             ApplyBiomeColors(new Color(0.2f, 0.6f, 0.2f), new Color(0.3f, 0.2f, 0.1f), 0.15f);
+        }
+
+        UpdateTerrainAroundPlayer();
+    }
+
+    private void InitializeContainers()
+    {
+        if (grassContainer == null)
+        {
+            grassContainer = new GameObject("GrassContainer").transform;
+            grassContainer.SetParent(transform);
+        }
+        if (obstacleContainer == null)
+        {
+            obstacleContainer = new GameObject("ObstacleContainer").transform;
+            obstacleContainer.SetParent(transform);
         }
     }
 
@@ -83,34 +84,17 @@ public class TerrainGenerator : MonoBehaviour
         }
     }
 
-    private void GenerateInitialTerrain()
-    {
-        if (player == null) return;
-
-        Vector2Int playerChunk = GetChunkCoord(player.position);
-
-        // Generar área inicial 3x3 chunks
-        for (int y = -1; y <= 1; y++)
-        {
-            for (int x = -1; x <= 1; x++)
-            {
-                GenerateChunk(playerChunk + new Vector2Int(x, y));
-            }
-        }
-
-        lastPlayerChunk = playerChunk;
-    }
-
     private void UpdateTerrainAroundPlayer()
     {
         Vector2Int playerChunk = GetChunkCoord(player.position);
 
         if (playerChunk != lastPlayerChunk)
         {
-            // Generar chunks nuevos alrededor del jugador
-            for (int y = -1; y <= 1; y++)
+            InitializeContainers();
+            
+            for (int y = -viewDistance; y <= viewDistance; y++)
             {
-                for (int x = -1; x <= 1; x++)
+                for (int x = -viewDistance; x <= viewDistance; x++)
                 {
                     Vector2Int chunk = playerChunk + new Vector2Int(x, y);
                     if (!grassTiles.ContainsKey(chunk))
@@ -120,28 +104,22 @@ public class TerrainGenerator : MonoBehaviour
                 }
             }
 
-            // Limpiar chunks lejanos (optimización)
             CleanupDistantChunks(playerChunk);
-
             lastPlayerChunk = playerChunk;
         }
     }
 
     private void GenerateChunk(Vector2Int chunkCoord)
     {
-        if (grassTiles.ContainsKey(chunkCoord)) return;
-
         Vector3 worldPos = new Vector3(
             chunkCoord.x * grassTileSize,
             chunkCoord.y * grassTileSize,
             0
         );
 
-        // Crear tile de césped
         GameObject grassTile = CreateGrassTile(worldPos);
         grassTiles[chunkCoord] = grassTile;
 
-        // Generar obstáculos en este chunk
         GenerateObstaclesInChunk(chunkCoord, worldPos);
     }
 
@@ -152,14 +130,31 @@ public class TerrainGenerator : MonoBehaviour
         tile.transform.position = position;
 
         SpriteRenderer sr = tile.AddComponent<SpriteRenderer>();
-        sr.sprite = GenerateGrassSprite();
-        sr.sortingOrder = -100; // Muy atrás
+        if (grassSprite != null)
+        {
+            sr.sprite = grassSprite;
+            // Adjust scale to match tileSize
+            float s = grassTileSize / grassSprite.bounds.size.x;
+            tile.transform.localScale = new Vector3(s, s, 1f);
+        }
+        else
+        {
+            sr.sprite = GenerateGrassSprite();
+            tile.transform.localScale = Vector3.one * (grassTileSize / (sr.sprite.rect.width / sr.sprite.pixelsPerUnit));
+        }
+        
+        sr.sortingOrder = -100;
         sr.color = currentGrassColor;
 
-        // Escalar para cubrir el tile
-        tile.transform.localScale = Vector3.one * grassTileSize;
-
         return tile;
+    }
+
+    [ContextMenu("Test Generate")]
+    public void TestGenerate()
+    {
+        if (Application.isPlaying) return;
+        InitializeContainers();
+        GenerateChunk(Vector2Int.zero);
     }
 
     private void GenerateObstaclesInChunk(Vector2Int chunkCoord, Vector3 worldPos)
@@ -207,6 +202,10 @@ public class TerrainGenerator : MonoBehaviour
         sr.sprite = GenerateObstacleSprite(type);
         sr.sortingOrder = Mathf.RoundToInt(position.y * -10); // Y-sorting
         sr.color = currentObstacleColor;
+
+        // Escala para hacer el sprite visible
+        float scale = type == ObstacleType.Tree ? 2f : 1.5f;
+        obstacle.transform.localScale = Vector3.one * scale;
 
         // Collider
         CircleCollider2D collider = obstacle.AddComponent<CircleCollider2D>();
@@ -426,7 +425,7 @@ public class TerrainGenerator : MonoBehaviour
         }
 
         tex.Apply();
-        return Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), 16);
+        return Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), size / 2);
     }
 
     private void OnDestroy()

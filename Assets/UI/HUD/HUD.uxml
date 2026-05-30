@@ -43,8 +43,42 @@
                 <ui:VisualElement name="pause-ico" class="ico" picking-mode="Ignore" />
             </ui:VisualElement>
 
+            <!-- Stats Panel (Left Side) -->
+            <ui:VisualElement name="stats-panel" class="stats-panel" picking-mode="Ignore">
+                <ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-atk" class="stat-icon" />
+                    <ui:Label text="10" name="stat-val-attack" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-attack" class="stat-mod" />
+                </ui:VisualElement>
+                <ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-atkspeed" class="stat-icon" />
+                    <ui:Label text="1.0" name="stat-val-attack-speed" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-attack-speed" class="stat-mod" />
+                </ui:VisualElement>
+<ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-range" class="stat-icon" />
+                    <ui:Label text="5.0" name="stat-val-range" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-range" class="stat-mod" />
+                </ui:VisualElement>
+                <ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-speed" class="stat-icon" />
+                    <ui:Label text="5.0" name="stat-val-speed" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-speed" class="stat-mod" />
+                </ui:VisualElement>
+                <ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-luck" class="stat-icon" />
+                    <ui:Label text="1.0" name="stat-val-luck" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-luck" class="stat-mod" />
+                </ui:VisualElement>
+                <ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-diff" class="stat-icon" />
+                    <ui:Label text="0" name="stat-val-difficulty" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-difficulty" class="stat-mod" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
             <!-- Loadout (bottom-left) -->
-            <ui:VisualElement name="loadout" class="loadout" picking-mode="Ignore">
+<ui:VisualElement name="loadout" class="loadout" picking-mode="Ignore">
                 <ui:VisualElement class="row" picking-mode="Ignore">
                     <ui:Label text="ARMAS" class="row-label" />
                     <ui:VisualElement name="row-weapons" class="row-slots" picking-mode="Ignore" />
@@ -120,12 +154,62 @@
 
         <!-- ============ AJUSTES ============ -->
         <ui:VisualElement name="settings-overlay" class="pause-overlay" style="display:none;">
-            <ui:VisualElement class="pause-panel">
+            <ui:VisualElement name="settings-panel" class="pause-panel">
                 <ui:Label text="Ajustes" class="pause-title" />
                 <ui:VisualElement class="pause-rule" />
-                <ui:VisualElement class="settings-row">
-                    <ui:Label text="VOLUMEN" class="set-label" />
-                    <ui:Slider name="vol-slider" low-value="0" high-value="1" value="1" class="set-slider" />
+                <ui:VisualElement class="setting-group">
+                    <ui:Label text="MODO DE PANTALLA" class="setting-label"/>
+                    <ui:VisualElement name="seg-display" class="seg">
+                        <ui:VisualElement name="seg-fullscreen" tabindex="0" focusable="true" class="seg-opt is-active">
+                            <ui:Label text="PANTALLA COMPLETA" picking-mode="Ignore" class="seg-opt__label"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="seg-borderless" tabindex="0" focusable="true" class="seg-opt">
+                            <ui:Label text="SIN BORDES" picking-mode="Ignore" class="seg-opt__label"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="seg-windowed" tabindex="0" focusable="true" class="seg-opt">
+                            <ui:Label text="VENTANA" picking-mode="Ignore" class="seg-opt__label"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="setting-group">
+                    <ui:Label text="RESOLUCIÓN" class="setting-label"/>
+                    <ui:DropdownField name="dropdown-res" class="dropdown"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="slider-row">
+                    <ui:VisualElement picking-mode="Ignore" class="slider-label-row">
+                        <ui:Label text="VOLUMEN GENERAL" class="setting-label"/>
+                        <ui:Label text="80%" name="val-master" class="val"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="slider-master" tabindex="0" focusable="true" class="pslider">
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__track">
+                            <ui:VisualElement picking-mode="Ignore" class="pslider__fill"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__handle"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="slider-row">
+                    <ui:VisualElement picking-mode="Ignore" class="slider-label-row">
+                        <ui:Label text="MÚSICA" class="setting-label"/>
+                        <ui:Label text="65%" name="val-music" class="val"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="slider-music" tabindex="0" focusable="true" class="pslider">
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__track">
+                            <ui:VisualElement picking-mode="Ignore" class="pslider__fill"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__handle"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="slider-row">
+                    <ui:VisualElement picking-mode="Ignore" class="slider-label-row">
+                        <ui:Label text="EFECTOS DE SONIDO" class="setting-label"/>
+                        <ui:Label text="75%" name="val-sfx" class="val"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="slider-sfx" tabindex="0" focusable="true" class="pslider">
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__track">
+                            <ui:VisualElement picking-mode="Ignore" class="pslider__fill"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__handle"/>
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement class="pause-menu">
                     <ui:VisualElement name="sbtn-back" class="pixbtn primary">

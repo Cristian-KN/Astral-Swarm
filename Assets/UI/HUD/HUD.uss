@@ -1,3 +1,7 @@
+/*
+2026-05-29 AI-Tag
+This was created with the help of Assistant, a Unity Artificial Intelligence product.
+*/
 /* ===========================================================
    ASTRAL SWARM — HUD in-game (UI Toolkit port of hud.css)
    Pixel-art dark fantasy · tema "Forja de Hierro" (ember-gold)
@@ -81,7 +85,7 @@
     border-bottom-color: var(--gold-deep);
 }
 .lvl-word {
-    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
     font-size: 12px;
     letter-spacing: 2px;
     color: #1c1206;
@@ -89,7 +93,7 @@
     -unity-text-align: middle-center;
 }
 .lvl-num {
-    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/PixelifySans.asset");
     font-size: 28px;
     -unity-font-style: bold;
     color: #1c1206;
@@ -105,14 +109,14 @@
     padding: 6px 26px 8px 26px;
 }
 .t-label {
-    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
     font-size: 10px;
     letter-spacing: 4px;
     color: var(--text-dim);
     -unity-text-align: middle-center;
 }
 .t-clock {
-    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/PixelifySans.asset");
     font-size: 44px;
     -unity-font-style: bold;
     color: #fff3d6;
@@ -144,7 +148,7 @@
 }
 .coin { width: 24px; height: 24px; margin-right: 9px; }
 .amt {
-    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/PixelifySans.asset");
     font-size: 22px;
     -unity-font-style: bold;
     color: var(--gold);
@@ -169,6 +173,60 @@
 }
 .pause-btn:active { scale: 0.92 0.92; }
 
+/* ============ STATS PANEL ============ */
+.stats-panel {
+    position: absolute;
+    left: 40px;
+    top: 180px;
+    flex-direction: column;
+}
+
+.stat-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.stat-icon {
+    width: 36px;
+    height: 36px;
+    margin-right: 15px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.stat-value {
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Jersey25.asset");
+    font-size: 38px;
+    color: #ffffff;
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.8);
+    min-width: 70px;
+}
+
+.stat-mod {
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Jersey25.asset");
+    font-size: 30px;
+    color: #4caf50;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.6);
+    margin-left: 15px;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+}
+
+.stat-mod.show {
+    opacity: 1;
+}
+
+/* Icons */
+#ico-atk { background-image: url("project://database/Assets/Sprites/Downloaded/TinySwords/UI Elements/UI Elements/Icons/Icon_05.png"); }
+#ico-atkspeed { background-image: url("project://database/Assets/Sprites/Downloaded/Icons_Shikashi/%231%20-%20Transparent%20Icons.png#%231%20-%20Transparent%20Icons_14"); }
+#ico-range { background-image: url("project://database/Assets/Sprites/Downloaded/Icons_Shikashi/%231%20-%20Transparent%20Icons.png#%231%20-%20Transparent%20Icons_94"); }
+#ico-speed { background-image: url("project://database/Assets/Sprites/Downloaded/Icons_Shikashi/%231%20-%20Transparent%20Icons.png#%231%20-%20Transparent%20Icons_119"); }
+#ico-luck { background-image: url("project://database/Assets/Sprites/Downloaded/Items_7Soul/Item%207-1.png.png"); }
+#ico-diff { background-image: url("project://database/Assets/Sprites/Downloaded/Icons_Shikashi/%231%20-%20Transparent%20Icons.png#%231%20-%20Transparent%20Icons_0"); }
+
 /* ============ LOADOUT ============ */
 .loadout {
     position: absolute; bottom: 20px; left: 20px;
@@ -176,7 +234,7 @@
 }
 .row { flex-direction: row; align-items: center; margin-top: 10px; }
 .row-label {
-    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
     font-size: 9px;
     letter-spacing: 2px;
     color: var(--text-dim);
@@ -201,7 +259,7 @@
 .slot .ico { width: 38px; height: 38px; }
 .slot.is-empty { background-color: #1b1a21; }
 .slot .empty-plus {
-    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/PixelifySans.asset");
     font-size: 26px;
     -unity-font-style: bold;
     color: #4a4654;
@@ -239,7 +297,7 @@
 }
 .map-label {
     position: absolute; top: 8px; left: 10px;
-    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
     font-size: 9px;
     letter-spacing: 2px;
     color: rgba(255, 255, 255, 0.75);
@@ -248,7 +306,7 @@
 .blip { position: absolute; }
 .blip.player { width: 9px; height: 9px; background-color: #fff; margin-left: -4px; margin-top: -4px; }
 .blip.enemy { width: 5px; height: 5px; background-color: var(--hp); margin-left: -2px; margin-top: -2px; }
-.blip.loot { width: 5px; height: 5px; background-color: var(--gold); margin-left: -2px; margin-top: -2px; }
+.blip.loot { width: 6px; height: 6px; background-color: #3da9fc; margin-left: -3px; margin-top: -3px; }
 
 /* ============ DAMAGE VIGNETTE ============ */
 .dmg-vignette {
@@ -273,7 +331,7 @@
 }
 .lvlup-head { align-items: center; margin-bottom: 30px; }
 .lvlup-title {
-    -unity-font-definition: url("../../Fonts/UITK/UnifrakturCook.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/UnifrakturCook.asset");
     font-size: 64px;
     -unity-font-style: bold;
     color: var(--gold);
@@ -284,7 +342,7 @@
 }
 .lvlup-sub {
     margin-top: 12px;
-    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
     font-size: 13px;
     letter-spacing: 6px;
     color: var(--text-dim);
@@ -316,7 +374,7 @@
     border-bottom-color: var(--accent);
 }
 .card-rarity {
-    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
     font-size: 10px;
     letter-spacing: 3px;
     color: var(--accent-2);
@@ -335,7 +393,7 @@
 }
 .card-icon .ico { width: 64px; height: 64px; }
 .card-name {
-    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/PixelifySans.asset");
     font-size: 25px;
     -unity-font-style: bold;
     color: var(--text);
@@ -345,7 +403,7 @@
     white-space: normal;
 }
 .card-tier {
-    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
     font-size: 11px;
     letter-spacing: 2px;
     color: var(--gold);
@@ -353,7 +411,7 @@
     -unity-text-align: middle-center;
 }
 .card-desc {
-    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/PixelifySans.asset");
     font-size: 16px;
     color: var(--text-dim);
     -unity-text-align: upper-center;
@@ -385,7 +443,7 @@
 }
 .pixbtn:active { scale: 0.98 0.96; }
 .pixbtn-label {
-    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/PixelifySans.asset");
     font-size: 18px;
     -unity-font-style: bold;
     letter-spacing: 2px;
@@ -394,7 +452,7 @@
     -unity-text-align: middle-center;
 }
 .badge {
-    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
     font-size: 11px;
     color: var(--gold);
     border-width: 2px;
@@ -426,7 +484,7 @@
     border-bottom-color: var(--ink);
 }
 .pause-title {
-    -unity-font-definition: url("../../Fonts/UITK/UnifrakturCook.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/UnifrakturCook.asset");
     font-size: 56px;
     -unity-font-style: bold;
     color: var(--gold);
@@ -454,7 +512,7 @@
 }
 .st { align-items: center; }
 .st .n {
-    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/PixelifySans.asset");
     font-size: 26px;
     -unity-font-style: bold;
     color: var(--gold);
@@ -462,20 +520,92 @@
     -unity-text-align: middle-center;
 }
 .st .l {
-    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
     font-size: 9px;
     letter-spacing: 2px;
     color: var(--text-dim);
     margin-top: 2px;
     -unity-text-align: middle-center;
 }
-.settings-row {
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 22px;
+.settings-group { margin-bottom: 22px; width: 100%; }
+.setting-label {
+    margin-bottom: 10px;
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
 }
+
+.dropdown {
+    height: 40px;
+    background-color: var(--metal-bg);
+    border-width: 3px;
+    border-color: var(--metal-lo);
+    margin: 0 5px 15px 5px;
+    color: var(--text);
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/PixelifySans.asset");
+    font-size: 16px;
+}
+.dropdown:hover { border-color: var(--accent); }
+.dropdown .unity-base-field__label { display: none; }
+.dropdown .unity-base-popup-field__input { background-color: transparent; border-width: 0; padding: 0 10px; height: 100%; align-items: center; }
+
+/* segmented display-mode toggle */
+.seg {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.seg-opt {
+    flex-grow: 1;
+    height: 40px;
+    margin: 0 5px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--metal-bg);
+    border-width: 3px;
+    border-color: var(--metal-lo);
+}
+.seg-opt:hover { background-color: var(--metal-hi); }
+.seg-opt__label {
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/PixelifySans.asset");
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: var(--text);
+    text-shadow: 1px 1px 0 #000;
+    -unity-text-align: middle-center;
+}
+.seg-opt.is-active { background-color: var(--gold); border-color: var(--accent); }
+.seg-opt.is-active .seg-opt__label { color: #1c1206; text-shadow: 0 0 0 rgba(0, 0, 0, 0); }
+
+/* sliders */
+.slider-row { margin-bottom: 16px; width: 100%; }
+.slider-label-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.val {
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/PixelifySans.asset");
+    font-size: 18px;
+    color: var(--gold);
+}
+.pslider { height: 22px; justify-content: center; }
+.pslider__track {
+    position: absolute; top: 6px; left: 0; right: 0; height: 10px;
+    background-color: var(--metal-lo);
+    border-width: 2px; border-color: var(--metal-hi);
+}
+.pslider__fill { position: absolute; top: 0; left: 0; bottom: 0; width: 50%; background-color: var(--accent); }
+.pslider__handle {
+    position: absolute; top: -5px; left: 50%; width: 18px; height: 28px; margin-left: -9px;
+    background-color: var(--metal-bg); border-width: 3px; border-color: var(--metal-hi);
+}
+.pslider:hover .pslider__handle { border-color: var(--accent); }
 .set-label {
-    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
     font-size: 11px;
     letter-spacing: 2px;
     color: var(--text-dim);

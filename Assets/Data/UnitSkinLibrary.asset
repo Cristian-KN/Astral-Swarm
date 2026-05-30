@@ -1,0 +1,496 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c06e337fedf7e014f867cc6c5cb5f889, type: 3}
+  m_Name: UnitSkinLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::UnitSkinLibrary
+  unitClasses:
+  - className: Warrior
+    skins:
+    - colorName: Blue
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: 7384290322352760091, guid: 2427975628ccb5843ab40e9ce9dbeb29, type: 3}
+        - {fileID: 5558041129755138300, guid: 2427975628ccb5843ab40e9ce9dbeb29, type: 3}
+        - {fileID: 5494728702781700201, guid: 2427975628ccb5843ab40e9ce9dbeb29, type: 3}
+        - {fileID: 855971943943930739, guid: 2427975628ccb5843ab40e9ce9dbeb29, type: 3}
+        - {fileID: 8590257050535953886, guid: 2427975628ccb5843ab40e9ce9dbeb29, type: 3}
+        - {fileID: -1175184007495930954, guid: 2427975628ccb5843ab40e9ce9dbeb29, type: 3}
+        - {fileID: -4675935811743254547, guid: 2427975628ccb5843ab40e9ce9dbeb29, type: 3}
+        - {fileID: 1839488653993705794, guid: 2427975628ccb5843ab40e9ce9dbeb29, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: -432731726981308715, guid: f1dd67ebdb0939f49a67e835b50dd24d, type: 3}
+        - {fileID: 8551124423323264409, guid: f1dd67ebdb0939f49a67e835b50dd24d, type: 3}
+        - {fileID: -8600065048725663906, guid: f1dd67ebdb0939f49a67e835b50dd24d, type: 3}
+        - {fileID: 3241423924572654580, guid: f1dd67ebdb0939f49a67e835b50dd24d, type: 3}
+        - {fileID: -5828329696384875631, guid: f1dd67ebdb0939f49a67e835b50dd24d, type: 3}
+        - {fileID: 2022560608615539102, guid: f1dd67ebdb0939f49a67e835b50dd24d, type: 3}
+      - animationName: Attack1
+        frames:
+        - {fileID: -3464697531994304634, guid: 03159bb10881e78468bf4e6b0607c7b2, type: 3}
+        - {fileID: 8738852634765236386, guid: 03159bb10881e78468bf4e6b0607c7b2, type: 3}
+        - {fileID: 1435813858662126931, guid: 03159bb10881e78468bf4e6b0607c7b2, type: 3}
+        - {fileID: 2647078634671427691, guid: 03159bb10881e78468bf4e6b0607c7b2, type: 3}
+      - animationName: Attack2
+        frames:
+        - {fileID: -3424596684861233237, guid: 8f65c7d6b479b2547a5fe64ca9a487b3, type: 3}
+        - {fileID: 2678504405838677843, guid: 8f65c7d6b479b2547a5fe64ca9a487b3, type: 3}
+        - {fileID: 3934996648058365938, guid: 8f65c7d6b479b2547a5fe64ca9a487b3, type: 3}
+        - {fileID: 747109334637763536, guid: 8f65c7d6b479b2547a5fe64ca9a487b3, type: 3}
+    - colorName: Yellow
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: 7384290322352760091, guid: 379e99709e8caa240928d01f95a726a8, type: 3}
+        - {fileID: 5558041129755138300, guid: 379e99709e8caa240928d01f95a726a8, type: 3}
+        - {fileID: 5494728702781700201, guid: 379e99709e8caa240928d01f95a726a8, type: 3}
+        - {fileID: 855971943943930739, guid: 379e99709e8caa240928d01f95a726a8, type: 3}
+        - {fileID: 8590257050535953886, guid: 379e99709e8caa240928d01f95a726a8, type: 3}
+        - {fileID: -1175184007495930954, guid: 379e99709e8caa240928d01f95a726a8, type: 3}
+        - {fileID: -4675935811743254547, guid: 379e99709e8caa240928d01f95a726a8, type: 3}
+        - {fileID: 1839488653993705794, guid: 379e99709e8caa240928d01f95a726a8, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: -432731726981308715, guid: d72b84ada4a1f38489f0b670e6a5c5f5, type: 3}
+        - {fileID: 8551124423323264409, guid: d72b84ada4a1f38489f0b670e6a5c5f5, type: 3}
+        - {fileID: -8600065048725663906, guid: d72b84ada4a1f38489f0b670e6a5c5f5, type: 3}
+        - {fileID: 3241423924572654580, guid: d72b84ada4a1f38489f0b670e6a5c5f5, type: 3}
+        - {fileID: -5828329696384875631, guid: d72b84ada4a1f38489f0b670e6a5c5f5, type: 3}
+        - {fileID: 2022560608615539102, guid: d72b84ada4a1f38489f0b670e6a5c5f5, type: 3}
+      - animationName: Attack1
+        frames:
+        - {fileID: -3464697531994304634, guid: 624d1454a30341f499cd4130589347fd, type: 3}
+        - {fileID: 8738852634765236386, guid: 624d1454a30341f499cd4130589347fd, type: 3}
+        - {fileID: 1435813858662126931, guid: 624d1454a30341f499cd4130589347fd, type: 3}
+        - {fileID: 2647078634671427691, guid: 624d1454a30341f499cd4130589347fd, type: 3}
+      - animationName: Attack2
+        frames:
+        - {fileID: -3424596684861233237, guid: 4eb628f0c64b30f4ca5f9b2e86a7555c, type: 3}
+        - {fileID: 2678504405838677843, guid: 4eb628f0c64b30f4ca5f9b2e86a7555c, type: 3}
+        - {fileID: 3934996648058365938, guid: 4eb628f0c64b30f4ca5f9b2e86a7555c, type: 3}
+        - {fileID: 747109334637763536, guid: 4eb628f0c64b30f4ca5f9b2e86a7555c, type: 3}
+    - colorName: Red
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: 7384290322352760091, guid: 220c639ce2ca97e41be175ad38b00a38, type: 3}
+        - {fileID: 5558041129755138300, guid: 220c639ce2ca97e41be175ad38b00a38, type: 3}
+        - {fileID: 5494728702781700201, guid: 220c639ce2ca97e41be175ad38b00a38, type: 3}
+        - {fileID: 855971943943930739, guid: 220c639ce2ca97e41be175ad38b00a38, type: 3}
+        - {fileID: 8590257050535953886, guid: 220c639ce2ca97e41be175ad38b00a38, type: 3}
+        - {fileID: -1175184007495930954, guid: 220c639ce2ca97e41be175ad38b00a38, type: 3}
+        - {fileID: -4675935811743254547, guid: 220c639ce2ca97e41be175ad38b00a38, type: 3}
+        - {fileID: 1839488653993705794, guid: 220c639ce2ca97e41be175ad38b00a38, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: -432731726981308715, guid: 256d87f1fe47bb849af049ab83bd58a8, type: 3}
+        - {fileID: 8551124423323264409, guid: 256d87f1fe47bb849af049ab83bd58a8, type: 3}
+        - {fileID: -8600065048725663906, guid: 256d87f1fe47bb849af049ab83bd58a8, type: 3}
+        - {fileID: 3241423924572654580, guid: 256d87f1fe47bb849af049ab83bd58a8, type: 3}
+        - {fileID: -5828329696384875631, guid: 256d87f1fe47bb849af049ab83bd58a8, type: 3}
+        - {fileID: 2022560608615539102, guid: 256d87f1fe47bb849af049ab83bd58a8, type: 3}
+      - animationName: Attack1
+        frames:
+        - {fileID: -3464697531994304634, guid: 3f00843b44f0f4d4aad85ae2edaa2763, type: 3}
+        - {fileID: 8738852634765236386, guid: 3f00843b44f0f4d4aad85ae2edaa2763, type: 3}
+        - {fileID: 1435813858662126931, guid: 3f00843b44f0f4d4aad85ae2edaa2763, type: 3}
+        - {fileID: 2647078634671427691, guid: 3f00843b44f0f4d4aad85ae2edaa2763, type: 3}
+      - animationName: Attack2
+        frames:
+        - {fileID: -3424596684861233237, guid: 0911b181d3bfaea439fdbdfc2dcbb041, type: 3}
+        - {fileID: 2678504405838677843, guid: 0911b181d3bfaea439fdbdfc2dcbb041, type: 3}
+        - {fileID: 3934996648058365938, guid: 0911b181d3bfaea439fdbdfc2dcbb041, type: 3}
+        - {fileID: 747109334637763536, guid: 0911b181d3bfaea439fdbdfc2dcbb041, type: 3}
+    - colorName: Purple
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: 7384290322352760091, guid: ea5e30574c14bb04fbb108f3aa552a61, type: 3}
+        - {fileID: 5558041129755138300, guid: ea5e30574c14bb04fbb108f3aa552a61, type: 3}
+        - {fileID: 5494728702781700201, guid: ea5e30574c14bb04fbb108f3aa552a61, type: 3}
+        - {fileID: 855971943943930739, guid: ea5e30574c14bb04fbb108f3aa552a61, type: 3}
+        - {fileID: 8590257050535953886, guid: ea5e30574c14bb04fbb108f3aa552a61, type: 3}
+        - {fileID: -1175184007495930954, guid: ea5e30574c14bb04fbb108f3aa552a61, type: 3}
+        - {fileID: -4675935811743254547, guid: ea5e30574c14bb04fbb108f3aa552a61, type: 3}
+        - {fileID: 1839488653993705794, guid: ea5e30574c14bb04fbb108f3aa552a61, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: -432731726981308715, guid: 13fe97823f108e34aa81167684b34fe9, type: 3}
+        - {fileID: 8551124423323264409, guid: 13fe97823f108e34aa81167684b34fe9, type: 3}
+        - {fileID: -8600065048725663906, guid: 13fe97823f108e34aa81167684b34fe9, type: 3}
+        - {fileID: 3241423924572654580, guid: 13fe97823f108e34aa81167684b34fe9, type: 3}
+        - {fileID: -5828329696384875631, guid: 13fe97823f108e34aa81167684b34fe9, type: 3}
+        - {fileID: 2022560608615539102, guid: 13fe97823f108e34aa81167684b34fe9, type: 3}
+      - animationName: Attack1
+        frames:
+        - {fileID: -3464697531994304634, guid: 6544f179a326c56498ea98d58117e499, type: 3}
+        - {fileID: 8738852634765236386, guid: 6544f179a326c56498ea98d58117e499, type: 3}
+        - {fileID: 1435813858662126931, guid: 6544f179a326c56498ea98d58117e499, type: 3}
+        - {fileID: 2647078634671427691, guid: 6544f179a326c56498ea98d58117e499, type: 3}
+      - animationName: Attack2
+        frames:
+        - {fileID: -3424596684861233237, guid: 7da9792ed1a801d47a4806e2e6d13b8c, type: 3}
+        - {fileID: 2678504405838677843, guid: 7da9792ed1a801d47a4806e2e6d13b8c, type: 3}
+        - {fileID: 3934996648058365938, guid: 7da9792ed1a801d47a4806e2e6d13b8c, type: 3}
+        - {fileID: 747109334637763536, guid: 7da9792ed1a801d47a4806e2e6d13b8c, type: 3}
+    - colorName: Black
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: 7384290322352760091, guid: e8fd92f426231ba428857991c13bb415, type: 3}
+        - {fileID: 5558041129755138300, guid: e8fd92f426231ba428857991c13bb415, type: 3}
+        - {fileID: 5494728702781700201, guid: e8fd92f426231ba428857991c13bb415, type: 3}
+        - {fileID: 855971943943930739, guid: e8fd92f426231ba428857991c13bb415, type: 3}
+        - {fileID: 8590257050535953886, guid: e8fd92f426231ba428857991c13bb415, type: 3}
+        - {fileID: -1175184007495930954, guid: e8fd92f426231ba428857991c13bb415, type: 3}
+        - {fileID: -4675935811743254547, guid: e8fd92f426231ba428857991c13bb415, type: 3}
+        - {fileID: 1839488653993705794, guid: e8fd92f426231ba428857991c13bb415, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: -432731726981308715, guid: dd277efee3275df4a98222b4dd6a5145, type: 3}
+        - {fileID: 8551124423323264409, guid: dd277efee3275df4a98222b4dd6a5145, type: 3}
+        - {fileID: -8600065048725663906, guid: dd277efee3275df4a98222b4dd6a5145, type: 3}
+        - {fileID: 3241423924572654580, guid: dd277efee3275df4a98222b4dd6a5145, type: 3}
+        - {fileID: -5828329696384875631, guid: dd277efee3275df4a98222b4dd6a5145, type: 3}
+        - {fileID: 2022560608615539102, guid: dd277efee3275df4a98222b4dd6a5145, type: 3}
+      - animationName: Attack1
+        frames:
+        - {fileID: -3464697531994304634, guid: 550a0380c08baf14b890ad91a9586d7f, type: 3}
+        - {fileID: 8738852634765236386, guid: 550a0380c08baf14b890ad91a9586d7f, type: 3}
+        - {fileID: 1435813858662126931, guid: 550a0380c08baf14b890ad91a9586d7f, type: 3}
+        - {fileID: 2647078634671427691, guid: 550a0380c08baf14b890ad91a9586d7f, type: 3}
+      - animationName: Attack2
+        frames:
+        - {fileID: -3424596684861233237, guid: 2d8bc490682411947bc0df6e890306f9, type: 3}
+        - {fileID: 2678504405838677843, guid: 2d8bc490682411947bc0df6e890306f9, type: 3}
+        - {fileID: 3934996648058365938, guid: 2d8bc490682411947bc0df6e890306f9, type: 3}
+        - {fileID: 747109334637763536, guid: 2d8bc490682411947bc0df6e890306f9, type: 3}
+  - className: Archer
+    skins:
+    - colorName: Blue
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: 7257567913506708742, guid: a306c11976609074aabdac8c8a74ff74, type: 3}
+        - {fileID: -7989796299022447421, guid: a306c11976609074aabdac8c8a74ff74, type: 3}
+        - {fileID: 7725435616784934678, guid: a306c11976609074aabdac8c8a74ff74, type: 3}
+        - {fileID: -1293103732667120055, guid: a306c11976609074aabdac8c8a74ff74, type: 3}
+        - {fileID: 427913027731640163, guid: a306c11976609074aabdac8c8a74ff74, type: 3}
+        - {fileID: -9045297040117572726, guid: a306c11976609074aabdac8c8a74ff74, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: 8882666270506729424, guid: 2a0c6fc545dc8274d8ca2ac6593cc41f, type: 3}
+        - {fileID: 8418572898541717210, guid: 2a0c6fc545dc8274d8ca2ac6593cc41f, type: 3}
+        - {fileID: 4917221495796577052, guid: 2a0c6fc545dc8274d8ca2ac6593cc41f, type: 3}
+        - {fileID: 1313344751431586703, guid: 2a0c6fc545dc8274d8ca2ac6593cc41f, type: 3}
+      - animationName: Shoot
+        frames:
+        - {fileID: -3522987849309635434, guid: 48cf81991e6473f499a165c0ad41d88d, type: 3}
+        - {fileID: 1796539565894229437, guid: 48cf81991e6473f499a165c0ad41d88d, type: 3}
+        - {fileID: -6164423668334797513, guid: 48cf81991e6473f499a165c0ad41d88d, type: 3}
+        - {fileID: 8855168420743222378, guid: 48cf81991e6473f499a165c0ad41d88d, type: 3}
+        - {fileID: 8284549177786691415, guid: 48cf81991e6473f499a165c0ad41d88d, type: 3}
+        - {fileID: -2689744893154487746, guid: 48cf81991e6473f499a165c0ad41d88d, type: 3}
+        - {fileID: 500622343033487627, guid: 48cf81991e6473f499a165c0ad41d88d, type: 3}
+        - {fileID: 7309834836266252465, guid: 48cf81991e6473f499a165c0ad41d88d, type: 3}
+    - colorName: Yellow
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: 7257567913506708742, guid: 77db8ff6f6b8e03489d67750ebdc0fb8, type: 3}
+        - {fileID: -7989796299022447421, guid: 77db8ff6f6b8e03489d67750ebdc0fb8, type: 3}
+        - {fileID: 7725435616784934678, guid: 77db8ff6f6b8e03489d67750ebdc0fb8, type: 3}
+        - {fileID: -1293103732667120055, guid: 77db8ff6f6b8e03489d67750ebdc0fb8, type: 3}
+        - {fileID: 427913027731640163, guid: 77db8ff6f6b8e03489d67750ebdc0fb8, type: 3}
+        - {fileID: -9045297040117572726, guid: 77db8ff6f6b8e03489d67750ebdc0fb8, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: 8882666270506729424, guid: 8e93cfadd8446db40a91c2ef9742ec27, type: 3}
+        - {fileID: 8418572898541717210, guid: 8e93cfadd8446db40a91c2ef9742ec27, type: 3}
+        - {fileID: 4917221495796577052, guid: 8e93cfadd8446db40a91c2ef9742ec27, type: 3}
+        - {fileID: 1313344751431586703, guid: 8e93cfadd8446db40a91c2ef9742ec27, type: 3}
+      - animationName: Shoot
+        frames:
+        - {fileID: -3522987849309635434, guid: 3188e441668ab0c48982e1b4552a4977, type: 3}
+        - {fileID: 1796539565894229437, guid: 3188e441668ab0c48982e1b4552a4977, type: 3}
+        - {fileID: -6164423668334797513, guid: 3188e441668ab0c48982e1b4552a4977, type: 3}
+        - {fileID: 8855168420743222378, guid: 3188e441668ab0c48982e1b4552a4977, type: 3}
+        - {fileID: 8284549177786691415, guid: 3188e441668ab0c48982e1b4552a4977, type: 3}
+        - {fileID: -2689744893154487746, guid: 3188e441668ab0c48982e1b4552a4977, type: 3}
+        - {fileID: 500622343033487627, guid: 3188e441668ab0c48982e1b4552a4977, type: 3}
+        - {fileID: 7309834836266252465, guid: 3188e441668ab0c48982e1b4552a4977, type: 3}
+    - colorName: Red
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: 7257567913506708742, guid: 46b97372c00bbdc42aafcc0cd469c9c4, type: 3}
+        - {fileID: -7989796299022447421, guid: 46b97372c00bbdc42aafcc0cd469c9c4, type: 3}
+        - {fileID: 7725435616784934678, guid: 46b97372c00bbdc42aafcc0cd469c9c4, type: 3}
+        - {fileID: -1293103732667120055, guid: 46b97372c00bbdc42aafcc0cd469c9c4, type: 3}
+        - {fileID: 427913027731640163, guid: 46b97372c00bbdc42aafcc0cd469c9c4, type: 3}
+        - {fileID: -9045297040117572726, guid: 46b97372c00bbdc42aafcc0cd469c9c4, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: 8882666270506729424, guid: dcf2efabb1e7457498bf0f736e73086e, type: 3}
+        - {fileID: 8418572898541717210, guid: dcf2efabb1e7457498bf0f736e73086e, type: 3}
+        - {fileID: 4917221495796577052, guid: dcf2efabb1e7457498bf0f736e73086e, type: 3}
+        - {fileID: 1313344751431586703, guid: dcf2efabb1e7457498bf0f736e73086e, type: 3}
+      - animationName: Shoot
+        frames:
+        - {fileID: -3522987849309635434, guid: 056d6f4cd5b4eaf44b3b3c69af7f05ae, type: 3}
+        - {fileID: 1796539565894229437, guid: 056d6f4cd5b4eaf44b3b3c69af7f05ae, type: 3}
+        - {fileID: -6164423668334797513, guid: 056d6f4cd5b4eaf44b3b3c69af7f05ae, type: 3}
+        - {fileID: 8855168420743222378, guid: 056d6f4cd5b4eaf44b3b3c69af7f05ae, type: 3}
+        - {fileID: 8284549177786691415, guid: 056d6f4cd5b4eaf44b3b3c69af7f05ae, type: 3}
+        - {fileID: -2689744893154487746, guid: 056d6f4cd5b4eaf44b3b3c69af7f05ae, type: 3}
+        - {fileID: 500622343033487627, guid: 056d6f4cd5b4eaf44b3b3c69af7f05ae, type: 3}
+        - {fileID: 7309834836266252465, guid: 056d6f4cd5b4eaf44b3b3c69af7f05ae, type: 3}
+    - colorName: Purple
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: 7257567913506708742, guid: 7fa5fd79a3c712a43b0e037bf517b831, type: 3}
+        - {fileID: -7989796299022447421, guid: 7fa5fd79a3c712a43b0e037bf517b831, type: 3}
+        - {fileID: 7725435616784934678, guid: 7fa5fd79a3c712a43b0e037bf517b831, type: 3}
+        - {fileID: -1293103732667120055, guid: 7fa5fd79a3c712a43b0e037bf517b831, type: 3}
+        - {fileID: 427913027731640163, guid: 7fa5fd79a3c712a43b0e037bf517b831, type: 3}
+        - {fileID: -9045297040117572726, guid: 7fa5fd79a3c712a43b0e037bf517b831, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: 8882666270506729424, guid: 97810a8d159eca54e8551856f05d20e5, type: 3}
+        - {fileID: 8418572898541717210, guid: 97810a8d159eca54e8551856f05d20e5, type: 3}
+        - {fileID: 4917221495796577052, guid: 97810a8d159eca54e8551856f05d20e5, type: 3}
+        - {fileID: 1313344751431586703, guid: 97810a8d159eca54e8551856f05d20e5, type: 3}
+      - animationName: Shoot
+        frames:
+        - {fileID: -3522987849309635434, guid: e9408552137bc9247997d735ca6e578e, type: 3}
+        - {fileID: 1796539565894229437, guid: e9408552137bc9247997d735ca6e578e, type: 3}
+        - {fileID: -6164423668334797513, guid: e9408552137bc9247997d735ca6e578e, type: 3}
+        - {fileID: 8855168420743222378, guid: e9408552137bc9247997d735ca6e578e, type: 3}
+        - {fileID: 8284549177786691415, guid: e9408552137bc9247997d735ca6e578e, type: 3}
+        - {fileID: -2689744893154487746, guid: e9408552137bc9247997d735ca6e578e, type: 3}
+        - {fileID: 500622343033487627, guid: e9408552137bc9247997d735ca6e578e, type: 3}
+        - {fileID: 7309834836266252465, guid: e9408552137bc9247997d735ca6e578e, type: 3}
+    - colorName: Black
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: 7257567913506708742, guid: 7b7090b59709a3a42903fb80f7712d1f, type: 3}
+        - {fileID: -7989796299022447421, guid: 7b7090b59709a3a42903fb80f7712d1f, type: 3}
+        - {fileID: 7725435616784934678, guid: 7b7090b59709a3a42903fb80f7712d1f, type: 3}
+        - {fileID: -1293103732667120055, guid: 7b7090b59709a3a42903fb80f7712d1f, type: 3}
+        - {fileID: 427913027731640163, guid: 7b7090b59709a3a42903fb80f7712d1f, type: 3}
+        - {fileID: -9045297040117572726, guid: 7b7090b59709a3a42903fb80f7712d1f, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: 8882666270506729424, guid: af25d6dd1a899ae478d24eb284f08372, type: 3}
+        - {fileID: 8418572898541717210, guid: af25d6dd1a899ae478d24eb284f08372, type: 3}
+        - {fileID: 4917221495796577052, guid: af25d6dd1a899ae478d24eb284f08372, type: 3}
+        - {fileID: 1313344751431586703, guid: af25d6dd1a899ae478d24eb284f08372, type: 3}
+      - animationName: Shoot
+        frames:
+        - {fileID: -3522987849309635434, guid: 3f22d14c616d32747b13829377d5524b, type: 3}
+        - {fileID: 1796539565894229437, guid: 3f22d14c616d32747b13829377d5524b, type: 3}
+        - {fileID: -6164423668334797513, guid: 3f22d14c616d32747b13829377d5524b, type: 3}
+        - {fileID: 8855168420743222378, guid: 3f22d14c616d32747b13829377d5524b, type: 3}
+        - {fileID: 8284549177786691415, guid: 3f22d14c616d32747b13829377d5524b, type: 3}
+        - {fileID: -2689744893154487746, guid: 3f22d14c616d32747b13829377d5524b, type: 3}
+        - {fileID: 500622343033487627, guid: 3f22d14c616d32747b13829377d5524b, type: 3}
+        - {fileID: 7309834836266252465, guid: 3f22d14c616d32747b13829377d5524b, type: 3}
+  - className: Lancer
+    skins:
+    - colorName: Blue
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: -594197781322936934, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: 455444515322244926, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: 517828865657036009, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: -3032027852008287605, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: -5574184733968180747, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: -1753309511941541117, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: 4863313082578348910, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: -5592250592134132327, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: 2319514263577396720, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: -4102534018874827341, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: 9164178780147294991, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: 8611835898225032345, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: -7768453889059909605, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+        - {fileID: 5416337837642302037, guid: b2b6085d3970ff04e98c281e8775869f, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: -8580444238127179786, guid: a048412dbb5298a46b0409559f68c764, type: 3}
+        - {fileID: 828278362111410375, guid: a048412dbb5298a46b0409559f68c764, type: 3}
+        - {fileID: -4153816518293905039, guid: a048412dbb5298a46b0409559f68c764, type: 3}
+        - {fileID: 1456675321045083290, guid: a048412dbb5298a46b0409559f68c764, type: 3}
+        - {fileID: -3942745417268178275, guid: a048412dbb5298a46b0409559f68c764, type: 3}
+        - {fileID: -1776823346852784203, guid: a048412dbb5298a46b0409559f68c764, type: 3}
+        - {fileID: 534129756, guid: a048412dbb5298a46b0409559f68c764, type: 3}
+        - {fileID: 1005128485, guid: a048412dbb5298a46b0409559f68c764, type: 3}
+        - {fileID: -211832824, guid: a048412dbb5298a46b0409559f68c764, type: 3}
+        - {fileID: 1469941307, guid: a048412dbb5298a46b0409559f68c764, type: 3}
+      - animationName: Right_Attack
+        frames:
+        - {fileID: 6331980819534964110, guid: 2b6d117160bc778408857b4056ff36f5, type: 3}
+        - {fileID: 7232042838751349278, guid: 2b6d117160bc778408857b4056ff36f5, type: 3}
+        - {fileID: -4157329051755591257, guid: 2b6d117160bc778408857b4056ff36f5, type: 3}
+        - {fileID: -4391963831756658790, guid: 2b6d117160bc778408857b4056ff36f5, type: 3}
+        - {fileID: 1179997848, guid: 2b6d117160bc778408857b4056ff36f5, type: 3}
+    - colorName: Yellow
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: -594197781322936934, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: 455444515322244926, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: 517828865657036009, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: -3032027852008287605, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: -5574184733968180747, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: -1753309511941541117, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: 4863313082578348910, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: -5592250592134132327, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: 2319514263577396720, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: -4102534018874827341, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: 9164178780147294991, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: 8611835898225032345, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: -7768453889059909605, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+        - {fileID: 5416337837642302037, guid: e55f967335a6cbe418648dea7022ac84, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: -8580444238127179786, guid: f78e5330e936c504bb772f66c6ad0cd7, type: 3}
+        - {fileID: 828278362111410375, guid: f78e5330e936c504bb772f66c6ad0cd7, type: 3}
+        - {fileID: -4153816518293905039, guid: f78e5330e936c504bb772f66c6ad0cd7, type: 3}
+        - {fileID: 1456675321045083290, guid: f78e5330e936c504bb772f66c6ad0cd7, type: 3}
+        - {fileID: -3942745417268178275, guid: f78e5330e936c504bb772f66c6ad0cd7, type: 3}
+        - {fileID: -1776823346852784203, guid: f78e5330e936c504bb772f66c6ad0cd7, type: 3}
+        - {fileID: 1240148408, guid: f78e5330e936c504bb772f66c6ad0cd7, type: 3}
+        - {fileID: 209643462, guid: f78e5330e936c504bb772f66c6ad0cd7, type: 3}
+        - {fileID: -1239702648, guid: f78e5330e936c504bb772f66c6ad0cd7, type: 3}
+        - {fileID: -1823993370, guid: f78e5330e936c504bb772f66c6ad0cd7, type: 3}
+      - animationName: Right_Attack
+        frames:
+        - {fileID: 6331980819534964110, guid: 043c353279f15d0438b4607c47eb9df1, type: 3}
+        - {fileID: 7232042838751349278, guid: 043c353279f15d0438b4607c47eb9df1, type: 3}
+        - {fileID: -4157329051755591257, guid: 043c353279f15d0438b4607c47eb9df1, type: 3}
+        - {fileID: -4391963831756658790, guid: 043c353279f15d0438b4607c47eb9df1, type: 3}
+        - {fileID: -55234356, guid: 043c353279f15d0438b4607c47eb9df1, type: 3}
+    - colorName: Red
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: -594197781322936934, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: 455444515322244926, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: 517828865657036009, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: -3032027852008287605, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: -5574184733968180747, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: -1753309511941541117, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: 4863313082578348910, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: -5592250592134132327, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: 2319514263577396720, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: -4102534018874827341, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: 9164178780147294991, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: 8611835898225032345, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: -7768453889059909605, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+        - {fileID: 5416337837642302037, guid: dcaa008a40f948745925be3232b1299b, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: -8580444238127179786, guid: e1260338384676d469e06395d864e3cd, type: 3}
+        - {fileID: 828278362111410375, guid: e1260338384676d469e06395d864e3cd, type: 3}
+        - {fileID: -4153816518293905039, guid: e1260338384676d469e06395d864e3cd, type: 3}
+        - {fileID: 1456675321045083290, guid: e1260338384676d469e06395d864e3cd, type: 3}
+        - {fileID: -3942745417268178275, guid: e1260338384676d469e06395d864e3cd, type: 3}
+        - {fileID: -1776823346852784203, guid: e1260338384676d469e06395d864e3cd, type: 3}
+        - {fileID: 58548725, guid: e1260338384676d469e06395d864e3cd, type: 3}
+        - {fileID: 356244657, guid: e1260338384676d469e06395d864e3cd, type: 3}
+        - {fileID: -1294668540, guid: e1260338384676d469e06395d864e3cd, type: 3}
+        - {fileID: 197104441, guid: e1260338384676d469e06395d864e3cd, type: 3}
+      - animationName: Right_Attack
+        frames:
+        - {fileID: 6331980819534964110, guid: b59e30fb21323cf4eb525367c952bb7d, type: 3}
+        - {fileID: 7232042838751349278, guid: b59e30fb21323cf4eb525367c952bb7d, type: 3}
+        - {fileID: -4157329051755591257, guid: b59e30fb21323cf4eb525367c952bb7d, type: 3}
+        - {fileID: -4391963831756658790, guid: b59e30fb21323cf4eb525367c952bb7d, type: 3}
+        - {fileID: -1835015382, guid: b59e30fb21323cf4eb525367c952bb7d, type: 3}
+    - colorName: Purple
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: -594197781322936934, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: 455444515322244926, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: 517828865657036009, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: -3032027852008287605, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: -5574184733968180747, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: -1753309511941541117, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: 4863313082578348910, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: -5592250592134132327, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: 2319514263577396720, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: -4102534018874827341, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: 9164178780147294991, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: 8611835898225032345, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: -7768453889059909605, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+        - {fileID: 5416337837642302037, guid: 3a632951d082d0246ab6f7653083820a, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: -8580444238127179786, guid: 7c650170f5b96c747bd6bb9b5f39ea89, type: 3}
+        - {fileID: 828278362111410375, guid: 7c650170f5b96c747bd6bb9b5f39ea89, type: 3}
+        - {fileID: -4153816518293905039, guid: 7c650170f5b96c747bd6bb9b5f39ea89, type: 3}
+        - {fileID: 1456675321045083290, guid: 7c650170f5b96c747bd6bb9b5f39ea89, type: 3}
+        - {fileID: -3942745417268178275, guid: 7c650170f5b96c747bd6bb9b5f39ea89, type: 3}
+        - {fileID: -1776823346852784203, guid: 7c650170f5b96c747bd6bb9b5f39ea89, type: 3}
+        - {fileID: -391021526, guid: 7c650170f5b96c747bd6bb9b5f39ea89, type: 3}
+        - {fileID: 1748400416, guid: 7c650170f5b96c747bd6bb9b5f39ea89, type: 3}
+        - {fileID: -507681549, guid: 7c650170f5b96c747bd6bb9b5f39ea89, type: 3}
+        - {fileID: 802084610, guid: 7c650170f5b96c747bd6bb9b5f39ea89, type: 3}
+      - animationName: Right_Attack
+        frames:
+        - {fileID: 6331980819534964110, guid: 9372182fd3157c347965f106f7bd46e0, type: 3}
+        - {fileID: 7232042838751349278, guid: 9372182fd3157c347965f106f7bd46e0, type: 3}
+        - {fileID: -4157329051755591257, guid: 9372182fd3157c347965f106f7bd46e0, type: 3}
+        - {fileID: -4391963831756658790, guid: 9372182fd3157c347965f106f7bd46e0, type: 3}
+        - {fileID: 691116474, guid: 9372182fd3157c347965f106f7bd46e0, type: 3}
+    - colorName: Black
+      animations:
+      - animationName: Idle
+        frames:
+        - {fileID: -594197781322936934, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: 455444515322244926, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: 517828865657036009, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: -3032027852008287605, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: -5574184733968180747, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: -1753309511941541117, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: 4863313082578348910, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: -5592250592134132327, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: 2319514263577396720, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: -4102534018874827341, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: 9164178780147294991, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: 8611835898225032345, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: -7768453889059909605, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+        - {fileID: 5416337837642302037, guid: 9fd78aa64700cc843bcbb8bdfa369cba, type: 3}
+      - animationName: Run
+        frames:
+        - {fileID: -8580444238127179786, guid: 85201605bd3696448b87b2e91768c028, type: 3}
+        - {fileID: 828278362111410375, guid: 85201605bd3696448b87b2e91768c028, type: 3}
+        - {fileID: -4153816518293905039, guid: 85201605bd3696448b87b2e91768c028, type: 3}
+        - {fileID: 1456675321045083290, guid: 85201605bd3696448b87b2e91768c028, type: 3}
+        - {fileID: -3942745417268178275, guid: 85201605bd3696448b87b2e91768c028, type: 3}
+        - {fileID: -1776823346852784203, guid: 85201605bd3696448b87b2e91768c028, type: 3}
+        - {fileID: -315321039, guid: 85201605bd3696448b87b2e91768c028, type: 3}
+        - {fileID: 1667424253, guid: 85201605bd3696448b87b2e91768c028, type: 3}
+        - {fileID: -671763970, guid: 85201605bd3696448b87b2e91768c028, type: 3}
+        - {fileID: 738080142, guid: 85201605bd3696448b87b2e91768c028, type: 3}
+      - animationName: Right_Attack
+        frames:
+        - {fileID: 6331980819534964110, guid: 29d4802500dc1e04d8bd1eb717de386b, type: 3}
+        - {fileID: 7232042838751349278, guid: 29d4802500dc1e04d8bd1eb717de386b, type: 3}
+        - {fileID: -4157329051755591257, guid: 29d4802500dc1e04d8bd1eb717de386b, type: 3}
+        - {fileID: -4391963831756658790, guid: 29d4802500dc1e04d8bd1eb717de386b, type: 3}
+        - {fileID: 1675555420, guid: 29d4802500dc1e04d8bd1eb717de386b, type: 3}

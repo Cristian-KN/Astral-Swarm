@@ -19,6 +19,17 @@ public class InventoryManager : MonoBehaviour
     private PlayerStats playerStats;
     private PlayerAttack playerAttack;
 
+    private void Awake()
+    {
+        string selectedClass = PlayerPrefs.GetString("SelectedClass", "warrior").ToLower();
+        switch (selectedClass)
+        {
+            case "warrior": playerClass = PlayerClass.Warrior; break;
+            case "archer": playerClass = PlayerClass.Archer; break;
+            case "lancer": playerClass = PlayerClass.Lancer; break;
+        }
+    }
+
     private void Start()
     {
         playerStats = GetComponent<PlayerStats>();
@@ -70,34 +81,56 @@ public class InventoryManager : MonoBehaviour
     {
         if (playerStats == null) return;
 
-        // Reset temporal de multiplicadores para recalcular
+        float oldAtk = playerStats.attackPower;
+        float oldAtkSpeed = playerStats.attackSpeed;
+        float oldRange = playerStats.attackRange;
+        float oldSpeed = playerStats.speedMultiplier;
+        float oldLuck = playerStats.luck;
+        float oldDiff = playerStats.difficulty;
+
+        // Reset to base values
+        playerStats.attackPower = playerStats.baseAttackPower;
+        playerStats.attackSpeed = playerStats.baseAttackSpeed;
+        playerStats.attackRange = playerStats.baseAttackRange;
+        playerStats.luck = playerStats.baseLuck;
+        playerStats.defense = playerStats.baseDefense;
+        playerStats.difficulty = playerStats.baseDifficulty;
         playerStats.attackMultiplier = 1f;
         playerStats.speedMultiplier = 1f;
-        playerStats.difficulty = 0f;
-        playerStats.defense = 0f;
 
         foreach (var item in items)
         {
             playerStats.attackPower += item.data.attackBoost * item.stacks;
-            playerStats.defense     += item.data.defenseBoost * item.stacks;
-            playerStats.difficulty  += item.data.difficultyIncrease * item.stacks;
+            playerStats.attackSpeed += item.data.attackSpeedBoost * item.stacks;
+            playerStats.attackRange += item.data.rangeBoost * item.stacks;
             playerStats.speedMultiplier += item.data.speedBoost * item.stacks;
+            playerStats.luck         += item.data.luckBoost * item.stacks;
+            playerStats.defense      += item.data.defenseBoost * item.stacks;
+            playerStats.difficulty   += item.data.difficultyIncrease * item.stacks;
 
             if (item.data.statMultiplier > 1f)
             {
-                playerStats.attackMultiplier *= item.data.statMultiplier * item.stacks;
+                // Use exponential stacking: base^stacks, not linear multiplication
+                playerStats.attackMultiplier *= Mathf.Pow(item.data.statMultiplier, item.stacks);
             }
 
             // Aplicar crecimiento
             if (item.data.isGrowthItem)
             {
                 playerStats.attackPower += item.currentGrowthBonus;
-                // Si es un mítico raro, podría subir todo
                 if (item.data.rarity == ItemRarity.Mythic)
                 {
                      playerStats.defense += item.currentGrowthBonus * 0.1f;
                 }
             }
         }
+
+        // Notify changes
+        playerStats.NotifyStatChange("attack", playerStats.attackPower, playerStats.attackPower - oldAtk);
+        playerStats.NotifyStatChange("attack-speed", playerStats.attackSpeed, playerStats.attackSpeed - oldAtkSpeed);
+        playerStats.NotifyStatChange("range", playerStats.attackRange, playerStats.attackRange - oldRange);
+        playerStats.NotifyStatChange("speed", playerStats.speedMultiplier, playerStats.speedMultiplier - oldSpeed);
+        playerStats.NotifyStatChange("luck", playerStats.luck, playerStats.luck - oldLuck);
+        playerStats.NotifyStatChange("difficulty", playerStats.difficulty, playerStats.difficulty - oldDiff);
     }
 }

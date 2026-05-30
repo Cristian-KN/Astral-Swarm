@@ -28,18 +28,38 @@ public class PlayerController : MonoBehaviour
         rb.freezeRotation = true;
     }
 
+    // Footstep timing
+    [SerializeField] private float footstepInterval = 0.4f;
+    private float footstepTimer;
+
     private void Update()
     {
-        // 1. CAPTURA DE INPUT (En Update porque depende de los fotogramas)
-        // GetAxisRaw retorna -1, 0, o 1 (sin suavizado), perfecto para movimiento estilo 8 bits/16 bits.
+        // 1. CAPTURA DE INPUT
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputY = Input.GetAxisRaw("Vertical");
 
-        // Normalizamos el vector para que al moverse en diagonal no vaya más rápido
         movementDirection = new Vector2(inputX, inputY).normalized;
 
-        // 2. ACTUALIZACIÓN DE ANIMACIONES Y FEEDBACK (Sprite)
+        // 2. ACTUALIZACIÓN DE ANIMACIONES Y FEEDBACK
         UpdateAnimationAndSprite();
+
+        // 3. Y-SORTING: Actualizar sorting order basado en posición Y
+        UpdateSortingOrder();
+
+        // 4. FOOTSTEPS
+        if (movementDirection.sqrMagnitude > 0)
+        {
+            footstepTimer += Time.deltaTime;
+            if (footstepTimer >= footstepInterval)
+            {
+                footstepTimer = 0f;
+                AudioManager.Instance?.PlayFootstepSound();
+            }
+        }
+        else
+        {
+            footstepTimer = footstepInterval; // Ready to step immediately when starting to move
+        }
     }
 
     private void FixedUpdate()
@@ -63,6 +83,16 @@ public class PlayerController : MonoBehaviour
         // Le decimos al Animator si el personaje se está moviendo o no
         bool isMoving = movementDirection.sqrMagnitude > 0;
         // Asumiendo que el parámetro en el Animator se llama "IsRunning" (Tipo Bool)
-        animator.SetBool("IsRunning", isMoving); 
+        animator.SetBool("IsRunning", isMoving);
+    }
+
+    /// <summary>
+    /// Actualiza el sorting order basado en la posición Y para que el jugador
+    /// aparezca detrás/delante de obstáculos correctamente (Y-sorting).
+    /// </summary>
+    private void UpdateSortingOrder()
+    {
+        // Misma fórmula que los obstáculos: objetos más arriba (Y mayor) van atrás
+        spriteRenderer.sortingOrder = Mathf.RoundToInt((100 - transform.position.y) * 10);
     }
 }

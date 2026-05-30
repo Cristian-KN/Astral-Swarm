@@ -86,7 +86,7 @@ public static class HUDSetupUITK
         so.ApplyModifiedPropertiesWithoutUndo();
 
         // 5) Repoblar itemPool del GameManager con todos los ItemData de Assets/Items
-        GameManager gm = Object.FindObjectOfType<GameManager>();
+        GameManager gm = Object.FindFirstObjectByType<GameManager>();
         if (gm != null)
         {
             string[] guids = AssetDatabase.FindAssets("t:ItemData", new[] { "Assets/Items" });

@@ -16,12 +16,18 @@ public class ExperienceGem : MonoBehaviour
     private float          bobPhase;
     private GameManager    gameManager;
 
+    private static GameManager cachedGameManager;
+
     private void Awake()
     {
         sr          = GetComponent<SpriteRenderer>();
         spawnY      = transform.position.y;
         bobPhase    = Random.Range(0f, Mathf.PI * 2f);
-        gameManager = FindObjectOfType<GameManager>();
+
+        // Cache GameManager to avoid expensive FindObjectOfType on every pickup
+        if (cachedGameManager == null)
+            cachedGameManager = FindFirstObjectByType<GameManager>();
+        gameManager = cachedGameManager;
 
         Collider2D col = GetComponent<Collider2D>();
         if (col != null) col.isTrigger = true;
@@ -63,18 +69,8 @@ public class ExperienceGem : MonoBehaviour
 
     private void CollectGem()
     {
-        if (gameManager != null)
-        {
-            // Aplicar multiplicador de bioma
-            float finalExp = experienceAmount;
-            BiomeManager biomeManager = BiomeManager.Instance;
-            if (biomeManager != null)
-            {
-                finalExp *= biomeManager.GetExpMultiplier();
-            }
-
-            gameManager.AddExperience(Mathf.RoundToInt(finalExp));
-        }
+        if (gameManager != null) gameManager.AddExperience(experienceAmount);
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayPickupSound();
         Destroy(gameObject);
     }
 }

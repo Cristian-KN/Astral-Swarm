@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 5
+  footstepInterval: 0.4
 --- !u!114 &8665846813977382071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +216,7 @@ MonoBehaviour:
   redFlashDuration: 0.15
   attackPower: 10
   attackSpeed: 1
+  attackRange: 5
   luck: 1
   defense: 0
   cooldownReduction: 0
@@ -223,6 +225,12 @@ MonoBehaviour:
   speedMultiplier: 1
   luckMultiplier: 1
   difficultyMultiplier: 1
+  baseAttackPower: 10
+  baseAttackSpeed: 1
+  baseAttackRange: 5
+  baseLuck: 1
+  baseDefense: 0
+  baseDifficulty: 0
 --- !u!114 &1905402360565394091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8330adb64584b2843ae4156314caa6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  defaultWeapon: {fileID: 11400000, guid: be9da9741c264d041a2f191fad7b6444, type: 2}
+  swordWeapon: {fileID: 11400000, guid: be9da9741c264d041a2f191fad7b6444, type: 2}
+  bowWeapon: {fileID: 11400000, guid: 414088d6a8a5dac4da6ab6764f06affa, type: 2}
+  spearWeapon: {fileID: 11400000, guid: 0fdf88fcfe97e2e429dfa14d1fb9c670, type: 2}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -265,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6c28d3d6d986549be8377334ce9e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerClassVisuals
+  skinLibrary: {fileID: 0}
   warriorController: {fileID: 9100000, guid: ca437a6faeac128469bd882bd12e4b69, type: 2}
   archerController: {fileID: 9100000, guid: ea7846189176645468cc20920aa3de30, type: 2}
   lancerController: {fileID: 9100000, guid: d51dc1ef5fb0c9041b25769fb800d882, type: 2}

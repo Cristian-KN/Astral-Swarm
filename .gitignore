@@ -36,3 +36,6 @@ Thumbs.db
 
 # Claude
 .claude/settings.local.json
+
+# Fuente de música suelta (en el repo usamos Assets/Sonidos/Resources/berserk-guts.ogg)
+/berserk-guts.m4a
