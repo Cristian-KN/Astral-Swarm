@@ -11,10 +11,11 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] private float baseRegenPerSecond = 0f;
 
     [Header("Recompensas")]
-    [SerializeField] private GameObject experienceGemPrefab;
+    [SerializeField] private GameObject[] gemPrefabs;
+    [SerializeField] private GameObject[] moneyPrefabs;
 
     private float healthMultiplier = 1f;
-    private float expMultiplier = 1f;
+private float expMultiplier = 1f;
     private float goldMultiplier = 1f;
     private float regenAmount = 0f;
 
@@ -84,7 +85,20 @@ public class EnemyStats : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
+        StartCoroutine(HitFlashCoroutine());
         if (currentHealth <= 0) Die();
+    }
+
+    private System.Collections.IEnumerator HitFlashCoroutine()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            Color originalColor = sr.color;
+            sr.color = new Color(2f, 0f, 0f, 1f); 
+            yield return new WaitForSeconds(0.15f); // Increased duration (3x)
+            sr.color = originalColor;
+        }
     }
 
     private void Die()
@@ -104,10 +118,6 @@ public class EnemyStats : MonoBehaviour
         int totalExp = Mathf.RoundToInt(baseDrop * expMultiplier);
         int totalGold = Mathf.RoundToInt(baseDrop * goldMultiplier);
 
-        // Enviar recompensas al GameManager
-        gm.AddExperience(totalExp);
-        gm.AddGold(totalGold);
-
         // Notificar al Inventario para objetos evolutivos
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -116,10 +126,35 @@ public class EnemyStats : MonoBehaviour
             if (inv != null) inv.OnEnemyKilled();
         }
 
-        // Feedback visual (opcional: instanciar gema)
-        if (experienceGemPrefab != null)
+        // Spawn EXP Gems
+        DropTieredPickups(gemPrefabs, totalExp, true);
+        
+        // Spawn Money
+        DropTieredPickups(moneyPrefabs, totalGold, false);
+    }
+
+    private void DropTieredPickups(GameObject[] prefabs, int totalAmount, bool isExp)
+    {
+        if (prefabs == null || prefabs.Length == 0 || totalAmount <= 0) return;
+
+        int tier = 0;
+        if (variant == EnemyVariantType.Roja || variant == EnemyVariantType.Negra) tier = 4;
+        else if (variant == EnemyVariantType.Morada) tier = 3;
+        else if (variant == EnemyVariantType.Azul || variant == EnemyVariantType.Amarilla) tier = 2;
+        else if (variant == EnemyVariantType.Verde) tier = 1;
+        
+        tier = Mathf.Clamp(tier, 0, prefabs.Length - 1);
+        
+        GameObject go = Instantiate(prefabs[tier], transform.position, Quaternion.identity);
+        if (isExp)
         {
-            Instantiate(experienceGemPrefab, transform.position, Quaternion.identity);
+            var exp = go.GetComponent<ExperienceGem>();
+            if (exp != null) exp.SetAmount(totalAmount);
+        }
+        else
+        {
+            var money = go.GetComponent<MoneyPickup>();
+            if (money != null) money.SetAmount(totalAmount);
         }
     }
 }

@@ -1,0 +1,170 @@
+/*
+2026-05-29 AI-Tag
+This was created with the help of Assistant, a Unity Artificial Intelligence product.
+*/
+/* ===========================================================
+   CHARACTER SELECTION — Astral Swarm
+   Hereda estilos de MainMenu.uss + Theme.Grimoire.uss
+   =========================================================== */
+
+/* ===================== SCREEN ===================== */
+.screen--char-select {
+    justify-content: center;
+    padding: 80px 60px 60px 60px;
+    background-color: rgba(15, 10, 20, 0.75);
+}
+
+/* ============ TÍTULO ============ */
+.char-title {
+    /* Color sincronizado con el título del menú principal */
+    color: var(--title-color);
+    margin-bottom: 110px; 
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/UnifrakturCook.asset");
+    font-size: 80px;
+    -unity-font-style: bold;
+    letter-spacing: 2px;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: var(--title-stroke);
+    text-shadow: 0 4px 0 var(--title-stroke);
+    -unity-text-align: middle-center;
+}
+
+/* ============ SELECCIÓN DE CLASE (3 cards) ============ */
+.class-selection {
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 180px; /* Espacio duplicado entre clases y skins */
+}
+
+.class-card {
+    width: 175px;
+    height: 200px;
+    margin: 0 12px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--btn-bg);
+    border-width: 2px;
+    border-color: var(--btn-bevel-lo);
+    border-left-color: var(--btn-bevel-hi);
+    border-top-color: var(--btn-bevel-hi);
+    border-right-color: var(--btn-bevel-lo);
+    border-bottom-color: var(--btn-bevel-lo);
+    transition-property: translate, background-color, border-color;
+    transition-duration: 0.12s, 0.12s, 0.12s;
+}
+
+.class-card:hover {
+    translate: -2px -2px;
+    background-color: var(--btn-bg-hi);
+}
+
+.class-card:active {
+    translate: 0 0;
+}
+
+.class-card--active {
+    background-color: var(--play-bg);
+    translate: -3px -3px;
+    border-left-color: var(--play-bevel-hi);
+    border-top-color: var(--play-bevel-hi);
+    border-right-color: var(--play-bevel-lo);
+    border-bottom-color: var(--play-bevel-lo);
+}
+
+.class-card--active:hover {
+    background-color: var(--play-bg-hi);
+}
+
+.class-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 12px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.class-name {
+    /* Tipografía sincronizada con los botones del menú principal (Jersey25) */
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Jersey25.asset");
+    font-size: 20px;
+    -unity-font-style: bold;
+    letter-spacing: 2px;
+    color: var(--btn-text);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
+}
+
+.class-card--active .class-name {
+    color: var(--play-text);
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+/* ============ SELECCIÓN DE COLOR (6 cards) ============ */
+.color-selection {
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 140px; /* Espacio duplicado entre skins y botones */
+}
+
+.color-card {
+    width: 112px;
+    height: 112px;
+    margin: 0 8px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--btn-bg);
+    border-width: 2px;
+    border-color: var(--btn-bevel-lo);
+    border-left-color: var(--btn-bevel-hi);
+    border-top-color: var(--btn-bevel-hi);
+    border-right-color: var(--btn-bevel-lo);
+    border-bottom-color: var(--btn-bevel-lo);
+    transition-property: translate, background-color, border-color;
+    transition-duration: 0.1s, 0.1s, 0.1s;
+}
+
+.color-card:hover {
+    translate: -2px -2px;
+    background-color: var(--btn-bg-hi);
+}
+
+.color-card:active {
+    translate: 0 0;
+}
+
+.color-card--active {
+    background-color: var(--play-bg);
+    translate: -2px -2px;
+    border-left-color: var(--play-bevel-hi);
+    border-top-color: var(--play-bevel-hi);
+    border-right-color: var(--play-bevel-lo);
+    border-bottom-color: var(--play-bevel-lo);
+}
+
+.color-card--active:hover {
+    background-color: var(--play-bg-hi);
+}
+
+.color-preview {
+    width: 80px;
+    height: 80px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* ============ BOTONES (Volver y Jugar) ============ */
+.char-buttons {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.char-buttons .mbtn {
+    width: 300px;
+    height: 70px;
+    margin: 0 20px;
+    margin-bottom: 0;
+}
+
+.char-buttons .mbtn__label {
+    /* Tipografía sincronizada con los botones del menú principal (Jersey25) */
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Jersey25.asset");
+    font-size: 28px;
+}

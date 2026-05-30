@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5bb0429d8ab6804096d5a602557de06, type: 3}
   m_Name: SpeedBoots
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Botas de Velocidad
-  description: +20% velocidad de movimiento.
+  itemName: Botas Veloces
+  description: +15% de velocidad de movimiento.
+  icon: {fileID: -5025861119697972363, guid: b7f53bc406075974f99fb2641ca44f32, type: 3}
   type: 1
   rarity: 0
   attackBoost: 0

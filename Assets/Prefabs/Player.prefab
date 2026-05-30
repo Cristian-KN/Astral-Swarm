@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8665846813977382071}
   - component: {fileID: 1905402360565394091}
   - component: {fileID: 7331819251329504759}
+  - component: {fileID: 7367907592223870423}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -152,7 +153,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -6146700129834819302, guid: f40b4b2c79087544aabf1837b16bd642, type: 3}
+  m_Sprite: {fileID: 7384290322352760091, guid: 2427975628ccb5843ab40e9ce9dbeb29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -172,7 +173,7 @@ Animator:
   m_GameObject: {fileID: 1139274099036113633}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9d3646dea7028b447abb1638e94576c6, type: 2}
+  m_Controller: {fileID: 9100000, guid: ca437a6faeac128469bd882bd12e4b69, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -234,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8330adb64584b2843ae4156314caa6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  defaultWeapon: {fileID: 11400000, guid: f3cd7ff2b7f541548ae49aaedca865b5, type: 2}
+  defaultWeapon: {fileID: 11400000, guid: be9da9741c264d041a2f191fad7b6444, type: 2}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -251,3 +252,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   items: []
+  playerClass: 0
+--- !u!114 &7367907592223870423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139274099036113633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f6c28d3d6d986549be8377334ce9e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerClassVisuals
+  warriorController: {fileID: 9100000, guid: ca437a6faeac128469bd882bd12e4b69, type: 2}
+  archerController: {fileID: 9100000, guid: ea7846189176645468cc20920aa3de30, type: 2}
+  lancerController: {fileID: 9100000, guid: d51dc1ef5fb0c9041b25769fb800d882, type: 2}

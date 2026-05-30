@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: MagicOrb
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "Orbe M\xE1gico"
-  description: Dispara proyectiles a enemigos cercanos.
+  description: Orbe que persigue y golpea enemigos.
+  icon: {fileID: 6434297881002808141, guid: b7f53bc406075974f99fb2641ca44f32, type: 3}
   type: 0
   rarity: 0
   attackBoost: 0

@@ -1,0 +1,417 @@
+/* ===========================================================
+   ASTRAL SWARM — base menu styles (UI Toolkit port of menu.css)
+   One template, themed by a .theme-* class on #stage.
+   UITK has no gradients / box-shadow / ::before — bevels are
+   faked with per-side borders; glows/vignette/embers are
+   textures driven from MainMenuController.
+   =========================================================== */
+
+/* ---- fixed-resolution stage (PanelSettings scales to 1408x768) ---- */
+.stage {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    overflow: hidden;
+}
+
+.bg {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    -unity-background-scale-mode: scale-and-crop;
+    background-image: url("menu_background.jpeg");
+}
+
+/* vignette texture set from code (transparent center -> dark edges) */
+.vignette {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+/* ============ TORCH / FIRE GLOWS ============ */
+.glows {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+}
+.glow {
+    position: absolute;
+    -unity-background-scale-mode: stretch-to-fill;
+    /* background-image (radial) + tint set from code; flicker animated in code */
+}
+/* positions as px on the 1408x768 stage, centered on the point */
+.t-moon    { left: 530px;  top: 160px;  width: 380px; height: 380px; margin-left: -190px; margin-top: -190px; }
+.t-gate    { left: 340px;  top: 380px; width: 220px; height: 220px; margin-left: -110px; margin-top: -110px; }
+.t-path    { left: 300px;  top: 520px; width: 300px; height: 300px; margin-left: -150px; margin-top: -150px; }
+.t-village { left: 1120px; top: 500px; width: 280px; height: 280px; margin-left: -140px; margin-top: -140px; }
+.t-fire    { left: 1180px; top: 620px; width: 500px; height: 500px; margin-left: -250px; margin-top: -250px; }
+.t-lantern { left: 370px; top: 280px; width: 200px; height: 200px; margin-left: -100px; margin-top: -100px; }
+
+/* drifting embers */
+.embers {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+.ember {
+    position: absolute;
+    width: 4px; height: 4px;
+    border-radius: 3px;
+}
+
+/* ===================== SCREENS ===================== */
+.screen {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ---------------- TITLE ---------------- */
+.title-wrap {
+    margin-top: 58px;
+    flex-direction: column;
+    align-items: center;
+}
+.title-banner {
+    padding: 14px 64px 20px 64px;
+    flex-direction: row;
+    justify-content: center;
+}
+.game-title {
+    -unity-font-definition: url("../../Fonts/UITK/UnifrakturCook.asset");
+    font-size: 104px;
+    -unity-font-style: bold;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    color: var(--title-color);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: var(--title-stroke);
+    text-shadow: 0 4px 0 var(--title-stroke);
+}
+.tagline {
+    margin-top: 10px;
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 17px;
+    letter-spacing: 8px;
+    color: var(--tagline-color);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 1);
+}
+
+/* ---------------- MENU BUTTONS ---------------- */
+.menu-buttons {
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mbtn {
+    width: 430px;
+    height: 76px;
+    margin-bottom: 22px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 28px;
+    background-color: var(--btn-bg);
+    border-width: 4px;
+    border-left-color: var(--btn-bevel-hi);
+    border-top-color: var(--btn-bevel-hi);
+    border-right-color: var(--btn-bevel-lo);
+    border-bottom-color: var(--btn-bevel-lo);
+    border-radius: 0;
+    transition-property: translate, scale, background-color, border-color;
+    transition-duration: 0.1s, 0.1s, 0.12s, 0.14s;
+}
+.mbtn:hover {
+    translate: -3px -3px;
+    background-color: var(--btn-bg-hi);
+    border-left-color: var(--accent);
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+.mbtn:active {
+    translate: 0 0;
+    scale: 0.99 0.97;
+}
+
+.mbtn__label {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 32px;
+    -unity-font-style: bold;
+    letter-spacing: 4px;
+    color: var(--btn-text);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 1);
+    -unity-text-align: middle-center;
+}
+.mbtn:hover .mbtn__label { color: var(--btn-text-hi); }
+
+/* hover ◆ ticks */
+.mbtn__tick {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 16px;
+    color: var(--accent);
+    opacity: 0;
+    margin: 0 14px;
+    transition-property: opacity;
+    transition-duration: 0.12s;
+}
+.mbtn:hover .mbtn__tick { opacity: 1; }
+
+/* primary (JUGAR) */
+.mbtn--play {
+    background-color: var(--play-bg);
+    border-left-color: var(--play-bevel-hi);
+    border-top-color: var(--play-bevel-hi);
+    border-right-color: var(--play-bevel-lo);
+    border-bottom-color: var(--play-bevel-lo);
+}
+.mbtn--play .mbtn__label { color: var(--play-text); text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.25); }
+.mbtn--play:hover { background-color: var(--play-bg-hi); }
+.mbtn--play:hover .mbtn__label { color: var(--play-text); }
+
+/* danger (SALIR) */
+.mbtn--exit { }
+.mbtn--exit .mbtn__tick { color: #ff6a52; }
+.mbtn--exit:hover {
+    border-left-color: #ff6a52;
+    border-top-color: #ff6a52;
+    border-right-color: #ff6a52;
+    border-bottom-color: #ff6a52;
+}
+.mbtn--exit:hover .mbtn__label { color: #ffd9cf; }
+
+/* ---------------- FOOTER ---------------- */
+.menu-footer {
+    position: absolute;
+    left: 0; right: 0; bottom: 18px;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 26px;
+}
+.version {
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: rgba(220, 210, 190, 0.62);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
+}
+
+/* ===================== SETTINGS ===================== */
+.screen--settings {
+    justify-content: center;
+    background-color: rgba(6, 5, 11, 0.6);
+}
+.panel {
+    width: 760px;
+    padding: 30px 46px 40px 46px;
+    background-color: var(--panel-bg);
+    border-width: 4px;
+    border-color: var(--panel-border);
+    align-items: stretch;
+    transition-property: translate, scale;
+    transition-duration: 0.22s;
+}
+/* corner studs (real elements, ::before/::after not supported) */
+.stud {
+    position: absolute;
+    top: 10px;
+    width: 12px; height: 12px;
+    background-color: var(--accent);
+    border-width: 3px;
+    border-color: var(--panel-border);
+}
+.stud--l { left: 10px; }
+.stud--r { right: 10px; }
+
+.panel-title {
+    margin: 4px 0 4px 0;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("../../Fonts/UITK/UnifrakturCook.asset");
+    font-size: 58px;
+    -unity-font-style: bold;
+    letter-spacing: 2px;
+    color: var(--panel-title-color);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: var(--title-stroke);
+    text-shadow: 0 3px 0 var(--title-stroke);
+    align-self: center;
+}
+.panel-rule {
+    height: 4px;
+    margin: 6px 0 24px 0;
+    width: 60%;
+    align-self: center;
+    background-color: var(--accent);
+    opacity: 0.7;
+}
+
+.setting-group { margin-bottom: 22px; }
+.setting-label {
+    margin-bottom: 10px;
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--label-color);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
+}
+
+/* segmented display-mode toggle */
+.seg {
+    flex-direction: row;
+    justify-content: space-between;
+}
+.seg-opt {
+    flex-grow: 1;
+    height: 50px;
+    margin: 0 5px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--seg-bg);
+    border-width: 3px;
+    border-color: var(--panel-border);
+}
+.seg-opt:hover { background-color: var(--seg-bg-hi); }
+.seg-opt__label {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 17px;
+    letter-spacing: 1px;
+    color: var(--btn-text);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
+    -unity-text-align: middle-center;
+}
+.seg-opt.is-active { background-color: var(--seg-active-bg); border-color: var(--accent); }
+.seg-opt.is-active .seg-opt__label { color: var(--seg-active-text); text-shadow: 0 0 0 rgba(0, 0, 0, 0); }
+
+/* sliders */
+.slider-row { margin-bottom: 20px; }
+.slider-label-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 9px;
+}
+.slider-label-row .setting-label { margin-bottom: 0; }
+.val {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--val-color);
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+.pslider {
+    height: 26px;
+    justify-content: center;
+}
+.pslider__track {
+    position: absolute;
+    top: 7px;
+    left: 0; right: 0;
+    height: 14px;
+    background-color: var(--track-bg);
+    border-width: 3px;
+    border-color: var(--panel-border);
+}
+.pslider__fill {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 50%;
+    background-color: var(--fill-bg);
+}
+.pslider__handle {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 22px; height: 34px;
+    margin-left: -11px;
+    background-color: var(--handle-bg);
+    border-width: 3px;
+    border-color: var(--panel-border);
+}
+.pslider:hover .pslider__handle,
+.pslider:focus .pslider__handle { background-color: var(--handle-bg-hi); }
+
+.panel-actions { margin-top: 30px; align-items: center; }
+.mbtn--back { width: 300px; height: 64px; margin-bottom: 0; }
+.mbtn--back .mbtn__label { font-size: 26px; }
+
+/* ===================== EXIT MODAL ===================== */
+.modal-wrap {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(4, 3, 8, 0.72);
+}
+.modal {
+    width: 520px;
+    padding: 38px 40px 32px 40px;
+    align-items: center;
+    background-color: var(--panel-bg);
+    border-width: 4px;
+    border-color: var(--panel-border);
+}
+.modal-title {
+    margin-bottom: 8px;
+    -unity-font-definition: url("../../Fonts/UITK/UnifrakturCook.asset");
+    font-size: 40px;
+    -unity-font-style: bold;
+    color: var(--panel-title-color);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: var(--title-stroke);
+    -unity-text-align: middle-center;
+}
+.modal-text {
+    margin-bottom: 26px;
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 19px;
+    letter-spacing: 1px;
+    color: var(--label-color);
+    -unity-text-align: middle-center;
+}
+.modal-btns { flex-direction: row; justify-content: center; }
+.mbtn--modal { width: 200px; height: 60px; margin: 0 9px; }
+.mbtn--modal .mbtn__label { font-size: 24px; }
+
+/* ===================== PLAY TRANSITION ===================== */
+.play-overlay {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 0, 0);
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.4s;
+}
+.play-overlay.show { opacity: 1; }
+.play-title {
+    margin-bottom: 26px;
+    -unity-font-definition: url("../../Fonts/UITK/UnifrakturCook.asset");
+    font-size: 64px;
+    -unity-font-style: bold;
+    color: var(--title-color);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: var(--title-stroke);
+    text-shadow: 0 0 30px var(--accent-glow);
+}
+.spinner-dots { flex-direction: row; margin-bottom: 26px; }
+.spinner-dot {
+    width: 20px; height: 20px;
+    margin: 0 8px;
+    background-color: var(--accent);
+    border-radius: 2px;
+}
+
+/* Jumping animation using transitions or scheduled offsets in code is safer, 
+   but we can try a simple translate transition loop if we trigger it from code.
+   However, since we want a continuous loop, we'll implement the animation in the Controller.
+*/
+.play-sub {
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 15px;
+    letter-spacing: 6px;
+    color: var(--label-color);
+}

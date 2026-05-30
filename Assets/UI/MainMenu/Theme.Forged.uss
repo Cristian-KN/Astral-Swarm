@@ -1,0 +1,38 @@
+/* A · FORJA DE HIERRO — hierro, brasa-oro y sangre */
+.theme-forged {
+    --accent: #ff9a3c;
+    --accent-glow: rgba(255, 150, 50, 0.6);
+
+    --title-color: #f0cf7e;
+    --title-stroke: #1a0f06;
+    --tagline-color: #cbb892;
+
+    --btn-bg: #232330;
+    --btn-bg-hi: #2f2f3c;
+    --btn-text: #e7dcc4;
+    --btn-text-hi: #fff3d6;
+    --btn-bevel-hi: #50505e;
+    --btn-bevel-lo: #08070c;
+
+    --play-bg: #d8a945;
+    --play-bg-hi: #ecc065;
+    --play-text: #1c1206;
+    --play-bevel-hi: #f6cf6b;
+    --play-bevel-lo: #8a5f1e;
+
+    --panel-bg: #211e29;
+    --panel-border: #08070c;
+    --panel-title-color: #f0cf7e;
+    --label-color: #cbb892;
+    --val-color: #ff9a3c;
+
+    --seg-bg: #24242c;
+    --seg-bg-hi: #30303a;
+    --seg-active-bg: #d8a945;
+    --seg-active-text: #1a1206;
+
+    --track-bg: #0d0c12;
+    --fill-bg: #d8a945;
+    --handle-bg: #cfc3a8;
+    --handle-bg-hi: #efe6d2;
+}

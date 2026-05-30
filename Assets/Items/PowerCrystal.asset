@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: PowerCrystal
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Cristal de Poder
-  description: +10 poder de ataque.
+  description: +10 de poder de ataque.
+  icon: {fileID: -2995158427926355077, guid: b7f53bc406075974f99fb2641ca44f32, type: 3}
   type: 1
   rarity: 0
   attackBoost: 10

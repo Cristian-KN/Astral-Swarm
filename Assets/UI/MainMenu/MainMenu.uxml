@@ -1,0 +1,140 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=28c90baa4c8b85648a6018c51a045231&amp;type=3#MainMenu"/>
+    <Style src="project://database/Assets/UI/MainMenu/Theme.Forged.uss?fileID=7433441132597879392&amp;guid=19042621de7cbca4da97aac19a6e14e8&amp;type=3#Theme.Forged"/>
+    <Style src="project://database/Assets/UI/MainMenu/Theme.Grimoire.uss?fileID=7433441132597879392&amp;guid=7fba7b97faa30ef498196780f1a7b28c&amp;type=3#Theme.Grimoire"/>
+    <Style src="project://database/Assets/UI/MainMenu/Theme.Astral.uss?fileID=7433441132597879392&amp;guid=e322ec6677160724caac9bedd135b4dd&amp;type=3#Theme.Astral"/>
+    <ui:VisualElement name="stage" class="stage theme-forged">
+        <ui:VisualElement name="bg" picking-mode="Ignore" class="bg"/>
+        <ui:VisualElement name="glows" picking-mode="Ignore" class="glows">
+            <ui:VisualElement name="glow-moon" picking-mode="Ignore" class="glow glow--moon t-moon"/>
+            <ui:VisualElement name="glow-gate" picking-mode="Ignore" class="glow glow--warm t-gate"/>
+            <ui:VisualElement name="glow-path" picking-mode="Ignore" class="glow glow--warm t-path"/>
+            <ui:VisualElement name="glow-village" picking-mode="Ignore" class="glow glow--warm t-village"/>
+            <ui:VisualElement name="glow-fire" picking-mode="Ignore" class="glow glow--ember t-fire"/>
+            <ui:VisualElement name="glow-lantern" picking-mode="Ignore" class="glow glow--warm t-lantern"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="embers" picking-mode="Ignore" class="embers"/>
+        <ui:VisualElement name="vignette" picking-mode="Ignore" class="vignette"/>
+        <ui:VisualElement name="screen-menu" class="screen screen--menu">
+            <ui:VisualElement picking-mode="Ignore" class="title-wrap">
+                <ui:VisualElement picking-mode="Ignore" class="title-banner">
+                    <ui:Label text="Astral Swarm" name="game-title" class="game-title"/>
+                </ui:VisualElement>
+                <ui:Label text="SOBREVIVE AL ENJAMBRE" class="tagline"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="menu-buttons">
+                <ui:VisualElement name="btn-play" tabindex="0" focusable="true" class="mbtn mbtn--play">
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--l"/>
+                    <ui:Label text="JUGAR" picking-mode="Ignore" class="mbtn__label"/>
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--r"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="btn-settings" tabindex="0" focusable="true" class="mbtn">
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--l"/>
+                    <ui:Label text="AJUSTES" picking-mode="Ignore" class="mbtn__label"/>
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--r"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="btn-exit" tabindex="0" focusable="true" class="mbtn mbtn--exit">
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--l"/>
+                    <ui:Label text="SALIR" picking-mode="Ignore" class="mbtn__label"/>
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--r"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement picking-mode="Ignore" class="menu-footer">
+                <ui:Label text="v0.1.0 · ALPHA" class="version"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="screen-settings" class="screen screen--settings" style="display: none;">
+            <ui:VisualElement name="settings-panel" class="panel">
+                <ui:VisualElement picking-mode="Ignore" class="stud stud--l"/>
+                <ui:VisualElement picking-mode="Ignore" class="stud stud--r"/>
+                <ui:Label text="Ajustes" class="panel-title"/>
+                <ui:VisualElement picking-mode="Ignore" class="panel-rule"/>
+                <ui:VisualElement class="setting-group">
+                    <ui:Label text="MODO DE PANTALLA" class="setting-label"/>
+                    <ui:VisualElement name="seg-display" class="seg">
+                        <ui:VisualElement name="seg-fullscreen" tabindex="0" focusable="true" class="seg-opt is-active">
+                            <ui:Label text="PANTALLA COMPLETA" picking-mode="Ignore" class="seg-opt__label"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="seg-borderless" tabindex="0" focusable="true" class="seg-opt">
+                            <ui:Label text="SIN BORDES" picking-mode="Ignore" class="seg-opt__label"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="seg-windowed" tabindex="0" focusable="true" class="seg-opt">
+                            <ui:Label text="VENTANA" picking-mode="Ignore" class="seg-opt__label"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="slider-row">
+                    <ui:VisualElement picking-mode="Ignore" class="slider-label-row">
+                        <ui:Label text="VOLUMEN GENERAL" class="setting-label"/>
+                        <ui:Label text="80%" name="val-master" class="val"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="slider-master" tabindex="0" focusable="true" class="pslider">
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__track">
+                            <ui:VisualElement picking-mode="Ignore" class="pslider__fill"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__handle"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="slider-row">
+                    <ui:VisualElement picking-mode="Ignore" class="slider-label-row">
+                        <ui:Label text="MÚSICA" class="setting-label"/>
+                        <ui:Label text="65%" name="val-music" class="val"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="slider-music" tabindex="0" focusable="true" class="pslider">
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__track">
+                            <ui:VisualElement picking-mode="Ignore" class="pslider__fill"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__handle"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="slider-row">
+                    <ui:VisualElement picking-mode="Ignore" class="slider-label-row">
+                        <ui:Label text="EFECTOS DE SONIDO" class="setting-label"/>
+                        <ui:Label text="75%" name="val-sfx" class="val"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="slider-sfx" tabindex="0" focusable="true" class="pslider">
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__track">
+                            <ui:VisualElement picking-mode="Ignore" class="pslider__fill"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement picking-mode="Ignore" class="pslider__handle"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="panel-actions">
+                    <ui:VisualElement name="btn-back" tabindex="0" focusable="true" class="mbtn mbtn--back">
+                        <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--l"/>
+                        <ui:Label text="VOLVER" picking-mode="Ignore" class="mbtn__label"/>
+                        <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--r"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="modal-wrap" class="modal-wrap" style="display: none;">
+            <ui:VisualElement name="modal" class="modal">
+                <ui:Label text="¿Abandonar?" class="modal-title"/>
+                <ui:Label text="Tu progreso sin guardar se perderá." class="modal-text"/>
+                <ui:VisualElement class="modal-btns">
+                    <ui:VisualElement name="btn-exit-yes" tabindex="0" focusable="true" class="mbtn mbtn--exit mbtn--modal">
+                        <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--l"/>
+                        <ui:Label text="SALIR" picking-mode="Ignore" class="mbtn__label"/>
+                        <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--r"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="btn-exit-no" tabindex="0" focusable="true" class="mbtn mbtn--play mbtn--modal">
+                        <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--l"/>
+                        <ui:Label text="QUEDARSE" picking-mode="Ignore" class="mbtn__label"/>
+                        <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--r"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="play-overlay" picking-mode="Ignore" class="play-overlay" style="display: none;">
+            <ui:Label text="Invocando el Enjambre" class="play-title"/>
+            <ui:VisualElement picking-mode="Ignore" class="spinner-dots">
+                <ui:VisualElement picking-mode="Ignore" class="spinner-dot"/>
+                <ui:VisualElement picking-mode="Ignore" class="spinner-dot"/>
+                <ui:VisualElement picking-mode="Ignore" class="spinner-dot"/>
+                <ui:VisualElement picking-mode="Ignore" class="spinner-dot"/>
+            </ui:VisualElement>
+            <ui:Label text="PREPARANDO LA INCURSIÓN…" class="play-sub"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

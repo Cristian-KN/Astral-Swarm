@@ -16,11 +16,19 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
 
     private readonly List<WeaponSlot> weaponSlots = new List<WeaponSlot>();
+    public IReadOnlyList<WeaponSlot> WeaponSlots => weaponSlots;
 
     private void Start()
     {
         if (defaultWeapon != null)
             EquipWeapon(defaultWeapon);
+    }
+
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -33,20 +41,16 @@ public class PlayerAttack : MonoBehaviour
             if (slot.timer >= slot.weaponData.weaponCooldown)
             {
                 slot.timer = 0f;
-                FireWeapon(slot);
+                ExecuteAttack(slot);
             }
         }
     }
 
-    /// <summary>
-    /// Equipa un arma nueva o sube de nivel si ya la tenemos. Máximo 3 slots.
-    /// </summary>
     public void EquipWeapon(ItemData weaponData)
     {
         WeaponSlot existing = weaponSlots.Find(s => s.weaponData == weaponData);
         if (existing != null)
         {
-            existing.level = Mathf.Min(existing.level + 1, weaponData.weaponMaxLevel);
             return;
         }
 
@@ -54,10 +58,68 @@ public class PlayerAttack : MonoBehaviour
         weaponSlots.Add(new WeaponSlot { weaponData = weaponData });
     }
 
-    private void FireWeapon(WeaponSlot slot)
+    public void RemoveWeapon(ItemData weaponData)
     {
-        if (slot.weaponData.projectilePrefab == null) return;
+        weaponSlots.RemoveAll(s => s.weaponData == weaponData);
+    }
 
+    private void ExecuteAttack(WeaponSlot slot)
+    {
+        if (slot.weaponData.projectilePrefab != null)
+        {
+            FireRanged(slot);
+        }
+        else
+        {
+            PerformMelee(slot);
+        }
+    }
+
+    private void PerformMelee(WeaponSlot slot)
+    {
+        if (animator != null)
+        {
+            // Reset trigger to ensure it doesn't queue up
+            animator.ResetTrigger("Attack");
+            animator.SetTrigger("Attack");
+        }
+
+        // Damage is now handled in a Coroutine to sync with animation frames
+        StartCoroutine(MeleeDamageCoroutine(slot));
+    }
+
+    private System.Collections.IEnumerator MeleeDamageCoroutine(WeaponSlot slot)
+    {
+        // Small delay so the damage hits when the sword is actually swinging (middle of animation)
+        // TinySwords attack animations are roughly 0.3s long. 
+        // 0.1s is usually the "swing" moment.
+        yield return new WaitForSeconds(0.1f);
+
+        Collider2D[] nearby = Physics2D.OverlapCircleAll(
+            transform.position, slot.weaponData.weaponDetectionRadius, enemyLayer);
+
+        if (nearby.Length == 0) yield break;
+
+        Transform nearest = null;
+        float shortest = Mathf.Infinity;
+        foreach (Collider2D col in nearby)
+        {
+            float d = Vector2.Distance(transform.position, col.transform.position);
+            if (d < shortest) { shortest = d; nearest = col.transform; }
+        }
+
+        if (nearest != null)
+        {
+            EnemyStats stats = nearest.GetComponent<EnemyStats>();
+            if (stats != null)
+            {
+                stats.TakeDamage(slot.weaponData.weaponDamage * slot.level);
+            }
+        }
+    }
+
+    private void FireRanged(WeaponSlot slot)
+    {
         Collider2D[] nearby = Physics2D.OverlapCircleAll(
             transform.position, slot.weaponData.weaponDetectionRadius, enemyLayer);
 

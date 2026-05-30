@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUD Pixel-Art</title>
+  <link rel="stylesheet" href="hud_ingame.css">
+</head>
+<body>
+  <div class="game-stage">
+
+    <!-- Simulación del gameplay -->
+    <div class="gameplay-mockup">
+      <div class="player-sprite"></div>
+    </div>
+
+    <!-- HUD OVERLAY -->
+    <div class="hud-overlay">
+
+      <!-- TOP LEFT: Barra de vida + Dinero + Stats -->
+      <div class="hud-left">
+
+        <!-- Barra de vida -->
+        <div class="health-bar">
+          <div class="health-fill" style="width: 65%;"></div>
+          <div class="health-text">65/100</div>
+        </div>
+
+        <!-- Dinero -->
+        <div class="money-row">
+          <div class="coin-icon"></div>
+          <span class="money-amount">1,250</span>
+        </div>
+
+        <!-- Stats verticales -->
+        <div class="stats-list">
+          <div class="stat-row">
+            <div class="stat-icon stat-icon--luck"></div>
+            <span class="stat-value">12</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat-icon stat-icon--speed"></div>
+            <span class="stat-value">8.5</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat-icon stat-icon--defense"></div>
+            <span class="stat-value">15</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat-icon stat-icon--attack"></div>
+            <span class="stat-value">24</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat-icon stat-icon--attackspeed"></div>
+            <span class="stat-value">3.2</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat-icon stat-icon--range"></div>
+            <span class="stat-value">6.0</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat-icon stat-icon--difficulty"></div>
+            <span class="stat-value">5</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM CENTER: 3 Weapon Slots -->
+      <div class="weapon-bar">
+        <div class="weapon-slot weapon-slot--active">
+          <div class="weapon-sprite weapon-sprite--sword"></div>
+          <div class="weapon-level">3</div>
+        </div>
+        <div class="weapon-slot">
+          <div class="weapon-sprite weapon-sprite--bow"></div>
+          <div class="weapon-level">1</div>
+        </div>
+        <div class="weapon-slot weapon-slot--empty">
+          <div class="weapon-sprite weapon-sprite--empty"></div>
+          <div class="weapon-level">-</div>
+        </div>
+      </div>
+
+      <!-- BOTTOM RIGHT: Mini Mapa -->
+      <div class="minimap">
+        <div class="minimap-content">
+          <!-- Elementos del mapa -->
+          <div class="map-player"></div>
+          <div class="map-enemy" style="left: 30%; top: 20%;"></div>
+          <div class="map-enemy" style="left: 60%; top: 70%;"></div>
+          <div class="map-item" style="left: 80%; top: 40%;"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Cambiar arma con teclas 1,2,3
+    const slots = document.querySelectorAll('.weapon-slot');
+    let active = 0;
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key >= '1' && e.key <= '3') {
+        slots[active].classList.remove('weapon-slot--active');
+        active = parseInt(e.key) - 1;
+        slots[active].classList.add('weapon-slot--active');
+      }
+    });
+
+    // Simular actualización de vida
+    setInterval(() => {
+      const fill = document.querySelector('.health-fill');
+      const text = document.querySelector('.health-text');
+      const current = Math.floor(Math.random() * 100);
+      fill.style.width = current + '%';
+      text.textContent = current + '/100';
+    }, 3000);
+  </script>
+
+</body>
+</html>

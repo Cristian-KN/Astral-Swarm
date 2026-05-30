@@ -1,0 +1,376 @@
+/* ===========================================================
+   HUD Pixel-Art · Especificación exacta
+   - Barra de vida (top-left)
+   - Dinero debajo de vida
+   - Stats verticales izquierda
+   - 3 slots armas (bottom-center)
+   - Mini mapa (bottom-right)
+   =========================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: monospace;
+}
+
+/* ============ GAME STAGE ============ */
+.game-stage {
+  position: relative;
+  width: 1408px;
+  height: 768px;
+  overflow: hidden;
+  background: #2a3a28;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.gameplay-mockup {
+  position: absolute;
+  inset: 0;
+  background: #3a5a38;
+  z-index: 0;
+}
+
+.player-sprite {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  background: #6a8aaa;
+  border: 2px solid #3a4a5a;
+  transform: translate(-50%, -50%);
+}
+
+/* ============ HUD OVERLAY ============ */
+.hud-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ============ LEFT SECTION ============ */
+.hud-left {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* BARRA DE VIDA */
+.health-bar {
+  position: relative;
+  width: 200px;
+  height: 24px;
+  background: #2a1a0a;
+  border: 3px solid #1a0a00;
+  box-shadow:
+    inset 0 0 0 1px #0a0500,
+    0 2px 4px rgba(0,0,0,0.6);
+}
+
+.health-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 65%;
+  background: linear-gradient(180deg, #e84545 0%, #b82828 100%);
+  box-shadow: inset 0 2px 0 rgba(255,100,100,0.3);
+  transition: width 0.3s;
+}
+
+.health-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow:
+    1px 0 0 #000,
+    -1px 0 0 #000,
+    0 1px 0 #000,
+    0 -1px 0 #000;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* DINERO */
+.money-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: rgba(20,15,10,0.8);
+  border: 2px solid #3a2a1a;
+  width: fit-content;
+}
+
+.coin-icon {
+  width: 16px;
+  height: 16px;
+  background: #ffd700;
+  border-radius: 50%;
+  border: 2px solid #b8860b;
+  box-shadow: inset -2px -2px 0 rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.coin-icon::after {
+  content: '$';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #8b6914;
+}
+
+.money-amount {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow:
+    1px 0 0 #000,
+    -1px 0 0 #000,
+    0 1px 0 #000,
+    0 -1px 0 #000;
+}
+
+/* STATS VERTICALES */
+.stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 6px;
+  background: rgba(20,15,10,0.7);
+  border: 2px solid #2a1a0a;
+  width: fit-content;
+  min-width: 80px;
+}
+
+.stat-icon {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+/* Iconos pixel-art SVG */
+.stat-icon--luck {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect x="6" y="2" width="4" height="4" fill="%2350c878"/><rect x="2" y="6" width="4" height="4" fill="%2350c878"/><rect x="10" y="6" width="4" height="4" fill="%2350c878"/><rect x="6" y="10" width="4" height="4" fill="%2350c878"/><rect x="7" y="7" width="2" height="2" fill="%23fff"/></svg>');
+}
+
+.stat-icon--speed {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect x="2" y="6" width="8" height="4" fill="%235ac8fa"/><rect x="10" y="4" width="4" height="2" fill="%235ac8fa"/><rect x="10" y="10" width="4" height="2" fill="%235ac8fa"/><rect x="14" y="7" width="2" height="2" fill="%23fff"/></svg>');
+}
+
+.stat-icon--defense {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect x="6" y="2" width="4" height="2" fill="%23a0a0a0"/><rect x="4" y="4" width="8" height="2" fill="%23a0a0a0"/><rect x="3" y="6" width="10" height="6" fill="%23a0a0a0"/><rect x="5" y="12" width="6" height="2" fill="%23a0a0a0"/><rect x="7" y="7" width="2" height="3" fill="%23d0d0d0"/></svg>');
+}
+
+.stat-icon--attack {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect x="7" y="1" width="2" height="10" fill="%23c0c0c0"/><rect x="5" y="11" width="6" height="2" fill="%238a5a2a"/><rect x="6" y="13" width="4" height="2" fill="%236a3a1a"/><rect x="6" y="0" width="4" height="2" fill="%23e0e0e0"/></svg>');
+}
+
+.stat-icon--attackspeed {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect x="2" y="7" width="4" height="2" fill="%23ffa500"/><rect x="6" y="5" width="4" height="6" fill="%23ffa500"/><rect x="10" y="3" width="4" height="10" fill="%23ffa500"/></svg>');
+}
+
+.stat-icon--range {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2" fill="%23ff5555"/><circle cx="8" cy="8" r="5" fill="none" stroke="%23ff5555" stroke-width="1"/><circle cx="8" cy="8" r="7" fill="none" stroke="%23ff5555" stroke-width="1" opacity="0.5"/></svg>');
+}
+
+.stat-icon--difficulty {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect x="6" y="10" width="4" height="4" fill="%23ff3030"/><rect x="4" y="6" width="8" height="4" fill="%23ff3030"/><rect x="2" y="2" width="12" height="4" fill="%23ff3030"/><rect x="7" y="3" width="2" height="2" fill="%23ffaaaa"/></svg>');
+}
+
+.stat-value {
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow:
+    1px 0 0 #000,
+    -1px 0 0 #000,
+    0 1px 0 #000,
+    0 -1px 0 #000;
+  flex: 1;
+  text-align: right;
+}
+
+/* ============ WEAPON BAR (bottom-center) ============ */
+.weapon-bar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  pointer-events: all;
+}
+
+.weapon-slot {
+  width: 56px;
+  height: 56px;
+  position: relative;
+  background: rgba(20,15,10,0.85);
+  border: 3px solid #2a1a0a;
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,0.5),
+    0 3px 6px rgba(0,0,0,0.7);
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.weapon-slot--active {
+  border-color: #d24b3a;
+  background: rgba(40,20,15,0.95);
+  transform: translateY(-6px);
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,0.5),
+    0 0 12px rgba(210,75,58,0.8),
+    0 6px 8px rgba(0,0,0,0.8);
+}
+
+.weapon-slot--empty {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.weapon-slot:hover:not(.weapon-slot--empty):not(.weapon-slot--active) {
+  border-color: #8a4a3a;
+  transform: translateY(-2px);
+}
+
+.weapon-sprite {
+  width: 100%;
+  height: 100%;
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+/* Sprites de armas placeholder */
+.weapon-sprite--sword {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="14" y="2" width="4" height="18" fill="%23c0c0c0"/><rect x="10" y="20" width="12" height="4" fill="%238a5a2a"/><rect x="12" y="24" width="8" height="4" fill="%235a3a1a"/><rect x="13" y="1" width="6" height="2" fill="%23e0e0e0"/></svg>');
+}
+
+.weapon-sprite--bow {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="6" y="8" width="3" height="16" fill="%237a4a2a"/><rect x="9" y="6" width="2" height="2" fill="%237a4a2a"/><rect x="9" y="24" width="2" height="2" fill="%237a4a2a"/><line x1="11" y1="8" x2="24" y2="16" stroke="%23d0d0d0" stroke-width="2"/><line x1="11" y1="24" x2="24" y2="16" stroke="%23d0d0d0" stroke-width="2"/></svg>');
+}
+
+.weapon-sprite--empty {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><text x="16" y="22" font-size="18" fill="%23555" text-anchor="middle" font-family="monospace">?</text></svg>');
+}
+
+.weapon-level {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow:
+    1px 0 0 #000,
+    -1px 0 0 #000,
+    0 1px 0 #000,
+    0 -1px 0 #000;
+  pointer-events: none;
+  min-width: 12px;
+  text-align: center;
+}
+
+.weapon-slot--active .weapon-level {
+  color: #ffdd55;
+}
+
+/* ============ MINI MAPA (bottom-right) ============ */
+.minimap {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 140px;
+  height: 140px;
+  background: rgba(10,10,15,0.85);
+  border: 3px solid #2a2a3a;
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,0.7),
+    0 3px 8px rgba(0,0,0,0.8);
+  pointer-events: none;
+}
+
+.minimap-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 9px, rgba(50,150,100,0.1) 10px),
+    repeating-linear-gradient(90deg, transparent, transparent 9px, rgba(50,150,100,0.1) 10px),
+    #1a2a1a;
+}
+
+/* Elementos del mapa */
+.map-player {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  background: #5af;
+  border: 1px solid #fff;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px rgba(90,170,255,0.8);
+}
+
+.map-enemy {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #f55;
+  border: 1px solid #fff;
+  transform: translate(-50%, -50%);
+}
+
+.map-item {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #fd5;
+  border: 1px solid #fff;
+  transform: translate(-50%, -50%);
+}
+
+/* ============ PIXEL PERFECT ============ */
+* {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}

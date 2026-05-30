@@ -1,0 +1,61 @@
+/* B · GRIMORIO — cuero quemado, pergamino y cera carmesí.
+   Único tema con panel CLARO (pergamino) y fuentes propias. */
+.theme-grimoire {
+    --accent: #d24b3a;
+    --accent-glow: rgba(200, 50, 35, 0.6);
+
+    --title-color: #ecdcb6;
+    --title-stroke: #1c0d09;
+    --tagline-color: #d6b187;
+
+    --btn-bg: #34241a;
+    --btn-bg-hi: #45301f;
+    --btn-text: #ecdcb6;
+    --btn-text-hi: #fff0d2;
+    --btn-bevel-hi: #6a4a30;
+    --btn-bevel-lo: #160c07;
+
+    --play-bg: #a83328;
+    --play-bg-hi: #c4453a;
+    --play-text: #fff0e6;
+    --play-bevel-hi: #d8584a;
+    --play-bevel-lo: #5e160f;
+
+    /* light aged-parchment panel */
+    --panel-bg: #ddc492;
+    --panel-border: #3a2414;
+    --panel-title-color: #6e231a;
+    --label-color: #5a3a1f;
+    --val-color: #9e2b1e;
+
+    --seg-bg: #382517;
+    --seg-bg-hi: #46301d;
+    --seg-active-bg: #b3382c;
+    --seg-active-text: #fff0e6;
+
+    --track-bg: #2a1c10;
+    --fill-bg: #b3382c;
+    --handle-bg: #46301c;
+    --handle-bg-hi: #5a4026;
+}
+
+/* fonts specific to the Grimoire */
+.theme-grimoire .game-title,
+.theme-grimoire .panel-title,
+.theme-grimoire .modal-title,
+.theme-grimoire .play-title {
+    -unity-font-definition: url("../../Fonts/UITK/PirataOne.asset");
+    -unity-font-style: normal;
+}
+.theme-grimoire .mbtn__label,
+.theme-grimoire .seg-opt__label,
+.theme-grimoire .val,
+.theme-grimoire .modal-text {
+    -unity-font-definition: url("../../Fonts/UITK/Jersey25.asset");
+    -unity-font-style: normal;
+}
+/* on the light parchment, the panel title reads dark without a stroke */
+.theme-grimoire .panel-title {
+    -unity-text-outline-width: 0;
+    text-shadow: 1px 1px 0 rgba(255, 250, 235, 0.4);
+}

@@ -1,0 +1,897 @@
+fileFormatVersion: 2
+guid: 0ed2b17b2d08b0b4bb872b4d80496f8e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2871291234562828520
+    second: OpenGameArt_Grass_Tiles_0
+  - first:
+      213: 1617617077015131375
+    second: OpenGameArt_Grass_Tiles_1
+  - first:
+      213: 6312504808775663517
+    second: OpenGameArt_Grass_Tiles_2
+  - first:
+      213: -3167271671996675581
+    second: OpenGameArt_Grass_Tiles_3
+  - first:
+      213: -3048185716937948070
+    second: OpenGameArt_Grass_Tiles_4
+  - first:
+      213: 1772393411422525923
+    second: OpenGameArt_Grass_Tiles_5
+  - first:
+      213: -4677916098955959969
+    second: OpenGameArt_Grass_Tiles_6
+  - first:
+      213: 7530698790332670343
+    second: OpenGameArt_Grass_Tiles_7
+  - first:
+      213: -7281115184002525756
+    second: OpenGameArt_Grass_Tiles_8
+  - first:
+      213: 5928528799013475133
+    second: OpenGameArt_Grass_Tiles_9
+  - first:
+      213: -8229783974233463605
+    second: OpenGameArt_Grass_Tiles_10
+  - first:
+      213: -8934757785403914125
+    second: OpenGameArt_Grass_Tiles_11
+  - first:
+      213: 9191810196515876405
+    second: OpenGameArt_Grass_Tiles_12
+  - first:
+      213: -857731014894502709
+    second: OpenGameArt_Grass_Tiles_13
+  - first:
+      213: 1479419120226033265
+    second: OpenGameArt_Grass_Tiles_14
+  - first:
+      213: -8094027792984836324
+    second: OpenGameArt_Grass_Tiles_15
+  - first:
+      213: -8240813296279577505
+    second: OpenGameArt_Grass_Tiles_16
+  - first:
+      213: -3141450481419240610
+    second: OpenGameArt_Grass_Tiles_17
+  - first:
+      213: 4403761034165414814
+    second: OpenGameArt_Grass_Tiles_18
+  - first:
+      213: -848199264231825359
+    second: OpenGameArt_Grass_Tiles_19
+  - first:
+      213: -5785573569118954669
+    second: OpenGameArt_Grass_Tiles_20
+  - first:
+      213: 1434102154785806511
+    second: OpenGameArt_Grass_Tiles_21
+  - first:
+      213: -6197404687876752091
+    second: OpenGameArt_Grass_Tiles_22
+  - first:
+      213: 6538007799885630667
+    second: OpenGameArt_Grass_Tiles_23
+  - first:
+      213: 2971930376485055932
+    second: OpenGameArt_Grass_Tiles_24
+  - first:
+      213: -562788428735594439
+    second: OpenGameArt_Grass_Tiles_25
+  - first:
+      213: -8576657969479386737
+    second: OpenGameArt_Grass_Tiles_26
+  - first:
+      213: -6360916675677547042
+    second: OpenGameArt_Grass_Tiles_27
+  - first:
+      213: 2041227570438269610
+    second: OpenGameArt_Grass_Tiles_28
+  - first:
+      213: 5188141429873791220
+    second: OpenGameArt_Grass_Tiles_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 47
+        width: 289
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 817903db5df1728d0800000000000000
+      internalID: -2871291234562828520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_1
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 15
+        width: 12
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe4b71a392ee27610800000000000000
+      internalID: 1617617077015131375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_2
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 15
+        width: 11
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9fb402bda58a9750800000000000000
+      internalID: 6312504808775663517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_3
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 15
+        width: 20
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30a0b7bf1379b04d0800000000000000
+      internalID: -3167271671996675581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_4
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 15
+        width: 98
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a548e7c8d3ba2b5d0800000000000000
+      internalID: -3048185716937948070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_5
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 0
+        width: 65
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e9151aca6ec89810800000000000000
+      internalID: 1772393411422525923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 15
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5126a8b714b41fb0800000000000000
+      internalID: -4677916098955959969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_7
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 15
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7812e3486aa628860800000000000000
+      internalID: 7530698790332670343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_8
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 15
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c593d0315844fa90800000000000000
+      internalID: -7281115184002525756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_9
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 15
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d331fd1388d564250800000000000000
+      internalID: 5928528799013475133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_10
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 15
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc4ac95241fe9cd80800000000000000
+      internalID: -8229783974233463605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_11
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 15
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37808dee12d510480800000000000000
+      internalID: -8934757785403914125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_12
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 15
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53e64266caedf8f70800000000000000
+      internalID: 9191810196515876405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_13
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 15
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bccb068bf2ab814f0800000000000000
+      internalID: -857731014894502709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_14
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 15
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17e5efef9d3f78410800000000000000
+      internalID: 1479419120226033265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_15
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 31
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c17fff43b9c3caf80800000000000000
+      internalID: -8094027792984836324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5c90fef7ffb2ad80800000000000000
+      internalID: -8240813296279577505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_17
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 4
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5bb6876e635764d0800000000000000
+      internalID: -3141450481419240610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_18
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 4
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9be225145d4d1d30800000000000000
+      internalID: 4403761034165414814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_19
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 4
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 130e6bc53479a34f0800000000000000
+      internalID: -848199264231825359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_20
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 4
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35b96cefd7385bfa0800000000000000
+      internalID: -5785573569118954669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_21
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 4
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa851a3cf44f6e310800000000000000
+      internalID: 1434102154785806511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_22
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 4
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52df3c985456ef9a0800000000000000
+      internalID: -6197404687876752091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_23
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 4
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcc8ae2447babba50800000000000000
+      internalID: 6538007799885630667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_24
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 4
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbda5937eea6e3920800000000000000
+      internalID: 2971930376485055932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_25
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 4
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 930c385e7e29038f0800000000000000
+      internalID: -562788428735594439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_26
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 4
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f897821940799f880800000000000000
+      internalID: -8576657969479386737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_27
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 4
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed5916c2cfb79b7a0800000000000000
+      internalID: -6360916675677547042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_28
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 0
+        width: 50
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaae4b119a5e35c10800000000000000
+      internalID: 2041227570438269610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenGameArt_Grass_Tiles_29
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 0
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f05d1c742bfff740800000000000000
+      internalID: 5188141429873791220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      OpenGameArt_Grass_Tiles_0: -2871291234562828520
+      OpenGameArt_Grass_Tiles_1: 1617617077015131375
+      OpenGameArt_Grass_Tiles_10: -8229783974233463605
+      OpenGameArt_Grass_Tiles_11: -8934757785403914125
+      OpenGameArt_Grass_Tiles_12: 9191810196515876405
+      OpenGameArt_Grass_Tiles_13: -857731014894502709
+      OpenGameArt_Grass_Tiles_14: 1479419120226033265
+      OpenGameArt_Grass_Tiles_15: -8094027792984836324
+      OpenGameArt_Grass_Tiles_16: -8240813296279577505
+      OpenGameArt_Grass_Tiles_17: -3141450481419240610
+      OpenGameArt_Grass_Tiles_18: 4403761034165414814
+      OpenGameArt_Grass_Tiles_19: -848199264231825359
+      OpenGameArt_Grass_Tiles_2: 6312504808775663517
+      OpenGameArt_Grass_Tiles_20: -5785573569118954669
+      OpenGameArt_Grass_Tiles_21: 1434102154785806511
+      OpenGameArt_Grass_Tiles_22: -6197404687876752091
+      OpenGameArt_Grass_Tiles_23: 6538007799885630667
+      OpenGameArt_Grass_Tiles_24: 2971930376485055932
+      OpenGameArt_Grass_Tiles_25: -562788428735594439
+      OpenGameArt_Grass_Tiles_26: -8576657969479386737
+      OpenGameArt_Grass_Tiles_27: -6360916675677547042
+      OpenGameArt_Grass_Tiles_28: 2041227570438269610
+      OpenGameArt_Grass_Tiles_29: 5188141429873791220
+      OpenGameArt_Grass_Tiles_3: -3167271671996675581
+      OpenGameArt_Grass_Tiles_4: -3048185716937948070
+      OpenGameArt_Grass_Tiles_5: 1772393411422525923
+      OpenGameArt_Grass_Tiles_6: -4677916098955959969
+      OpenGameArt_Grass_Tiles_7: 7530698790332670343
+      OpenGameArt_Grass_Tiles_8: -7281115184002525756
+      OpenGameArt_Grass_Tiles_9: 5928528799013475133
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

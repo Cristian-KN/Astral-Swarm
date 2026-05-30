@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astral Swarm · Grimorio</title>
+<link rel="stylesheet" href="menu.css">
+<link rel="stylesheet" href="variants.css">
+</head>
+<body>
+<div class="stage" data-variant="grimoire">
+  <img class="bg" src="assets/background.jpeg" alt="">
+  <div class="glows">
+    <div class="glow glow--moon t-moon"></div>
+    <div class="glow glow--warm t-gate"></div>
+    <div class="glow glow--warm t-path"></div>
+    <div class="glow glow--warm t-village"></div>
+    <div class="glow glow--ember t-fire"></div>
+    <div class="glow glow--warm t-lantern"></div>
+  </div>
+  <div class="embers"></div>
+  <div class="vignette"></div>
+
+  <!-- ===== MAIN MENU ===== -->
+  <section class="screen screen--menu" data-screen-label="Menú Principal">
+    <header class="title-wrap">
+      <div class="title-banner">
+        <h1 class="game-title">Astral Swarm</h1>
+      </div>
+      <p class="tagline">Sobrevive al Enjambre</p>
+    </header>
+
+    <nav class="menu-buttons">
+      <button class="mbtn mbtn--play" data-action="play">Jugar</button>
+      <button class="mbtn" data-action="settings">Ajustes</button>
+      <button class="mbtn mbtn--exit" data-action="exit">Salir</button>
+    </nav>
+
+    <footer class="menu-footer">
+      <span class="version">v0.1.0 · ALPHA</span>
+    </footer>
+  </section>
+
+  <!-- ===== SETTINGS ===== -->
+  <section class="screen screen--settings" data-screen-label="Ajustes" hidden>
+    <div class="panel">
+      <h2 class="panel-title">Ajustes</h2>
+      <div class="panel-rule"></div>
+
+      <div class="setting-group">
+        <span class="setting-label">Modo de Pantalla</span>
+        <div class="seg">
+          <button class="seg-opt is-active">Pantalla Completa</button>
+          <button class="seg-opt">Sin Bordes</button>
+          <button class="seg-opt">Ventana</button>
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <label>Volumen General <span class="val">80%</span></label>
+        <div class="pslider" data-key="master" data-value="80">
+          <div class="pslider__track"><div class="pslider__fill"></div></div>
+          <div class="pslider__handle"></div>
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <label>Música <span class="val">65%</span></label>
+        <div class="pslider" data-key="music" data-value="65">
+          <div class="pslider__track"><div class="pslider__fill"></div></div>
+          <div class="pslider__handle"></div>
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <label>Efectos de Sonido <span class="val">75%</span></label>
+        <div class="pslider" data-key="sfx" data-value="75">
+          <div class="pslider__track"><div class="pslider__fill"></div></div>
+          <div class="pslider__handle"></div>
+        </div>
+      </div>
+
+      <div class="panel-actions">
+        <button class="mbtn mbtn--back" data-action="back">Volver</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXIT CONFIRM ===== -->
+  <div class="modal-wrap" hidden>
+    <div class="modal">
+      <h3>¿Abandonar?</h3>
+      <p>Tu progreso sin guardar se perderá.</p>
+      <div class="modal-btns">
+        <button class="mbtn mbtn--exit" data-action="exit-yes">Salir</button>
+        <button class="mbtn mbtn--play" data-action="exit-no">Quedarse</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PLAY TRANSITION ===== -->
+  <div class="play-overlay">
+    <h2>Invocando el Enjambre</h2>
+    <div class="spinner-dots"><i></i><i></i><i></i><i></i></div>
+    <p>Preparando la incursión…</p>
+  </div>
+</div>
+
+<script src="menu.js?v=2"></script>
+</body>
+</html>

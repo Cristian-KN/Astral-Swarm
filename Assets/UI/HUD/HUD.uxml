@@ -1,0 +1,155 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+
+    <!-- STAGE (themed by .theme-forged) — HUD.uss lo aplica HUDController por código -->
+    <ui:VisualElement name="stage" class="stage theme-forged">
+
+        <!-- scrim: keeps gameplay readable under the HUD -->
+        <ui:VisualElement name="scrim" class="scrim" picking-mode="Ignore" />
+
+        <!-- ============ HUD ============ -->
+        <ui:VisualElement name="hud" class="hud" picking-mode="Ignore">
+
+            <!-- XP bar (top, full width) -->
+            <ui:VisualElement name="xp-wrap" class="xp-wrap" picking-mode="Ignore">
+                <ui:VisualElement name="xp-track" class="xp-track" picking-mode="Ignore">
+                    <ui:VisualElement name="xp-fill" class="xp-fill" picking-mode="Ignore" />
+                    <ui:VisualElement name="xp-ticks" class="xp-ticks" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Level badge (top-left) -->
+            <ui:VisualElement name="lvl-badge" class="lvl-badge" picking-mode="Ignore">
+                <ui:Label text="LVL" class="lvl-word" />
+                <ui:Label text="1" name="lvl-num" class="lvl-num" />
+            </ui:VisualElement>
+
+            <!-- Timer (top-center) -->
+            <ui:VisualElement name="timer" class="timer bevel" picking-mode="Ignore">
+                <ui:Label text="RONDA" class="t-label" />
+                <ui:Label text="03:00" name="timer-clock" class="t-clock" />
+            </ui:VisualElement>
+
+            <!-- Health + Gold (top-left, below bar) -->
+            <ui:VisualElement name="tl-cluster" class="tl-cluster" picking-mode="Ignore">
+                <ui:VisualElement name="hearts" class="hearts" picking-mode="Ignore" />
+                <ui:VisualElement name="gold-chip" class="gold-chip bevel" picking-mode="Ignore">
+                    <ui:VisualElement name="coin-ico" class="coin" picking-mode="Ignore" />
+                    <ui:Label text="0" name="gold-amt" class="amt" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Pause button (top-right) -->
+            <ui:VisualElement name="pause-btn" class="pause-btn bevel">
+                <ui:VisualElement name="pause-ico" class="ico" picking-mode="Ignore" />
+            </ui:VisualElement>
+
+            <!-- Loadout (bottom-left) -->
+            <ui:VisualElement name="loadout" class="loadout" picking-mode="Ignore">
+                <ui:VisualElement class="row" picking-mode="Ignore">
+                    <ui:Label text="ARMAS" class="row-label" />
+                    <ui:VisualElement name="row-weapons" class="row-slots" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement class="row" picking-mode="Ignore">
+                    <ui:Label text="PASIVOS" class="row-label" />
+                    <ui:VisualElement name="row-passives" class="row-slots row-passives" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Minimap (bottom-right) -->
+            <ui:VisualElement name="minimap" class="minimap bevel" picking-mode="Ignore">
+                <ui:VisualElement name="map-inner" class="map-inner" picking-mode="Ignore">
+                    <ui:Label text="MAPA" class="map-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <!-- damage vignette -->
+        <ui:VisualElement name="dmg-vignette" class="dmg-vignette" picking-mode="Ignore" />
+
+        <!-- ============ LEVEL-UP OVERLAY ============ -->
+        <ui:VisualElement name="overlay-levelup" class="overlay overlay--levelup" style="display:none;">
+            <ui:VisualElement class="lvlup-head">
+                <ui:Label text="¡Nivel Superior!" class="lvlup-title" />
+                <ui:Label text="ELIGE TU RECOMPENSA" class="lvlup-sub" />
+            </ui:VisualElement>
+            <ui:VisualElement name="cards" class="cards" />
+            <ui:VisualElement class="reroll-row">
+                <ui:VisualElement name="btn-reroll" class="pixbtn">
+                    <ui:Label text="REROLLEAR" class="pixbtn-label" />
+                    <ui:Label text="2" name="reroll-badge" class="badge" />
+                </ui:VisualElement>
+                <ui:VisualElement name="btn-skip" class="pixbtn">
+                    <ui:Label text="SALTAR (+50)" class="pixbtn-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ============ PAUSE OVERLAY ============ -->
+        <ui:VisualElement name="pause-overlay" class="pause-overlay" style="display:none;">
+            <ui:VisualElement class="pause-panel">
+                <ui:Label text="Pausa" class="pause-title" />
+                <ui:VisualElement class="pause-rule" />
+                <ui:VisualElement class="pause-stats">
+                    <ui:VisualElement class="st">
+                        <ui:Label text="00:00" name="ps-time" class="n" />
+                        <ui:Label text="TIEMPO" class="l" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="st">
+                        <ui:Label text="1" name="ps-level" class="n" />
+                        <ui:Label text="NIVEL" class="l" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="st">
+                        <ui:Label text="0" name="ps-gold" class="n" />
+                        <ui:Label text="ORO" class="l" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="pause-menu">
+                    <ui:VisualElement name="pbtn-resume" class="pixbtn primary">
+                        <ui:Label text="Reanudar" class="pixbtn-label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="pbtn-settings" class="pixbtn">
+                        <ui:Label text="Ajustes" class="pixbtn-label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="pbtn-exit" class="pixbtn danger">
+                        <ui:Label text="Abandonar" class="pixbtn-label" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ============ AJUSTES ============ -->
+        <ui:VisualElement name="settings-overlay" class="pause-overlay" style="display:none;">
+            <ui:VisualElement class="pause-panel">
+                <ui:Label text="Ajustes" class="pause-title" />
+                <ui:VisualElement class="pause-rule" />
+                <ui:VisualElement class="settings-row">
+                    <ui:Label text="VOLUMEN" class="set-label" />
+                    <ui:Slider name="vol-slider" low-value="0" high-value="1" value="1" class="set-slider" />
+                </ui:VisualElement>
+                <ui:VisualElement class="pause-menu">
+                    <ui:VisualElement name="sbtn-back" class="pixbtn primary">
+                        <ui:Label text="Volver" class="pixbtn-label" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ============ GAME OVER / VICTORY ============ -->
+        <ui:VisualElement name="end-overlay" class="pause-overlay" style="display:none;">
+            <ui:VisualElement class="pause-panel">
+                <ui:Label text="GAME OVER" name="end-title" class="pause-title" />
+                <ui:VisualElement class="pause-rule" />
+                <ui:VisualElement class="pause-menu">
+                    <ui:VisualElement name="ebtn-restart" class="pixbtn primary">
+                        <ui:Label text="Reintentar" class="pixbtn-label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ebtn-menu" class="pixbtn danger">
+                        <ui:Label text="Menú Principal" class="pixbtn-label" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

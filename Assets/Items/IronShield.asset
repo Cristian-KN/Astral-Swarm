@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: IronShield
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Escudo de Hierro
-  description: +5 defensa plana.
+  description: +5 de defensa.
+  icon: {fileID: -3218289417291907054, guid: b7f53bc406075974f99fb2641ca44f32, type: 3}
   type: 1
   rarity: 0
   attackBoost: 0

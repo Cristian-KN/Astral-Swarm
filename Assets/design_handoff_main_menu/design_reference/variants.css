@@ -1,0 +1,169 @@
+/* ===========================================================
+   ASTRAL SWARM — variant themes
+   Each block only remaps tokens used by menu.css.
+   A · forged    iron + ember-gold + blood
+   B · grimoire  charred leather + parchment + crimson wax
+   C · astral    obsidian + violet runes (most arcane)
+   =========================================================== */
+
+/* ============ A · FORJA DE HIERRO ============ */
+.stage[data-variant="forged"] {
+  --font-title: 'UnifrakturCook', serif;
+  --font-ui: 'Pixelify Sans', sans-serif;
+  --font-pixel: 'Silkscreen', monospace;
+  --veil: rgba(8,6,10,.58);
+
+  --accent: #ff9a3c;
+  --accent-glow: rgba(255,150,50,.6);
+
+  --title-color: #f0cf7e;
+  --title-stroke: #1a0f06;
+  --tagline-color: #cbb892;
+
+  --btn-text: #e7dcc4;
+  --btn-text-hi: #fff3d6;
+  --btn-bg: linear-gradient(180deg, #3c3c46 0%, #1b1b22 60%, #14141a 100%);
+  --btn-border: #08070c;
+  --btn-outline: #08070c;
+  --btn-hi: rgba(255,255,255,.16);
+  --btn-lo: rgba(0,0,0,.55);
+
+  --play-bg: linear-gradient(180deg, #f6cf6b 0%, #d4a443 55%, #b27e2c 100%);
+  --play-text: #1c1206;
+
+  --panel-bg: linear-gradient(180deg, #2c2832 0%, #16141c 100%);
+  --panel-border: #08070c;
+  --panel-hi: rgba(255,255,255,.10);
+  --panel-lo: rgba(0,0,0,.5);
+  --label-color: #cbb892;
+}
+/* faint forged-metal sheen + rivets on iron buttons */
+.stage[data-variant="forged"] .mbtn:not(.mbtn--play) {
+  background-image:
+    radial-gradient(circle at 14px 14px, rgba(255,255,255,.18) 0 2px, transparent 3px),
+    radial-gradient(circle at calc(100% - 14px) 14px, rgba(255,255,255,.18) 0 2px, transparent 3px),
+    radial-gradient(circle at 14px calc(100% - 14px), rgba(0,0,0,.5) 0 2px, transparent 3px),
+    radial-gradient(circle at calc(100% - 14px) calc(100% - 14px), rgba(0,0,0,.5) 0 2px, transparent 3px),
+    linear-gradient(180deg, #3c3c46 0%, #1b1b22 60%, #14141a 100%);
+}
+
+/* ============ B · GRIMORIO ============ */
+.stage[data-variant="grimoire"] {
+  --font-title: 'Pirata One', serif;
+  --font-ui: 'Jersey 25', sans-serif;
+  --font-pixel: 'Silkscreen', monospace;
+  --veil: rgba(18,6,8,.6);
+
+  --accent: #d24b3a;
+  --accent-glow: rgba(200,50,35,.6);
+
+  --title-color: #ecdcb6;
+  --title-stroke: #1c0d09;
+  --tagline-color: #d6b187;
+
+  --btn-text: #ecdcb6;
+  --btn-text-hi: #fff0d2;
+  --btn-bg: linear-gradient(180deg, #4a3526 0%, #2c1d13 60%, #20140c 100%);
+  --btn-border: #160c07;
+  --btn-outline: #160c07;
+  --btn-hi: rgba(255,220,160,.14);
+  --btn-lo: rgba(0,0,0,.55);
+
+  --play-bg: linear-gradient(180deg, #d24b3a 0%, #a32f25 55%, #7c2019 100%);
+  --play-text: #fff0e6;
+
+  /* light aged-parchment panel for contrast against A & C */
+  --panel-bg: linear-gradient(180deg, #e9d4a4 0%, #d2b783 100%);
+  --panel-border: #3a2414;
+  --panel-hi: rgba(255,250,235,.55);
+  --panel-lo: rgba(120,85,45,.45);
+  --label-color: #5a3a1f;
+}
+.stage[data-variant="grimoire"] .game-title { font-size: 104px; letter-spacing: 3px; }
+.stage[data-variant="grimoire"] .panel-title {
+  font-size: 64px;
+  color: #6e231a;
+  -webkit-text-stroke: 0;
+  text-shadow: 0 2px 0 rgba(120,80,40,.35), 1px 1px 0 rgba(255,250,235,.4);
+}
+.stage[data-variant="grimoire"] .panel .setting-label,
+.stage[data-variant="grimoire"] .panel .slider-row label { color: #5a3a1f; text-shadow: none; }
+.stage[data-variant="grimoire"] .panel .slider-row .val { color: #9e2b1e; text-shadow: none; }
+.stage[data-variant="grimoire"] .seg-opt {
+  color: #ecdcb6;
+  background: linear-gradient(180deg, #4a3526 0%, #2c1d13 100%);
+  border-color: #3a2414;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.4);
+}
+.stage[data-variant="grimoire"] .seg-opt.is-active {
+  color: #fff0e6;
+  background: linear-gradient(180deg, #d24b3a 0%, #8e2820 100%);
+  box-shadow: inset 2px 2px 0 rgba(255,255,255,.25), inset -3px -3px 0 rgba(80,20,15,.4), 0 0 16px rgba(200,50,35,.55);
+}
+.stage[data-variant="grimoire"] .pslider__track { background: #2a1c10; border-color: #3a2414; }
+.stage[data-variant="grimoire"] .pslider__fill { background: linear-gradient(180deg, #d24b3a, #8e2820); box-shadow: 0 0 12px rgba(200,50,35,.5); }
+.stage[data-variant="grimoire"] .pslider__handle { background: linear-gradient(180deg, #5a4026, #2e1f12); border-color: #3a2414; }
+.stage[data-variant="grimoire"] .panel::before,
+.stage[data-variant="grimoire"] .panel::after { background: #9e2b1e; box-shadow: 0 0 0 3px #3a2414, 0 0 10px rgba(200,50,35,.5); }
+.stage[data-variant="grimoire"] .panel-rule { background: linear-gradient(90deg, transparent, #9e2b1e, transparent); }
+
+/* ============ C · ENJAMBRE ASTRAL ============ */
+.stage[data-variant="astral"] {
+  --font-title: 'UnifrakturCook', serif;
+  --font-ui: 'Pixelify Sans', sans-serif;
+  --font-pixel: 'Silkscreen', monospace;
+  --veil: rgba(10,6,20,.62);
+
+  --accent: #b18bff;
+  --accent-glow: rgba(150,110,255,.6);
+
+  --title-color: #ece4ff;
+  --title-stroke: #1a1030;
+  --tagline-color: #bdb0e6;
+
+  --btn-text: #d9d0f5;
+  --btn-text-hi: #ffffff;
+  --btn-bg: linear-gradient(180deg, #241d3a 0%, #150e26 60%, #0d0918 100%);
+  --btn-border: #080612;
+  --btn-outline: #4a3a86;
+  --btn-hi: rgba(177,139,255,.24);
+  --btn-lo: rgba(0,0,0,.55);
+
+  --play-bg: linear-gradient(180deg, #a98bff 0%, #7a55e6 55%, #5b3fc4 100%);
+  --play-text: #130b28;
+
+  --panel-bg: linear-gradient(180deg, #1c1632 0%, #0d0a18 100%);
+  --panel-border: #4a3a86;
+  --panel-hi: rgba(177,139,255,.16);
+  --panel-lo: rgba(0,0,0,.55);
+  --label-color: #bdb0e6;
+
+  --ember-opacity: 1;
+  --ember-color: #b78dff;
+}
+.stage[data-variant="astral"] .game-title {
+  text-shadow: 0 3px 0 #1a1030, 0 0 28px rgba(150,110,255,.75), 0 0 60px rgba(120,80,255,.4);
+}
+/* rune-ring glow always present on buttons */
+.stage[data-variant="astral"] .mbtn {
+  box-shadow:
+    0 0 0 4px var(--btn-outline),
+    0 0 16px rgba(150,110,255,.3),
+    inset 3px 3px 0 var(--btn-hi),
+    inset -4px -4px 0 var(--btn-lo),
+    0 8px 14px rgba(0,0,0,.5);
+}
+.stage[data-variant="astral"] .mbtn:hover {
+  box-shadow:
+    0 0 0 4px var(--btn-outline),
+    0 0 34px rgba(150,110,255,.7),
+    inset 3px 3px 0 var(--btn-hi),
+    inset -4px -4px 0 var(--btn-lo),
+    0 10px 18px rgba(0,0,0,.55);
+}
+.stage[data-variant="astral"] .seg-opt.is-active {
+  color: #130b28;
+  background: linear-gradient(180deg, #a98bff, #6a48d4);
+  box-shadow: inset 2px 2px 0 rgba(255,255,255,.35), inset -3px -3px 0 rgba(40,20,90,.4), 0 0 18px rgba(150,110,255,.6);
+}
+.stage[data-variant="astral"] .panel { box-shadow: 0 0 0 4px var(--panel-border), 0 0 26px rgba(120,80,255,.25), inset 4px 4px 0 var(--panel-hi), inset -5px -5px 0 var(--panel-lo), 0 18px 40px rgba(0,0,0,.6); }

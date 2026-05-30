@@ -1,0 +1,508 @@
+/* ===========================================================
+   ASTRAL SWARM — HUD in-game (UI Toolkit port of hud.css)
+   Pixel-art dark fantasy · tema "Forja de Hierro" (ember-gold)
+   UITK has no gradients / box-shadow: bevels = per-side borders,
+   glows approximated with accent borders + text-shadow.
+   =========================================================== */
+
+/* ---- tokens (Forja de Hierro) ---- */
+.theme-forged {
+    --accent: #ff9a3c;
+    --accent-2: #ffd06a;
+    --gold: #f6cf6b;
+    --gold-deep: #c9933a;
+    --ink: #08070c;
+    --text: #e7dcc4;
+    --text-dim: #b6a988;
+    --hp: #e0473e;
+    --hp-dark: #7a1f1c;
+    --metal-hi: #50505e;
+    --metal-lo: #08070c;
+    --metal-bg: #26262e;
+    --panel-bg: #1b1923;
+    --xp-fill: #3f9fe0;
+}
+
+/* fixed-resolution stage (PanelSettings scales to 1600x900) */
+.stage {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    overflow: hidden;
+}
+
+.scrim {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.hud { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+
+/* shared pixel-bevel frame */
+.bevel {
+    background-color: var(--metal-bg);
+    border-width: 3px;
+    border-left-color: var(--metal-hi);
+    border-top-color: var(--metal-hi);
+    border-right-color: var(--metal-lo);
+    border-bottom-color: var(--metal-lo);
+    border-radius: 0;
+}
+
+/* ============ XP BAR + LEVEL ============ */
+.xp-wrap { position: absolute; top: 0; left: 0; right: 0; height: 22px; }
+.xp-track {
+    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    background-color: #1a2230;
+    border-bottom-width: 3px;
+    border-bottom-color: var(--ink);
+}
+.xp-fill {
+    position: absolute; left: 0; top: 0; bottom: 3px;
+    width: 42%;
+    min-width: 2px;
+    background-color: var(--xp-fill);
+    border-top-width: 2px;
+    border-top-color: rgba(255, 255, 255, 0.4);
+    transition-property: width;
+    transition-duration: 0.4s;
+}
+
+.lvl-badge {
+    position: absolute; top: 30px; left: 18px;
+    flex-direction: row;
+    align-items: center;
+    height: 44px;
+    padding-left: 12px; padding-right: 16px;
+    background-color: var(--gold);
+    border-width: 3px;
+    border-left-color: var(--gold);
+    border-top-color: var(--gold);
+    border-right-color: var(--gold-deep);
+    border-bottom-color: var(--gold-deep);
+}
+.lvl-word {
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #1c1206;
+    margin-right: 8px;
+    -unity-text-align: middle-center;
+}
+.lvl-num {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 28px;
+    -unity-font-style: bold;
+    color: #1c1206;
+    -unity-text-align: middle-center;
+}
+
+/* ============ TIMER ============ */
+.timer {
+    position: absolute; top: 34px; left: 50%;
+    translate: -50% 0;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 26px 8px 26px;
+}
+.t-label {
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--text-dim);
+    -unity-text-align: middle-center;
+}
+.t-clock {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 44px;
+    -unity-font-style: bold;
+    color: #fff3d6;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 0 #000;
+    -unity-text-align: middle-center;
+}
+
+/* ============ HEALTH + GOLD ============ */
+.tl-cluster {
+    position: absolute; top: 34px; left: 140px;
+    flex-direction: row;
+    align-items: center;
+}
+.hearts { flex-direction: row; align-items: center; margin-right: 14px; }
+.heart {
+    width: 34px; height: 30px; margin-right: 4px;
+}
+.heart-empty { background-color: #201d27; border-width: 2px; border-color: var(--ink); }
+.heart-full  { background-color: var(--hp); border-width: 2px; border-left-color: #ff8d86; border-top-color: #ff8d86; border-right-color: var(--hp-dark); border-bottom-color: var(--hp-dark); }
+.heart-half  { background-color: var(--hp-dark); border-width: 2px; border-left-color: var(--hp); border-top-color: var(--hp); border-right-color: #201d27; border-bottom-color: #201d27; }
+
+.gold-chip {
+    flex-direction: row;
+    align-items: center;
+    height: 40px;
+    padding-left: 10px; padding-right: 16px;
+    align-self: flex-start;
+}
+.coin { width: 24px; height: 24px; margin-right: 9px; }
+.amt {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 22px;
+    -unity-font-style: bold;
+    color: var(--gold);
+    text-shadow: 0 1px 0 #000;
+    -unity-text-align: middle-left;
+}
+
+/* ============ PAUSE BUTTON ============ */
+.pause-btn {
+    position: absolute; top: 30px; right: 22px;
+    width: 52px; height: 52px;
+    align-items: center; justify-content: center;
+    transition-property: scale;
+    transition-duration: 0.08s;
+}
+.pause-btn .ico { width: 22px; height: 22px; }
+.pause-btn:hover {
+    border-left-color: var(--accent);
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+.pause-btn:active { scale: 0.92 0.92; }
+
+/* ============ LOADOUT ============ */
+.loadout {
+    position: absolute; bottom: 20px; left: 20px;
+    flex-direction: column;
+}
+.row { flex-direction: row; align-items: center; margin-top: 10px; }
+.row-label {
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    width: 64px;
+    -unity-text-align: middle-right;
+    padding-right: 6px;
+    text-shadow: 1px 1px 0 #000;
+}
+.row-slots { flex-direction: row; }
+.row-passives { flex-wrap: wrap; max-width: 560px; }
+
+.slot {
+    width: 56px; height: 56px; margin-right: 8px;
+    align-items: center; justify-content: center;
+    background-color: var(--metal-bg);
+    border-width: 3px;
+    border-left-color: var(--metal-hi);
+    border-top-color: var(--metal-hi);
+    border-right-color: var(--metal-lo);
+    border-bottom-color: var(--metal-lo);
+}
+.slot .ico { width: 38px; height: 38px; }
+.slot.is-empty { background-color: #1b1a21; }
+.slot .empty-plus {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 26px;
+    -unity-font-style: bold;
+    color: #4a4654;
+    -unity-text-align: middle-center;
+}
+.slot.maxed {
+    border-left-color: var(--accent);
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+.slot.passive { width: 46px; height: 46px; }
+.slot.passive .ico { width: 30px; height: 30px; }
+
+/* level pips */
+.lvl-pips {
+    position: absolute; bottom: 2px; right: 3px;
+    flex-direction: row;
+}
+.pip { width: 3px; height: 6px; margin-left: 1px; background-color: var(--gold); }
+
+/* ============ MINIMAP ============ */
+.minimap {
+    position: absolute; bottom: 20px; right: 20px;
+    width: 184px; height: 184px;
+    padding: 6px;
+    background-color: var(--panel-bg);
+}
+.map-inner {
+    flex-grow: 1;
+    background-color: #3c5f29;
+    border-width: 2px;
+    border-color: var(--ink);
+    overflow: hidden;
+}
+.map-label {
+    position: absolute; top: 8px; left: 10px;
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.75);
+    text-shadow: 1px 1px 0 #000;
+}
+.blip { position: absolute; }
+.blip.player { width: 9px; height: 9px; background-color: #fff; margin-left: -4px; margin-top: -4px; }
+.blip.enemy { width: 5px; height: 5px; background-color: var(--hp); margin-left: -2px; margin-top: -2px; }
+.blip.loot { width: 5px; height: 5px; background-color: var(--gold); margin-left: -2px; margin-top: -2px; }
+
+/* ============ DAMAGE VIGNETTE ============ */
+.dmg-vignette {
+    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    border-width: 40px;
+    border-color: rgba(200, 30, 20, 0.6);
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.12s;
+}
+.dmg-vignette.show { opacity: 1; }
+
+/* ===========================================================
+   LEVEL-UP OVERLAY
+   =========================================================== */
+.overlay {
+    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(8, 6, 13, 0.84);
+}
+.lvlup-head { align-items: center; margin-bottom: 30px; }
+.lvlup-title {
+    -unity-font-definition: url("../../Fonts/UITK/UnifrakturCook.asset");
+    font-size: 64px;
+    -unity-font-style: bold;
+    color: var(--gold);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: var(--ink);
+    text-shadow: 0 4px 0 var(--ink);
+    white-space: nowrap;
+}
+.lvlup-sub {
+    margin-top: 12px;
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: var(--text-dim);
+    text-shadow: 1px 1px 0 #000;
+}
+
+.cards { flex-direction: row; }
+.card {
+    width: 300px;
+    min-height: 360px;
+    padding: 26px 24px 24px 24px;
+    margin-left: 12px; margin-right: 12px;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--panel-bg);
+    border-width: 4px;
+    border-left-color: var(--metal-hi);
+    border-top-color: var(--metal-hi);
+    border-right-color: var(--ink);
+    border-bottom-color: var(--ink);
+    transition-property: translate, scale;
+    transition-duration: 0.1s;
+}
+.card:hover {
+    translate: 0 -8px;
+    border-left-color: var(--accent);
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+.card-rarity {
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--accent-2);
+    margin-bottom: 14px;
+    -unity-text-align: middle-center;
+}
+.card-icon {
+    width: 96px; height: 96px; margin-bottom: 16px;
+    align-items: center; justify-content: center;
+    background-color: #0f0d15;
+    border-width: 3px;
+    border-left-color: var(--metal-hi);
+    border-top-color: var(--metal-hi);
+    border-right-color: var(--ink);
+    border-bottom-color: var(--ink);
+}
+.card-icon .ico { width: 64px; height: 64px; }
+.card-name {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 25px;
+    -unity-font-style: bold;
+    color: var(--text);
+    text-shadow: 0 2px 0 #000;
+    margin-bottom: 4px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+.card-tier {
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 14px;
+    -unity-text-align: middle-center;
+}
+.card-desc {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 16px;
+    color: var(--text-dim);
+    -unity-text-align: upper-center;
+    white-space: normal;
+}
+
+.reroll-row { flex-direction: row; margin-top: 26px; }
+.pixbtn {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    padding-left: 24px; padding-right: 24px;
+    margin-left: 7px; margin-right: 7px;
+    background-color: var(--metal-bg);
+    border-width: 3px;
+    border-left-color: var(--metal-hi);
+    border-top-color: var(--metal-hi);
+    border-right-color: var(--ink);
+    border-bottom-color: var(--ink);
+    transition-property: scale;
+    transition-duration: 0.08s;
+}
+.pixbtn:hover {
+    border-left-color: var(--accent);
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+.pixbtn:active { scale: 0.98 0.96; }
+.pixbtn-label {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 18px;
+    -unity-font-style: bold;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-shadow: 1px 1px 0 #000;
+    -unity-text-align: middle-center;
+}
+.badge {
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 11px;
+    color: var(--gold);
+    border-width: 2px;
+    border-color: var(--ink);
+    background-color: #0f0d15;
+    padding: 1px 5px 1px 5px;
+    margin-left: 8px;
+    -unity-text-align: middle-center;
+}
+
+/* ===========================================================
+   PAUSE OVERLAY
+   =========================================================== */
+.pause-overlay {
+    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(6, 5, 11, 0.78);
+}
+.pause-panel {
+    width: 460px;
+    padding: 36px 44px 40px 44px;
+    align-items: center;
+    background-color: var(--panel-bg);
+    border-width: 4px;
+    border-left-color: var(--metal-hi);
+    border-top-color: var(--metal-hi);
+    border-right-color: var(--ink);
+    border-bottom-color: var(--ink);
+}
+.pause-title {
+    -unity-font-definition: url("../../Fonts/UITK/UnifrakturCook.asset");
+    font-size: 56px;
+    -unity-font-style: bold;
+    color: var(--gold);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: var(--ink);
+    text-shadow: 0 3px 0 var(--ink);
+    margin-bottom: 4px;
+}
+.pause-rule {
+    height: 4px; width: 70%;
+    margin: 8px 0 26px 0;
+    background-color: var(--accent);
+    opacity: 0.7;
+}
+.pause-stats {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 22px;
+    padding: 14px 0 14px 0;
+    border-top-width: 2px;
+    border-top-color: rgba(255, 255, 255, 0.08);
+    border-bottom-width: 2px;
+    border-bottom-color: rgba(0, 0, 0, 0.4);
+}
+.st { align-items: center; }
+.st .n {
+    -unity-font-definition: url("../../Fonts/UITK/PixelifySans.asset");
+    font-size: 26px;
+    -unity-font-style: bold;
+    color: var(--gold);
+    text-shadow: 0 1px 0 #000;
+    -unity-text-align: middle-center;
+}
+.st .l {
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    margin-top: 2px;
+    -unity-text-align: middle-center;
+}
+.settings-row {
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 22px;
+}
+.set-label {
+    -unity-font-definition: url("../../Fonts/UITK/Silkscreen.asset");
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    -unity-text-align: middle-left;
+}
+.set-slider { width: 100%; height: 24px; }
+
+.pause-menu { flex-direction: column; width: 100%; }
+.pause-menu .pixbtn {
+    width: 100%;
+    height: 60px;
+    margin: 0 0 14px 0;
+    justify-content: center;
+}
+.pause-menu .pixbtn .pixbtn-label { font-size: 22px; }
+.pixbtn.primary {
+    background-color: var(--gold);
+    border-left-color: #f6cf6b;
+    border-top-color: #f6cf6b;
+    border-right-color: var(--gold-deep);
+    border-bottom-color: var(--gold-deep);
+}
+.pixbtn.primary .pixbtn-label { color: #1c1206; text-shadow: 0 1px 0 rgba(255,255,255,0.3); }
+.pixbtn.danger:hover {
+    border-left-color: #e0473e;
+    border-top-color: #e0473e;
+    border-right-color: #e0473e;
+    border-bottom-color: #e0473e;
+}

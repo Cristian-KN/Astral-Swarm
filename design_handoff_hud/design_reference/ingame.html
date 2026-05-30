@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASTRAL SWARM · HUD In-Game</title>
+<link rel="stylesheet" href="hud.css">
+</head>
+<body>
+<div class="stage" data-screen-label="HUD In-Game">
+  <img class="bg" src="assets/gameplay.png" alt="">
+  <div class="scrim"></div>
+  <div class="dmg-vignette"></div>
+
+  <div class="hud">
+    <!-- XP bar across the very top -->
+    <div class="xp-wrap">
+      <div class="xp-track"><div class="xp-fill"></div></div>
+    </div>
+    <div class="lvl-badge bevel">
+      <span class="lvl-word">LVL</span><span class="lvl-num">7</span>
+    </div>
+
+    <!-- Timer -->
+    <div class="timer bevel">
+      <span class="t-label">RONDA</span>
+      <span class="t-clock">02:58</span>
+    </div>
+
+    <!-- Top-left: hearts + gold -->
+    <div class="tl-cluster">
+      <div class="hearts"></div>
+      <div class="gold-chip bevel">
+        <span class="coin"></span><span class="amt">0</span>
+      </div>
+    </div>
+
+    <!-- Top-right: pause -->
+    <div class="pause-btn bevel"><span class="ico"></span></div>
+
+    <!-- Bottom-left: loadout -->
+    <div class="loadout">
+      <div class="row">
+        <span class="row-label">ARMAS</span>
+        <div class="row-weapons" style="display:flex;gap:8px;"></div>
+      </div>
+      <div class="row">
+        <span class="row-label">PASIVOS</span>
+        <div class="row-passives" style="display:flex;gap:6px;flex-wrap:wrap;max-width:560px;"></div>
+      </div>
+    </div>
+
+    <!-- Bottom-right: minimap -->
+    <div class="minimap bevel">
+      <span class="map-label">MAPA</span>
+      <div class="map-inner"></div>
+    </div>
+  </div>
+
+  <!-- ===== LEVEL-UP OVERLAY ===== -->
+  <div class="overlay overlay--levelup" hidden>
+    <div class="lvlup-head">
+      <h2>¡Nivel Superior!</h2>
+      <p>Elige tu recompensa</p>
+    </div>
+    <div class="cards"></div>
+    <div class="reroll-row">
+      <button class="pixbtn btn-reroll">Rerollear <span class="badge reroll-badge">2</span></button>
+      <button class="pixbtn btn-skip">Saltar <span class="badge">+50</span></button>
+    </div>
+  </div>
+
+  <!-- ===== PAUSE OVERLAY ===== -->
+  <div class="pause-overlay" hidden>
+    <div class="pause-panel">
+      <h2>Pausa</h2>
+      <div class="pause-rule"></div>
+      <div class="pause-stats">
+        <div class="st"><div class="n ps-time">02:58</div><div class="l">TIEMPO</div></div>
+        <div class="st"><div class="n ps-level">7</div><div class="l">NIVEL</div></div>
+        <div class="st"><div class="n ps-kills">312</div><div class="l">MUERTES</div></div>
+        <div class="st"><div class="n ps-gold">1240</div><div class="l">ORO</div></div>
+      </div>
+      <div class="pause-menu">
+        <button class="pixbtn primary" data-pact="resume">Reanudar</button>
+        <button class="pixbtn" data-pact="settings">Ajustes</button>
+        <button class="pixbtn danger" data-pact="exit">Abandonar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="hud-icons.js"></script>
+<script src="hud.js"></script>
+</body>
+</html>

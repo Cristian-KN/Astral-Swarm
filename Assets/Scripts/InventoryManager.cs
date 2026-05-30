@@ -12,7 +12,10 @@ public class InventoryManager : MonoBehaviour
         public float currentGrowthBonus = 0f;
     }
 
+    public static System.Action onInventoryChanged;
+
     public List<EquippedItem> items = new List<EquippedItem>();
+    public PlayerClass playerClass;
     private PlayerStats playerStats;
     private PlayerAttack playerAttack;
 
@@ -25,6 +28,7 @@ public class InventoryManager : MonoBehaviour
     public void AddWeapon(ItemData weaponData)
     {
         playerAttack?.EquipWeapon(weaponData);
+        onInventoryChanged?.Invoke();
     }
 
     public void AddItem(ItemData newData)
@@ -42,6 +46,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         ApplyAllStats();
+        onInventoryChanged?.Invoke();
     }
 
     // Llamado por el EnemyStats cuando muere
@@ -88,7 +93,7 @@ public class InventoryManager : MonoBehaviour
             {
                 playerStats.attackPower += item.currentGrowthBonus;
                 // Si es un mítico raro, podría subir todo
-                if (item.data.rarity == EnemyVariantType.Roja)
+                if (item.data.rarity == ItemRarity.Mythic)
                 {
                      playerStats.defense += item.currentGrowthBonus * 0.1f;
                 }

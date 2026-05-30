@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ShadowDart
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "Dardo Sombr\xEDo"
-  description: "Disparo r\xE1pido con bajo da\xF1o."
+  description: Disparo veloz de baja potencia.
+  icon: {fileID: -8000257237967149311, guid: b7f53bc406075974f99fb2641ca44f32, type: 3}
   type: 0
   rarity: 0
   attackBoost: 0

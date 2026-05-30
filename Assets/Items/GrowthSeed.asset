@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: GrowthSeed
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Semilla de Crecimiento
-  description: Gana fuerza con cada enemigo eliminado.
+  description: Te fortaleces con cada enemigo eliminado.
+  icon: {fileID: 6338326063260517915, guid: b7f53bc406075974f99fb2641ca44f32, type: 3}
   type: 3
   rarity: 0
   attackBoost: 0

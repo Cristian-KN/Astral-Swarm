@@ -1,0 +1,212 @@
+/* ===========================================================
+   ASTRAL SWARM — HUD In-Game USS (Unity UI Toolkit)
+   Grimorio Theme
+   =========================================================== */
+
+/* ROOT */
+.hud-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+/* ============ STATS (Esquinas superiores) ============ */
+.hud-stats {
+    position: absolute;
+    flex-direction: column;
+    top: 20px;
+}
+
+.hud-stats--left {
+    left: 20px;
+}
+
+.hud-stats--right {
+    right: 20px;
+}
+
+.stat-item {
+    flex-direction: row;
+    align-items: center;
+    min-width: 110px;
+    padding: 6px 12px 6px 6px;
+    margin-bottom: 8px;
+    background-image: linear-gradient(180deg, rgb(233, 212, 164) 0%, rgb(210, 183, 131) 100%);
+    border-width: 3px;
+    border-color: rgb(58, 36, 20);
+    border-radius: 0;
+}
+
+.stat-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    background-image: linear-gradient(180deg, rgb(74, 53, 38) 0%, rgb(44, 29, 19) 100%);
+    border-width: 2px;
+    border-color: rgb(58, 36, 20);
+    margin-right: 10px;
+}
+
+/* Iconos - usa background-image con tus sprites */
+.stat-icon--health {
+    /* background-image: url('path/to/health_icon.png'); */
+}
+
+.stat-icon--damage {
+    /* background-image: url('path/to/damage_icon.png'); */
+}
+
+.stat-icon--speed {
+    /* background-image: url('path/to/speed_icon.png'); */
+}
+
+.stat-icon--range {
+    /* background-image: url('path/to/range_icon.png'); */
+}
+
+.stat-icon--tears {
+    /* background-image: url('path/to/tears_icon.png'); */
+}
+
+.stat-icon--luck {
+    /* background-image: url('path/to/luck_icon.png'); */
+}
+
+.stat-value {
+    flex-grow: 1;
+    font-size: 22px;
+    color: rgb(90, 58, 31);
+    -unity-text-align: middle-right;
+    -unity-font-definition: url('project://database/Assets/Fonts/Jersey25-Regular.ttf');
+}
+
+/* ============ TIMER (Centro superior) ============ */
+.hud-timer {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    translate: -50% 0;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 20px;
+    background-image: linear-gradient(180deg, rgb(233, 212, 164) 0%, rgb(210, 183, 131) 100%);
+    border-width: 3px;
+    border-color: rgb(58, 36, 20);
+    border-radius: 0;
+}
+
+.timer-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    /* background-image: url('path/to/timer_icon.png'); */
+}
+
+.timer-value {
+    font-size: 28px;
+    color: rgb(90, 58, 31);
+    min-width: 70px;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url('project://database/Assets/Fonts/Jersey25-Regular.ttf');
+    letter-spacing: 1px;
+}
+
+/* ============ WEAPON CONTAINER (Centro inferior) ============ */
+.weapon-container {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    translate: -50% 0;
+    flex-direction: row;
+    padding: 14px 18px;
+    background-image: linear-gradient(180deg, rgb(74, 53, 38) 0%, rgb(44, 29, 19) 100%);
+    border-width: 4px;
+    border-color: rgb(58, 36, 20);
+    border-radius: 0;
+}
+
+/* Studs decorativos (antes/después) - simula con VisualElements o CSS */
+.weapon-container::before {
+    /* No soportado en USS, usa VisualElements extra en UXML si necesitas */
+}
+
+.weapon-slot {
+    width: 80px;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    margin-left: 7px;
+    margin-right: 7px;
+    background-color: rgba(20, 15, 10, 0.4);
+    border-width: 3px;
+    border-color: rgba(58, 36, 20, 0.6);
+    border-radius: 0;
+    transition-property: all;
+    transition-duration: 0.15s;
+}
+
+.weapon-slot--active {
+    background-color: rgba(210, 75, 58, 0.15);
+    border-color: rgb(210, 75, 58);
+    translate: 0 -4px;
+}
+
+.weapon-slot--empty {
+    opacity: 0.5;
+}
+
+.weapon-icon {
+    width: 56px;
+    height: 56px;
+    background-image: linear-gradient(180deg, rgb(233, 212, 164) 0%, rgb(210, 183, 131) 100%);
+    border-width: 3px;
+    border-color: rgb(58, 36, 20);
+    margin-bottom: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.weapon-sprite {
+    width: 100%;
+    height: 100%;
+    /* background-image: url('path/to/weapon_sprite.png'); */
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.weapon-sprite--empty {
+    opacity: 0.3;
+    /* background-image: url('path/to/empty_icon.png'); */
+}
+
+.weapon-level {
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.weapon-level--empty {
+    opacity: 0.4;
+}
+
+.level-label {
+    font-size: 11px;
+    color: rgba(236, 220, 182, 0.7);
+    margin-right: 4px;
+    -unity-font-definition: url('project://database/Assets/Fonts/Silkscreen-Regular.ttf');
+    letter-spacing: 1px;
+}
+
+.level-value {
+    font-size: 18px;
+    color: rgb(236, 220, 182);
+    -unity-font-definition: url('project://database/Assets/Fonts/Silkscreen-Bold.ttf');
+}
+
+/* ============ HOVER EFFECTS ============ */
+.weapon-slot:hover {
+    border-color: rgba(210, 75, 58, 0.8);
+}
+
+.stat-item:hover {
+    translate: 2px 0;
+}

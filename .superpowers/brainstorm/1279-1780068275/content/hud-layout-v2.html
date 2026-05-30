@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HUD Layout v2 — Astral Swarm</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0d0d; font-family: 'Courier New', monospace; color: #e7dcc4; display: flex; flex-direction: column; align-items: center; padding: 24px; gap: 20px; }
+  h2 { color: #f6cf6b; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; }
+  .subtitle { color: #888; font-size: 13px; margin-top: 4px; }
+
+  .canvas {
+    position: relative;
+    width: 800px;
+    height: 480px;
+    background: #1a2a1a;
+    border: 2px solid #333;
+    overflow: hidden;
+  }
+  .world-bg {
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.03) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.03) 40px),
+      linear-gradient(160deg, #1a2a1a 0%, #0f1f0f 100%);
+  }
+  .world-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: rgba(255,255,255,.08); font-size: 22px; letter-spacing: 4px; pointer-events: none; }
+
+  .comp {
+    position: absolute;
+    border: 2px dashed;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;
+    text-align: center; padding: 4px;
+    pointer-events: none;
+  }
+  .comp-label { font-size: 9px; margin-top: 3px; opacity: .8; font-weight: normal; text-transform: none; letter-spacing: 0; }
+
+  /* ── HUDView top strip ── */
+  .c-hud { top: 0; left: 0; right: 0; height: 72px; border-color: #6fd0ff; color: #6fd0ff; background: rgba(111,208,255,.04); }
+  .c-xpbar { top: 0; left: 0; right: 0; height: 11px; border: 1px solid rgba(111,208,255,.5); background: linear-gradient(90deg, rgba(111,208,255,.35) 0%, rgba(47,143,214,.35) 55%, transparent 55%); }
+  .c-level  { top: 14px; left: 8px;  width: 52px; height: 24px; border: 1px dashed #f6cf6b; color: #f6cf6b; background: rgba(246,207,107,.08); font-size: 9px; }
+  .c-timer  { top: 14px; left: 50%; transform: translateX(-50%); width: 88px; height: 24px; border: 1px dashed #ffb347; color: #ffb347; background: rgba(255,179,71,.08); font-size: 9px; }
+  .c-hearts { top: 42px; left: 8px;  width: 130px; height: 26px; border: 1px dashed #ff6b6b; color: #ff6b6b; background: rgba(255,107,107,.05); font-size: 9px; }
+  .c-gold   { top: 42px; left: 145px; width: 75px; height: 26px; border: 1px dashed #f6cf6b; color: #f6cf6b; background: rgba(246,207,107,.05); font-size: 9px; }
+  .c-pausebtn { top: 14px; right: 8px; width: 34px; height: 34px; border: 1px dashed #aaa; color: #aaa; background: rgba(255,255,255,.04); font-size: 9px; }
+
+  /* ── LoadoutView — franja vertical izquierda ── */
+  .c-loadout {
+    top: 72px; left: 0; width: 72px; bottom: 0;
+    border-color: #c084fc; color: #c084fc;
+    background: rgba(192,132,252,.04);
+  }
+  /* 3 slots de arma apilados */
+  .c-wslot {
+    position: absolute; left: 8px; width: 52px; height: 52px;
+    border: 1px dashed rgba(192,132,252,.6); color: #c084fc;
+    background: rgba(192,132,252,.06); font-size: 8px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .c-wslot:nth-of-type(2) { top: 8px;  }
+  .c-wslot:nth-of-type(3) { top: 68px; }
+  .c-wslot:nth-of-type(4) { top: 128px;}
+  .pip-row { display: flex; gap: 2px; margin-top: 3px; }
+  .pip { width: 5px; height: 5px; border: 1px solid rgba(192,132,252,.7); }
+  .pip.on { background: #c084fc; }
+
+  /* pasivos debajo de armas */
+  .c-pslot {
+    position: absolute; left: 8px; width: 52px; height: 52px;
+    border: 1px dashed rgba(192,132,252,.4); color: #c084fc;
+    background: rgba(192,132,252,.04); font-size: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .c-pslot:nth-of-type(5) { top: 200px; }
+  .c-pslot:nth-of-type(6) { top: 258px; }
+  .c-pslot:nth-of-type(7) { top: 316px; }
+
+  /* separador visual armas / pasivos */
+  .c-sep {
+    position: absolute; left: 4px; width: 60px; height: 1px;
+    background: rgba(192,132,252,.3); top: 193px;
+  }
+
+  /* ── MinimapView — esquina inferior derecha ── */
+  .c-minimap { bottom: 0; right: 0; width: 120px; height: 120px; border-color: #4ade80; color: #4ade80; background: rgba(74,222,128,.05); }
+
+  /* ── Tabs ── */
+  .tabs { display: flex; gap: 8px; }
+  .tab { padding: 6px 16px; font-size: 12px; cursor: pointer; border: 1px solid #444; background: #1a1a1a; color: #888; font-family: 'Courier New', monospace; text-transform: uppercase; letter-spacing: 1px; }
+  .tab.active { background: #2a2a2a; color: #f6cf6b; border-color: #f6cf6b; }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ── LevelUp overlay ── */
+  .c-levelup { top: 72px; left: 72px; right: 0; bottom: 0; border-color: #ff9a3c; color: #ff9a3c; background: rgba(0,0,0,.78); border-style: solid; border-width: 2px; }
+  .cards-row { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; }
+  .c-card { width: 140px; height: 200px; border: 1px dashed rgba(255,154,60,.55); color: #ff9a3c; background: rgba(255,154,60,.06); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 9px; gap: 4px; }
+  .c-reroll { position: absolute; bottom: 16px; left: 50%; transform: translateX(-180px); width: 120px; height: 28px; border: 1px dashed rgba(255,154,60,.5); color: #ff9a3c; font-size: 9px; display: flex; align-items: center; justify-content: center; }
+  .c-skip   { position: absolute; bottom: 16px; left: 50%; transform: translateX(20px);  width: 120px; height: 28px; border: 1px dashed rgba(255,154,60,.5); color: #ff9a3c; font-size: 9px; display: flex; align-items: center; justify-content: center; }
+
+  /* ── Pause overlay ── */
+  .c-pause-ov { top: 72px; left: 72px; right: 0; bottom: 0; border-color: #94a3b8; color: #94a3b8; background: rgba(0,0,0,.82); border-style: solid; border-width: 2px; }
+  .pause-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 240px; border: 1px dashed #94a3b8; padding: 16px; text-align: center; font-size: 11px; line-height: 2; }
+
+  /* ── Legend ── */
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; max-width: 800px; }
+  .leg-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .leg-dot { width: 12px; height: 12px; border: 2px solid; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<h2>HUD Layout v2 — Astral Swarm</h2>
+<p class="subtitle">Loadout vertical a la izquierda · Minimap esquina inferior derecha</p>
+
+<div class="tabs">
+  <div class="tab active" onclick="show('layout', this)">HUD Normal</div>
+  <div class="tab" onclick="show('levelup', this)">Level-Up</div>
+  <div class="tab" onclick="show('pause', this)">Pausa</div>
+</div>
+
+<!-- HUD Normal -->
+<div class="view active" id="view-layout">
+  <div class="canvas">
+    <div class="world-bg"></div>
+    <div class="world-label">GAMEPLAY</div>
+
+    <!-- HUDView top -->
+    <div class="comp c-hud">HUDVIEW<div class="comp-label">barra XP · nivel · timer · corazones · oro</div></div>
+    <div class="comp c-xpbar"></div>
+    <div class="comp c-level">LVL 3</div>
+    <div class="comp c-timer">00:42</div>
+    <div class="comp c-hearts">♥ ♥ ♥ ♥ ½</div>
+    <div class="comp c-gold">⬡ 240</div>
+    <div class="comp c-pausebtn">⏸</div>
+
+    <!-- LoadoutView left -->
+    <div class="comp c-loadout">LOADOUT<div class="comp-label">⬆ armas + pasivos</div></div>
+    <!-- weapon slots -->
+    <div class="comp c-wslot">⚔<div class="pip-row"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div></div></div>
+    <div class="comp c-wslot">🔮<div class="pip-row"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div></div>
+    <div class="comp c-wslot">╌<div class="pip-row"><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div></div>
+    <!-- separator -->
+    <div class="c-sep"></div>
+    <!-- passive slots -->
+    <div class="comp c-pslot">🥾</div>
+    <div class="comp c-pslot">🍀</div>
+    <div class="comp c-pslot">+</div>
+
+    <!-- MinimapView -->
+    <div class="comp c-minimap">MINIMAP</div>
+  </div>
+</div>
+
+<!-- Level-Up -->
+<div class="view" id="view-levelup">
+  <div class="canvas">
+    <div class="world-bg"></div>
+    <div class="world-label" style="opacity:.2">GAMEPLAY</div>
+    <div class="comp c-hud" style="opacity:.35">HUDVIEW</div>
+    <div class="comp c-loadout" style="opacity:.35">LOADOUT</div>
+    <div class="comp c-minimap" style="opacity:.35">MINIMAP</div>
+    <div class="comp c-levelup">
+      LEVELUPVIEW
+      <div class="cards-row">
+        <div class="c-card">⚔<br/>Espada Épica<br/><span style="color:#f6cf6b;font-size:8px">ÉPICO · Arma</span><br/><span style="font-size:7px;opacity:.7">Daño aumentado...</span></div>
+        <div class="c-card">🍀<br/>Trébol Astral<br/><span style="color:#4ade80;font-size:8px">COMÚN · Pasivo</span><br/><span style="font-size:7px;opacity:.7">+5% suerte...</span></div>
+        <div class="c-card">🥾<br/>Botas de Velocidad<br/><span style="color:#6fd0ff;font-size:8px">RARO · Pasivo</span><br/><span style="font-size:7px;opacity:.7">+20% velocidad...</span></div>
+      </div>
+      <div class="c-reroll">↺ Reroll (3)</div>
+      <div class="c-skip">Saltar +50⬡</div>
+    </div>
+  </div>
+</div>
+
+<!-- Pause -->
+<div class="view" id="view-pause">
+  <div class="canvas">
+    <div class="world-bg"></div>
+    <div class="world-label" style="opacity:.2">GAMEPLAY</div>
+    <div class="comp c-hud" style="opacity:.35">HUDVIEW</div>
+    <div class="comp c-loadout" style="opacity:.35">LOADOUT</div>
+    <div class="comp c-minimap" style="opacity:.35">MINIMAP</div>
+    <div class="comp c-pause-ov">
+      PAUSEVIEW
+      <div class="pause-panel">
+        PAUSA<br/>──────────<br/>
+        TIEMPO · NIVEL · ORO<br/>
+        ──────────<br/>
+        [Continuar]<br/>
+        [Ajustes]<br/>
+        [Abandonar]
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="border-color:#6fd0ff"></div> HUDView</div>
+  <div class="leg-item"><div class="leg-dot" style="border-color:#c084fc"></div> LoadoutView</div>
+  <div class="leg-item"><div class="leg-dot" style="border-color:#4ade80"></div> MinimapView</div>
+  <div class="leg-item"><div class="leg-dot" style="border-color:#ff9a3c"></div> LevelUpView</div>
+  <div class="leg-item"><div class="leg-dot" style="border-color:#94a3b8"></div> PauseView</div>
+</div>
+
+<script>
+function show(id, tab) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  tab.classList.add('active');
+}
+</script>
+</body>
+</html>

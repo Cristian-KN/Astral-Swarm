@@ -7,8 +7,9 @@ public class ItemData : ScriptableObject
 {
     public string itemName;
     public string description;
+    public Sprite icon;
     public ItemType type;
-    public EnemyVariantType rarity = EnemyVariantType.Normal; // Usamos el mismo enum para simplicidad
+    public ItemRarity rarity = ItemRarity.Common; 
     
     [Header("Stat Boosts (Flat)")]
     public float attackBoost = 0;

@@ -53,17 +53,15 @@ public class ShopManager : MonoBehaviour
         return Mathf.RoundToInt(rarityMult * gameManager.GetCurrentLevel());
     }
 
-    private float GetRarityMultiplier(EnemyVariantType rarity)
+    private float GetRarityMultiplier(ItemRarity rarity)
     {
         switch (rarity)
         {
-            case EnemyVariantType.Normal: return 2.5f;
-            case EnemyVariantType.Verde: return 6.25f;
-            case EnemyVariantType.Amarilla: return 6.25f; // Según MD
-            case EnemyVariantType.Azul: return 12.5f;
-            case EnemyVariantType.Morada: return 25f;
-            case EnemyVariantType.Negra: return 62.5f;
-            case EnemyVariantType.Roja: return 150f;
+            case ItemRarity.Common: return 2.5f;
+            case ItemRarity.Rare: return 6.25f;
+            case ItemRarity.Epic: return 12.5f;
+            case ItemRarity.Legendary: return 25f;
+            case ItemRarity.Mythic: return 150f;
             default: return 2.5f;
         }
     }

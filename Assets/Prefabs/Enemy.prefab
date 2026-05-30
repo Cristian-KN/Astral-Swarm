@@ -171,8 +171,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb9a81341290b54bae5581ab3a3822e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  behavior: 0
   moveSpeed: 2.5
   collisionDamage: 15
+  projectilePrefab: {fileID: 0}
+  attackRange: 7
+  fireCooldown: 1.8
+  projectileDamage: 10
 --- !u!114 &1678313918518650702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,7 +193,18 @@ MonoBehaviour:
   variant: 0
   baseMaxHealth: 50
   baseRegenPerSecond: 0
-  experienceGemPrefab: {fileID: 5701999995083673621, guid: e9f3369db60502e408f44646f3ab11a4, type: 3}
+  gemPrefabs:
+  - {fileID: 8463666662686291133, guid: f9b7b1ad9e95d2d429098e55e802f56a, type: 3}
+  - {fileID: 7886694253936948626, guid: 291e17dc9ce016345ace77d07427e0ca, type: 3}
+  - {fileID: 6969504106669659837, guid: eb26d55e275249244a67a924513ecfda, type: 3}
+  - {fileID: 6085605096380569548, guid: 6878e945b00f77d4f8c2db11c5c3e78a, type: 3}
+  - {fileID: 6140100069008908792, guid: 08812e9b69a2e2d4db68e3b086c5f857, type: 3}
+  moneyPrefabs:
+  - {fileID: 1170836425795140446, guid: 5839f710e7e2a5c479ba9d27396a21da, type: 3}
+  - {fileID: 7257429740794854473, guid: 43fbe0a47166da542840afe5a0f6e7d5, type: 3}
+  - {fileID: 7520014804029039782, guid: 1e5825c52ddd0eb428b757a21cad78d2, type: 3}
+  - {fileID: 7704865690180383445, guid: 32a3b04a078cbb34c829e9908cbc5445, type: 3}
+  - {fileID: 1277023892991737164, guid: b3a9c35cf7f1454458ad2354cadc75bd, type: 3}
 --- !u!114 &1166981444263355836
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,86 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements"
+         editor-extension-mode="False">
+
+    <!-- ROOT HUD Container -->
+    <ui:VisualElement name="hud-overlay" class="hud-overlay">
+
+        <!-- STATS LEFT (Top-Left Corner) -->
+        <ui:VisualElement name="hud-stats-left" class="hud-stats hud-stats--left">
+            <ui:VisualElement class="stat-item">
+                <ui:VisualElement class="stat-icon stat-icon--health" />
+                <ui:Label text="8 / 12" class="stat-value" name="stat-health" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="stat-item">
+                <ui:VisualElement class="stat-icon stat-icon--damage" />
+                <ui:Label text="3.5" class="stat-value" name="stat-damage" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="stat-item">
+                <ui:VisualElement class="stat-icon stat-icon--speed" />
+                <ui:Label text="1.2" class="stat-value" name="stat-speed" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- STATS RIGHT (Top-Right Corner) -->
+        <ui:VisualElement name="hud-stats-right" class="hud-stats hud-stats--right">
+            <ui:VisualElement class="stat-item">
+                <ui:VisualElement class="stat-icon stat-icon--range" />
+                <ui:Label text="6.5" class="stat-value" name="stat-range" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="stat-item">
+                <ui:VisualElement class="stat-icon stat-icon--tears" />
+                <ui:Label text="2.1" class="stat-value" name="stat-tears" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="stat-item">
+                <ui:VisualElement class="stat-icon stat-icon--luck" />
+                <ui:Label text="0" class="stat-value" name="stat-luck" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- TIMER (Top-Center) -->
+        <ui:VisualElement name="hud-timer" class="hud-timer">
+            <ui:VisualElement class="timer-icon" />
+            <ui:Label text="02:36" class="timer-value" name="timer-display" />
+        </ui:VisualElement>
+
+        <!-- WEAPON CONTAINER (Bottom-Center) -->
+        <ui:VisualElement name="weapon-container" class="weapon-container">
+            <!-- Weapon Slot 1 -->
+            <ui:VisualElement name="weapon-slot-0" class="weapon-slot weapon-slot--active">
+                <ui:VisualElement class="weapon-icon">
+                    <ui:VisualElement name="weapon-sprite-0" class="weapon-sprite" />
+                </ui:VisualElement>
+                <ui:VisualElement class="weapon-level">
+                    <ui:Label text="Nv" class="level-label" />
+                    <ui:Label text="3" class="level-value" name="weapon-level-0" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Weapon Slot 2 -->
+            <ui:VisualElement name="weapon-slot-1" class="weapon-slot">
+                <ui:VisualElement class="weapon-icon">
+                    <ui:VisualElement name="weapon-sprite-1" class="weapon-sprite" />
+                </ui:VisualElement>
+                <ui:VisualElement class="weapon-level">
+                    <ui:Label text="Nv" class="level-label" />
+                    <ui:Label text="1" class="level-value" name="weapon-level-1" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Weapon Slot 3 (Empty) -->
+            <ui:VisualElement name="weapon-slot-2" class="weapon-slot weapon-slot--empty">
+                <ui:VisualElement class="weapon-icon">
+                    <ui:VisualElement name="weapon-sprite-2" class="weapon-sprite weapon-sprite--empty" />
+                </ui:VisualElement>
+                <ui:VisualElement class="weapon-level weapon-level--empty">
+                    <ui:Label text="--" class="level-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

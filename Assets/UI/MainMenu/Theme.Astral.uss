@@ -1,0 +1,38 @@
+/* C · ENJAMBRE ASTRAL — obsidiana + runas violetas (tema por defecto) */
+.theme-astral {
+    --accent: #b18bff;
+    --accent-glow: rgba(150, 110, 255, 0.6);
+
+    --title-color: #ece4ff;
+    --title-stroke: #1a1030;
+    --tagline-color: #bdb0e6;
+
+    --btn-bg: #191230;
+    --btn-bg-hi: #261d40;
+    --btn-text: #d9d0f5;
+    --btn-text-hi: #ffffff;
+    --btn-bevel-hi: #4a3a86;
+    --btn-bevel-lo: #080612;
+
+    --play-bg: #7a55e6;
+    --play-bg-hi: #9170f0;
+    --play-text: #130b28;
+    --play-bevel-hi: #b9a3ff;
+    --play-bevel-lo: #3a248a;
+
+    --panel-bg: #15102a;
+    --panel-border: #4a3a86;
+    --panel-title-color: #ece4ff;
+    --label-color: #bdb0e6;
+    --val-color: #b18bff;
+
+    --seg-bg: #1d1734;
+    --seg-bg-hi: #271e44;
+    --seg-active-bg: #7a55e6;
+    --seg-active-text: #130b28;
+
+    --track-bg: #0d0a18;
+    --fill-bg: #7a55e6;
+    --handle-bg: #cfc3f0;
+    --handle-bg-hi: #e6dcff;
+}

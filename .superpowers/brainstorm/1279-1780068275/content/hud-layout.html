@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HUD Layout — Astral Swarm</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0d0d; font-family: 'Courier New', monospace; color: #e7dcc4; display: flex; flex-direction: column; align-items: center; padding: 24px; gap: 20px; }
+  h2 { color: #f6cf6b; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; }
+  .subtitle { color: #888; font-size: 13px; margin-top: 4px; }
+
+  /* ── GAME CANVAS ── */
+  .canvas {
+    position: relative;
+    width: 800px;
+    height: 450px;
+    background: #1a2a1a;
+    border: 2px solid #333;
+    overflow: hidden;
+    image-rendering: pixelated;
+  }
+
+  /* Fake game world */
+  .world-bg {
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.03) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.03) 40px),
+      linear-gradient(160deg, #1a2a1a 0%, #0f1f0f 100%);
+  }
+  .world-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: rgba(255,255,255,.1); font-size: 22px; letter-spacing: 4px; pointer-events: none; }
+
+  /* ── COMPONENT OUTLINES ── */
+  .comp {
+    position: absolute;
+    border: 2px dashed;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;
+    text-align: center; padding: 4px;
+    pointer-events: none;
+  }
+  .comp-label { font-size: 9px; margin-top: 2px; opacity: .8; font-weight: normal; text-transform: none; letter-spacing: 0; }
+
+  /* HUDView — top strip */
+  .c-hud {
+    top: 0; left: 0; right: 0; height: 80px;
+    border-color: #6fd0ff; color: #6fd0ff;
+    background: rgba(111,208,255,.05);
+  }
+  /* XP bar sub */
+  .c-xpbar {
+    top: 0; left: 0; right: 0; height: 12px;
+    border: 1px solid rgba(111,208,255,.6);
+    background: linear-gradient(90deg, rgba(111,208,255,.3) 0%, rgba(47,143,214,.3) 60%, transparent 60%);
+  }
+  /* Level badge */
+  .c-level {
+    top: 14px; left: 8px; width: 56px; height: 26px;
+    border-color: #f6cf6b; color: #f6cf6b;
+    background: rgba(246,207,107,.08);
+    border-style: dashed; border-width: 1px;
+    font-size: 9px;
+  }
+  /* Timer */
+  .c-timer {
+    top: 14px; left: 50%; transform: translateX(-50%); width: 90px; height: 26px;
+    border-color: #ffb347; color: #ffb347;
+    background: rgba(255,179,71,.08);
+    border-style: dashed; border-width: 1px;
+    font-size: 9px;
+  }
+  /* Hearts */
+  .c-hearts {
+    top: 44px; left: 8px; width: 130px; height: 30px;
+    border-color: #ff6b6b; color: #ff6b6b;
+    background: rgba(255,107,107,.06);
+    border-style: dashed; border-width: 1px;
+    font-size: 9px;
+  }
+  /* Gold */
+  .c-gold {
+    top: 44px; left: 145px; width: 80px; height: 30px;
+    border-color: #f6cf6b; color: #f6cf6b;
+    background: rgba(246,207,107,.06);
+    border-style: dashed; border-width: 1px;
+    font-size: 9px;
+  }
+  /* Pause button */
+  .c-pause {
+    top: 14px; right: 8px; width: 36px; height: 36px;
+    border-color: #aaa; color: #aaa;
+    background: rgba(255,255,255,.05);
+    border-style: dashed; border-width: 1px;
+    font-size: 9px;
+  }
+
+  /* LoadoutView — bottom-left */
+  .c-loadout {
+    bottom: 0; left: 0; width: 340px; height: 100px;
+    border-color: #c084fc; color: #c084fc;
+    background: rgba(192,132,252,.05);
+  }
+  .c-weapons {
+    bottom: 50px; left: 8px; width: 200px; height: 48px;
+    border-color: rgba(192,132,252,.5); color: #c084fc;
+    border-style: dashed; border-width: 1px;
+    font-size: 9px;
+    background: rgba(192,132,252,.04);
+  }
+  .c-passives {
+    bottom: 6px; left: 8px; width: 320px; height: 40px;
+    border-color: rgba(192,132,252,.5); color: #c084fc;
+    border-style: dashed; border-width: 1px;
+    font-size: 9px;
+    background: rgba(192,132,252,.04);
+  }
+
+  /* MinimapView — bottom-right */
+  .c-minimap {
+    bottom: 0; right: 0; width: 120px; height: 120px;
+    border-color: #4ade80; color: #4ade80;
+    background: rgba(74,222,128,.05);
+  }
+
+  /* LevelUpView — center overlay (shown transparent) */
+  .c-levelup {
+    top: 80px; left: 50%; transform: translateX(-50%); width: 600px; height: 280px;
+    border-color: #ff9a3c; color: #ff9a3c;
+    background: rgba(0,0,0,.7);
+    border-style: solid; border-width: 2px;
+    font-size: 11px;
+  }
+  .c-card {
+    position: absolute; top: 20px;
+    width: 140px; height: 200px;
+    border: 1px dashed rgba(255,154,60,.5);
+    color: #ff9a3c;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; background: rgba(255,154,60,.06);
+  }
+  .c-card:nth-child(1) { left: 30px; }
+  .c-card:nth-child(2) { left: 50%; transform: translateX(-50%); }
+  .c-card:nth-child(3) { right: 30px; }
+  .c-reroll {
+    position: absolute; bottom: 12px; left: 30px; width: 120px; height: 28px;
+    border: 1px dashed rgba(255,154,60,.5); color: #ff9a3c; font-size: 9px;
+    display: flex; align-items: center; justify-content: center; background: rgba(255,154,60,.06);
+  }
+  .c-skip {
+    position: absolute; bottom: 12px; right: 30px; width: 100px; height: 28px;
+    border: 1px dashed rgba(255,154,60,.5); color: #ff9a3c; font-size: 9px;
+    display: flex; align-items: center; justify-content: center; background: rgba(255,154,60,.06);
+  }
+
+  /* PauseView — center overlay */
+  .c-pause-overlay {
+    top: 80px; left: 50%; transform: translateX(-50%); width: 260px; height: 260px;
+    border-color: #94a3b8; color: #94a3b8;
+    background: rgba(0,0,0,.8);
+    border-style: solid; border-width: 2px;
+    font-size: 11px;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;
+    max-width: 800px;
+  }
+  .leg-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .leg-dot { width: 12px; height: 12px; border: 2px solid; flex-shrink: 0; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 8px; }
+  .tab {
+    padding: 6px 16px; font-size: 12px; cursor: pointer; border: 1px solid #444;
+    background: #1a1a1a; color: #888; font-family: 'Courier New', monospace;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .tab.active { background: #2a2a2a; color: #f6cf6b; border-color: #f6cf6b; }
+
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* Component table */
+  .comp-table { width: 800px; border-collapse: collapse; font-size: 12px; }
+  .comp-table th { background: #1a1a1a; color: #f6cf6b; padding: 8px 12px; text-align: left; border: 1px solid #333; }
+  .comp-table td { padding: 7px 12px; border: 1px solid #222; vertical-align: top; }
+  .comp-table tr:hover td { background: #111; }
+  .tag { display: inline-block; padding: 1px 6px; border-radius: 2px; font-size: 10px; margin-right: 4px; }
+  .tag-new { background: #1a3a1a; color: #4ade80; border: 1px solid #4ade80; }
+  .tag-mod { background: #3a2a00; color: #f6cf6b; border: 1px solid #f6cf6b; }
+  .tag-rep { background: #3a001a; color: #ff6b6b; border: 1px solid #ff6b6b; }
+</style>
+</head>
+<body>
+
+<h2>HUD Layout — Astral Swarm</h2>
+<p class="subtitle">Componentes uGUI sobre Canvas en modo Screen Space - Overlay</p>
+
+<div class="tabs">
+  <div class="tab active" onclick="showView('layout')">Vista HUD</div>
+  <div class="tab" onclick="showView('levelup')">Level-Up Overlay</div>
+  <div class="tab" onclick="showView('pause')">Pause Overlay</div>
+  <div class="tab" onclick="showView('arch')">Arquitectura</div>
+</div>
+
+<!-- TAB: HUD normal -->
+<div class="view active" id="view-layout">
+  <div class="canvas">
+    <div class="world-bg"></div>
+    <div class="world-label">GAMEPLAY</div>
+    <!-- HUDView outline -->
+    <div class="comp c-hud">HUDVIEW<div class="comp-label">XP · Nivel · Timer · Corazones · Oro</div></div>
+    <div class="comp c-xpbar"></div>
+    <div class="comp c-level">LVL 3</div>
+    <div class="comp c-timer">00:42</div>
+    <div class="comp c-hearts">♥ ♥ ♥ ♥ ♥</div>
+    <div class="comp c-gold">⬡ 240</div>
+    <div class="comp c-pause">⏸</div>
+    <!-- LoadoutView -->
+    <div class="comp c-loadout">LOADOUTVIEW<div class="comp-label">Armas + Pasivos</div></div>
+    <div class="comp c-weapons">⚔ ⚔ ⚔ — weapon slots</div>
+    <div class="comp c-passives">● ● ● ● — passive slots</div>
+    <!-- MinimapView -->
+    <div class="comp c-minimap">MINIMAPVIEW</div>
+  </div>
+</div>
+
+<!-- TAB: Level-Up -->
+<div class="view" id="view-levelup">
+  <div class="canvas">
+    <div class="world-bg"></div>
+    <div class="world-label" style="opacity:.3">GAMEPLAY (pausado)</div>
+    <!-- HUDView still visible -->
+    <div class="comp c-hud" style="opacity:.4">HUDVIEW</div>
+    <div class="comp c-loadout" style="opacity:.4">LOADOUTVIEW</div>
+    <div class="comp c-minimap" style="opacity:.4">MINIMAPVIEW</div>
+    <!-- LevelUpView overlay -->
+    <div class="comp c-levelup">
+      LEVELUPVIEW
+      <div class="c-card">CARD 1<br/><span style="font-size:8px;opacity:.7">arma/pasivo</span></div>
+      <div class="c-card">CARD 2<br/><span style="font-size:8px;opacity:.7">arma/pasivo</span></div>
+      <div class="c-card">CARD 3<br/><span style="font-size:8px;opacity:.7">arma/pasivo</span></div>
+      <div class="c-reroll">↺ Reroll (3)</div>
+      <div class="c-skip">Skip +50⬡</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: Pause -->
+<div class="view" id="view-pause">
+  <div class="canvas">
+    <div class="world-bg"></div>
+    <div class="world-label" style="opacity:.3">GAMEPLAY (pausado)</div>
+    <div class="comp c-hud" style="opacity:.4">HUDVIEW</div>
+    <div class="comp c-loadout" style="opacity:.4">LOADOUTVIEW</div>
+    <div class="comp c-minimap" style="opacity:.4">MINIMAPVIEW</div>
+    <!-- PauseView -->
+    <div class="comp c-pause-overlay">
+      PAUSEVIEW<br/>
+      <div style="font-size:10px;margin-top:8px;color:#ccc;line-height:1.8">
+        TIEMPO · NIVEL · ORO<br/>
+        ───────────────<br/>
+        [Continuar]<br/>
+        [Ajustes]<br/>
+        [Abandonar]
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: Architecture -->
+<div class="view" id="view-arch">
+  <table class="comp-table">
+    <tr>
+      <th>Fichero</th>
+      <th>Estado</th>
+      <th>Responsabilidad</th>
+    </tr>
+    <tr>
+      <td><strong>UIManager.cs</strong></td>
+      <td><span class="tag tag-mod">MODIFICAR</span></td>
+      <td>Coordinador fino. Tiene referencias a HUDView, LoadoutView, MinimapView, LevelUpView, PauseView. Delega todas las llamadas.</td>
+    </tr>
+    <tr>
+      <td><strong>HUDView.cs</strong></td>
+      <td><span class="tag tag-new">NUEVO</span></td>
+      <td>Barra XP (Slider), badge de nivel (Text), timer (Text), corazones (lista de Images), chip de oro (Text). Expone métodos: SetXP, SetLevel, SetTime, SetHearts, SetGold.</td>
+    </tr>
+    <tr>
+      <td><strong>LoadoutView.cs</strong></td>
+      <td><span class="tag tag-new">NUEVO</span></td>
+      <td>3 slots de arma con icono + pips de nivel (hasta 8). Fila de pasivos (slots dinámicos). Expone: SetWeaponSlot, SetPassiveSlot.</td>
+    </tr>
+    <tr>
+      <td><strong>MinimapView.cs</strong></td>
+      <td><span class="tag tag-rep">REEMPLAZA MinimapController</span></td>
+      <td>RenderTexture de cámara ortográfica dedicada, blips de jugador/enemigos. Mismo API que MinimapController pero con estilo del diseño.</td>
+    </tr>
+    <tr>
+      <td><strong>LevelUpView.cs</strong></td>
+      <td><span class="tag tag-new">NUEVO</span></td>
+      <td>Overlay de 3 cards con icono, rareza, nombre, descripción. Botones Reroll (contador) y Skip (+50 oro). Se activa/desactiva via UIManager.</td>
+    </tr>
+    <tr>
+      <td><strong>PauseView.cs</strong></td>
+      <td><span class="tag tag-new">NUEVO</span></td>
+      <td>Panel de pausa con stats (tiempo, nivel, oro), botones Continuar/Ajustes/Abandonar.</td>
+    </tr>
+    <tr>
+      <td><strong>GameManager.cs</strong></td>
+      <td><span class="tag tag-mod">MODIFICAR</span></td>
+      <td>Añadir currentGold como propiedad pública. El gold ya existe pero no se expone al HUD.</td>
+    </tr>
+    <tr>
+      <td><strong>PlayerStats.cs</strong></td>
+      <td><span class="tag tag-mod">MODIFICAR</span></td>
+      <td>Exponer currentHealth y maxHealth públicamente para que HUDView calcule los corazones.</td>
+    </tr>
+    <tr>
+      <td><strong>InventoryManager.cs</strong></td>
+      <td><span class="tag tag-mod">MODIFICAR</span></td>
+      <td>Añadir weaponLevel[] para los pips. Notificar a LoadoutView al equipar/subir nivel.</td>
+    </tr>
+  </table>
+</div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="border-color:#6fd0ff"></div> HUDView</div>
+  <div class="leg-item"><div class="leg-dot" style="border-color:#c084fc"></div> LoadoutView</div>
+  <div class="leg-item"><div class="leg-dot" style="border-color:#4ade80"></div> MinimapView</div>
+  <div class="leg-item"><div class="leg-dot" style="border-color:#ff9a3c"></div> LevelUpView</div>
+  <div class="leg-item"><div class="leg-dot" style="border-color:#94a3b8"></div> PauseView</div>
+</div>
+
+<script>
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
