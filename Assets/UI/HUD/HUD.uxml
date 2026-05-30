@@ -43,8 +43,42 @@
                 <ui:VisualElement name="pause-ico" class="ico" picking-mode="Ignore" />
             </ui:VisualElement>
 
+            <!-- Stats Panel (Left Side) -->
+            <ui:VisualElement name="stats-panel" class="stats-panel" picking-mode="Ignore">
+                <ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-atk" class="stat-icon" />
+                    <ui:Label text="10" name="stat-val-attack" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-attack" class="stat-mod" />
+                </ui:VisualElement>
+                <ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-atkspeed" class="stat-icon" />
+                    <ui:Label text="1.0" name="stat-val-attack-speed" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-attack-speed" class="stat-mod" />
+                </ui:VisualElement>
+<ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-range" class="stat-icon" />
+                    <ui:Label text="5.0" name="stat-val-range" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-range" class="stat-mod" />
+                </ui:VisualElement>
+                <ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-speed" class="stat-icon" />
+                    <ui:Label text="5.0" name="stat-val-speed" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-speed" class="stat-mod" />
+                </ui:VisualElement>
+                <ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-luck" class="stat-icon" />
+                    <ui:Label text="1.0" name="stat-val-luck" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-luck" class="stat-mod" />
+                </ui:VisualElement>
+                <ui:VisualElement class="stat-row">
+                    <ui:VisualElement name="ico-diff" class="stat-icon" />
+                    <ui:Label text="0" name="stat-val-difficulty" class="stat-value" />
+                    <ui:Label text="+0" name="stat-mod-difficulty" class="stat-mod" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
             <!-- Loadout (bottom-left) -->
-            <ui:VisualElement name="loadout" class="loadout" picking-mode="Ignore">
+<ui:VisualElement name="loadout" class="loadout" picking-mode="Ignore">
                 <ui:VisualElement class="row" picking-mode="Ignore">
                     <ui:Label text="ARMAS" class="row-label" />
                     <ui:VisualElement name="row-weapons" class="row-slots" picking-mode="Ignore" />

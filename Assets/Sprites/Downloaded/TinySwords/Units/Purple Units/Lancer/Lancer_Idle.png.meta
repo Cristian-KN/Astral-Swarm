@@ -63,7 +63,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -76,7 +76,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -90,7 +90,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -142,19 +142,19 @@ TextureImporter:
       name: Lancer_Idle_0
       rect:
         serializedVersion: 2
-        x: 114
-        y: 121
-        width: 71
-        height: 152
+        x: 0
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a9dcbed144cf0c7f0800000000000000
+      spriteID: 9e9e378eacb8d3d4b868701cd274d3cd
       internalID: -594197781322936934
       vertices: []
       indices: 
@@ -164,19 +164,19 @@ TextureImporter:
       name: Lancer_Idle_1
       rect:
         serializedVersion: 2
-        x: 433
-        y: 122
-        width: 29
-        height: 151
+        x: 320
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e3faea6af50125600800000000000000
+      spriteID: 11f6edaa1cb06784b886cac8e1fa2f55
       internalID: 455444515322244926
       vertices: []
       indices: 
@@ -186,19 +186,19 @@ TextureImporter:
       name: Lancer_Idle_2
       rect:
         serializedVersion: 2
-        x: 457
-        y: 121
-        width: 48
-        height: 76
+        x: 640
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9ec5ee71c92bf2700800000000000000
+      spriteID: 06e1d571da95b6f449dde6c4888888bd
       internalID: 517828865657036009
       vertices: []
       indices: 
@@ -208,19 +208,19 @@ TextureImporter:
       name: Lancer_Idle_3
       rect:
         serializedVersion: 2
-        x: 754
-        y: 122
-        width: 28
-        height: 151
+        x: 960
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b8294f3abb21ce5d0800000000000000
+      spriteID: 29ba2d9e84290374385c8c885832da57
       internalID: -3032027852008287605
       vertices: []
       indices: 
@@ -230,19 +230,19 @@ TextureImporter:
       name: Lancer_Idle_4
       rect:
         serializedVersion: 2
-        x: 778
-        y: 121
-        width: 47
-        height: 76
+        x: 1280
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5f9db6b848484a2b0800000000000000
+      spriteID: 14d4435138d971147bc93b281d096f3e
       internalID: -5574184733968180747
       vertices: []
       indices: 
@@ -252,19 +252,19 @@ TextureImporter:
       name: Lancer_Idle_5
       rect:
         serializedVersion: 2
-        x: 1074
-        y: 121
-        width: 70
-        height: 152
+        x: 1600
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 303396fc94efaa7e0800000000000000
+      spriteID: 3771578336c0aab46a8deb93faccdb44
       internalID: -1753309511941541117
       vertices: []
       indices: 
@@ -274,19 +274,19 @@ TextureImporter:
       name: Lancer_Idle_6
       rect:
         serializedVersion: 2
-        x: 1395
-        y: 121
-        width: 68
-        height: 152
+        x: 1920
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e6ba79e4b75fd7340800000000000000
+      spriteID: d72ad66f2ebe21d4796d0d282ccf2605
       internalID: 4863313082578348910
       vertices: []
       indices: 
@@ -296,19 +296,19 @@ TextureImporter:
       name: Lancer_Idle_7
       rect:
         serializedVersion: 2
-        x: 1716
-        y: 121
-        width: 67
-        height: 152
+        x: 2240
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 99d80e827b55462b0800000000000000
+      spriteID: 28fddc9795d45da40bdd3b2daa905c51
       internalID: -5592250592134132327
       vertices: []
       indices: 
@@ -318,19 +318,19 @@ TextureImporter:
       name: Lancer_Idle_8
       rect:
         serializedVersion: 2
-        x: 2038
-        y: 121
-        width: 64
-        height: 152
+        x: 2560
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0f58bf3fee1903020800000000000000
+      spriteID: a51c94c89a7c81a48940bef4301e18ed
       internalID: 2319514263577396720
       vertices: []
       indices: 
@@ -340,19 +340,19 @@ TextureImporter:
       name: Lancer_Idle_9
       rect:
         serializedVersion: 2
-        x: 2358
-        y: 121
-        width: 63
-        height: 152
+        x: 2880
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3bd9206cb0fd017c0800000000000000
+      spriteID: 44e406af7bd26d54f8e3a078d55274da
       internalID: -4102534018874827341
       vertices: []
       indices: 
@@ -362,19 +362,19 @@ TextureImporter:
       name: Lancer_Idle_10
       rect:
         serializedVersion: 2
-        x: 2677
-        y: 121
-        width: 64
-        height: 152
+        x: 3200
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f032ad0fb04bd2f70800000000000000
+      spriteID: e01a6c85fa40408489fedc9cd5566824
       internalID: 9164178780147294991
       vertices: []
       indices: 
@@ -384,64 +384,20 @@ TextureImporter:
       name: Lancer_Idle_11
       rect:
         serializedVersion: 2
-        x: 2996
-        y: 121
-        width: 66
-        height: 152
+        x: 3520
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 99cf8a93f13638770800000000000000
+      spriteID: fd0dd45d95d3eaf4ab501b1f9e694df2
       internalID: 8611835898225032345
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lancer_Idle_12
-      rect:
-        serializedVersion: 2
-        x: 3315
-        y: 121
-        width: 68
-        height: 152
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b101590d858e03490800000000000000
-      internalID: -7768453889059909605
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lancer_Idle_13
-      rect:
-        serializedVersion: 2
-        x: 3634
-        y: 121
-        width: 70
-        height: 152
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5524d2cf092ba2b40800000000000000
-      internalID: 5416337837642302037
       vertices: []
       indices: 
       edges: []
@@ -450,7 +406,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 345b06625eea2ff479694787a282533e
     internalID: 0
     vertices: []
     indices: 
@@ -466,6 +422,8 @@ TextureImporter:
       Lancer_Idle_11: 8611835898225032345
       Lancer_Idle_12: -7768453889059909605
       Lancer_Idle_13: 5416337837642302037
+      Lancer_Idle_14: 1231205967
+      Lancer_Idle_15: -1044963839
       Lancer_Idle_2: 517828865657036009
       Lancer_Idle_3: -3032027852008287605
       Lancer_Idle_4: -5574184733968180747

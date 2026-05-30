@@ -18,7 +18,10 @@ MonoBehaviour:
   type: 3
   rarity: 0
   attackBoost: 0
+  attackSpeedBoost: 0
+  rangeBoost: 0
   speedBoost: 0
+  luckBoost: 0
   defenseBoost: 0
   statMultiplier: 1
   difficultyIncrease: 0

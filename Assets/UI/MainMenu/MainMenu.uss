@@ -37,13 +37,13 @@
     -unity-background-scale-mode: stretch-to-fill;
     /* background-image (radial) + tint set from code; flicker animated in code */
 }
-/* positions as px on the 1408x768 stage, centered on the point */
-.t-moon    { left: 530px;  top: 160px;  width: 380px; height: 380px; margin-left: -190px; margin-top: -190px; }
-.t-gate    { left: 340px;  top: 380px; width: 220px; height: 220px; margin-left: -110px; margin-top: -110px; }
-.t-path    { left: 300px;  top: 520px; width: 300px; height: 300px; margin-left: -150px; margin-top: -150px; }
-.t-village { left: 1120px; top: 500px; width: 280px; height: 280px; margin-left: -140px; margin-top: -140px; }
-.t-fire    { left: 1180px; top: 620px; width: 500px; height: 500px; margin-left: -250px; margin-top: -250px; }
-.t-lantern { left: 370px; top: 280px; width: 200px; height: 200px; margin-left: -100px; margin-top: -100px; }
+/* positions as px on the 1408x768 stage, centered on the point (alineadas con las luces del fondo) */
+.t-moon    { left: 515px;  top: 85px;   width: 340px; height: 340px; margin-left: -170px; margin-top: -170px; }
+.t-gate    { left: 320px;  top: 300px;  width: 220px; height: 220px; margin-left: -110px; margin-top: -110px; }
+.t-path    { left: 380px;  top: 580px;  width: 240px; height: 240px; margin-left: -120px; margin-top: -120px; }
+.t-village { left: 970px;  top: 555px;  width: 260px; height: 260px; margin-left: -130px; margin-top: -130px; }
+.t-fire    { left: 1110px; top: 705px;  width: 460px; height: 460px; margin-left: -230px; margin-top: -230px; }
+.t-lantern { left: 240px;  top: 205px;  width: 200px; height: 200px; margin-left: -100px; margin-top: -100px; }
 
 /* drifting embers */
 .embers {

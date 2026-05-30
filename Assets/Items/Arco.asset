@@ -18,14 +18,17 @@ MonoBehaviour:
   type: 0
   rarity: 0
   attackBoost: 0
+  attackSpeedBoost: 0
+  rangeBoost: 0
   speedBoost: 0
+  luckBoost: 0
   defenseBoost: 0
   statMultiplier: 1
   difficultyIncrease: 0
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 67917075572860788, guid: 9dfebaa73d053834c9e3c85b9bd93b1f, type: 3}
   weaponCooldown: 0.8
   weaponDamage: 20
-  weaponDetectionRadius: 1.8
+  weaponDetectionRadius: 10
   weaponMaxLevel: 5
   isGrowthItem: 0
   growthPerKill: 0

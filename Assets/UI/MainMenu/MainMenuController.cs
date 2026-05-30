@@ -34,17 +34,40 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Texture2D glowTexture;
     [SerializeField] private Texture2D vignetteTexture;
 
+    [System.Serializable]
+    public class AnimationData
+    {
+        public Sprite[] frames;
+    }
+
+    [Header("Character Animations")]
+    public List<AnimationData> warriorAnims = new List<AnimationData>();
+    public List<AnimationData> archerAnims = new List<AnimationData>();
+    public List<AnimationData> lancerAnims = new List<AnimationData>();
+    [SerializeField] private float frameDuration = 0.1f;
+
     private const int EmberCount = 26;
     private const string PrefThemeKey = "astral.theme";
 
     private VisualElement _stage;
-    private VisualElement _screenMenu, _screenSettings, _modal, _playOverlay;
+    private VisualElement _screenMenu, _screenSettings, _screenCharSelect, _modal, _playOverlay;
     private VisualElement _embersHost;
     private List<VisualElement> _dots = new List<VisualElement>();
     private readonly List<Ember> _embers = new List<Ember>();
     private readonly List<GlowFx> _glows = new List<GlowFx>();
     private bool _embersActive;
     private bool _loadingActive;
+
+    // Character Selection State
+    private string selectedClass = "warrior";
+    private int selectedColorIndex = 0;
+    private readonly string[] colorNames = { "blue", "yellow", "red", "purple", "black" };
+    private VisualElement[] classCards = new VisualElement[3];
+    private VisualElement[] colorCards = new VisualElement[5];
+    private VisualElement[] colorPreviews = new VisualElement[5];
+    private VisualElement[] classIcons = new VisualElement[3];
+    private int currentAnimationFrame = 0;
+    private IVisualElementScheduledItem animationTask;
 
     private struct Ember
     {
@@ -63,8 +86,6 @@ public class MainMenuController : MonoBehaviour
     private void OnEnable()
     {
         var doc = GetComponent<UIDocument>();
-        // Workaround: en Unity 6 el m_PanelSettings asignado por script al UIDocument no
-        // persiste. Lo resolvemos por campo serializado o, como respaldo, desde Resources.
         if (doc.panelSettings == null)
         {
             var ps = panelSettings != null ? panelSettings : Resources.Load<PanelSettings>("MainMenuPanelSettings");
@@ -73,13 +94,14 @@ public class MainMenuController : MonoBehaviour
         var root = doc.rootVisualElement;
         if (root == null)
         {
-            Debug.LogError("[MainMenu] rootVisualElement es null. ¿Falta asignar PanelSettings/UXML en el UIDocument?");
+            Debug.LogError("[MainMenu] rootVisualElement es null.");
             return;
         }
 
         _stage = root.Q<VisualElement>("stage");
         _screenMenu = root.Q<VisualElement>("screen-menu");
         _screenSettings = root.Q<VisualElement>("screen-settings");
+        _screenCharSelect = root.Q<VisualElement>("screen-character-select");
         _modal = root.Q<VisualElement>("modal-wrap");
         _playOverlay = root.Q<VisualElement>("play-overlay");
         _embersHost = root.Q<VisualElement>("embers");
@@ -88,7 +110,6 @@ public class MainMenuController : MonoBehaviour
         var dotElements = root.Query<VisualElement>(className: "spinner-dot").ToList();
         foreach (var d in dotElements) _dots.Add(d);
 
-        // restore theme preference, then apply
         if (PlayerPrefs.HasKey(PrefThemeKey))
         {
             string saved = PlayerPrefs.GetString(PrefThemeKey);
@@ -100,12 +121,156 @@ public class MainMenuController : MonoBehaviour
         WireButtons(root);
         WireSegment(root);
         WireSliders(root);
+        InitializeCharSelection(root);
 
-        // navigation / escape
         root.focusable = true;
         root.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
         root.RegisterCallback<NavigationCancelEvent>(_ => OnCancel());
         root.schedule.Execute(() => root.Focus()).ExecuteLater(50);
+    }
+
+    private void OnDisable()
+    {
+        animationTask?.Pause();
+    }
+
+    private void InitializeCharSelection(VisualElement root)
+    {
+        if (_screenCharSelect == null) return;
+
+        classCards[0] = root.Q<VisualElement>("class-warrior");
+        classCards[1] = root.Q<VisualElement>("class-archer");
+        classCards[2] = root.Q<VisualElement>("class-lancer");
+
+        classIcons[0] = root.Q<VisualElement>("class-icon-warrior");
+        classIcons[1] = root.Q<VisualElement>("class-icon-archer");
+        classIcons[2] = root.Q<VisualElement>("class-icon-lancer");
+
+        for (int i = 0; i < 5; i++)
+        {
+            colorCards[i] = root.Q<VisualElement>($"color-{colorNames[i]}");
+            colorPreviews[i] = root.Q<VisualElement>($"color-preview-{i}");
+        }
+
+        classCards[0]?.RegisterCallback<ClickEvent>(evt => SelectClass("warrior"));
+        classCards[1]?.RegisterCallback<ClickEvent>(evt => SelectClass("archer"));
+        classCards[2]?.RegisterCallback<ClickEvent>(evt => SelectClass("lancer"));
+
+        for (int i = 0; i < 5; i++)
+        {
+            int index = i;
+            colorCards[i]?.RegisterCallback<ClickEvent>(evt => SelectColor(index));
+        }
+
+        root.Q<VisualElement>("btn-char-back")?.RegisterCallback<ClickEvent>(evt => CloseCharSelection());
+        root.Q<VisualElement>("btn-char-play")?.RegisterCallback<ClickEvent>(evt => PlayGame());
+
+        if (animationTask == null)
+        {
+            animationTask = root.schedule.Execute(AnimateCharStep).Every((long)(frameDuration * 1000));
+        }
+    }
+
+    private void SelectClass(string className)
+    {
+        selectedClass = className;
+        UpdateCharUI();
+    }
+
+    private void SelectColor(int index)
+    {
+        selectedColorIndex = index;
+        UpdateCharUI();
+    }
+
+    private void UpdateCharUI()
+    {
+        if (_screenCharSelect == null) return;
+
+        classCards[0]?.EnableInClassList("class-card--active", selectedClass == "warrior");
+        classCards[1]?.EnableInClassList("class-card--active", selectedClass == "archer");
+        classCards[2]?.EnableInClassList("class-card--active", selectedClass == "lancer");
+
+        for (int i = 0; i < colorCards.Length; i++)
+        {
+            if (colorCards[i] != null)
+                colorCards[i].EnableInClassList("color-card--active", i == selectedColorIndex);
+        }
+
+        // El cuerpo del lancero ocupa poco de su celda: en los previews de skin
+        // necesita más zoom y bajarlo un poco (igual que #class-icon-lancer en USS).
+        // El guerrero/arquero usan la escala base (1.45) centrada.
+        bool isLancer = selectedClass == "lancer";
+        var previewScale = new StyleScale(new Scale(new Vector3(isLancer ? 2.1f : 1.45f, isLancer ? 2.1f : 1.45f, 1f)));
+        var previewOffset = new StyleTranslate(isLancer ? new Translate(3f, 6f, 0f) : new Translate(0f, 0f, 0f));
+        for (int i = 0; i < colorPreviews.Length; i++)
+        {
+            if (colorPreviews[i] != null)
+            {
+                colorPreviews[i].style.scale = previewScale;
+                colorPreviews[i].style.translate = previewOffset;
+            }
+        }
+    }
+
+    private void AnimateCharStep()
+    {
+        if (_screenCharSelect == null || _screenCharSelect.style.display == DisplayStyle.None) return;
+
+        currentAnimationFrame++;
+        
+        if (warriorAnims.Count > 0) UpdateElementAnim(classIcons[0], warriorAnims[0].frames);
+        if (archerAnims.Count > 0) UpdateElementAnim(classIcons[1], archerAnims[0].frames);
+        if (lancerAnims.Count > 0) UpdateElementAnim(classIcons[2], lancerAnims[0].frames);
+
+        List<AnimationData> currentAnims = warriorAnims;
+        if (selectedClass == "archer") currentAnims = archerAnims;
+        else if (selectedClass == "lancer") currentAnims = lancerAnims;
+
+        if (currentAnims != null)
+        {
+            for (int i = 0; i < colorPreviews.Length; i++)
+            {
+                if (i < currentAnims.Count && currentAnims[i] != null)
+                    UpdateElementAnim(colorPreviews[i], currentAnims[i].frames);
+            }
+        }
+    }
+
+    private void UpdateElementAnim(VisualElement el, Sprite[] frames)
+    {
+        if (el == null || frames == null || frames.Length == 0) return;
+        int frame = currentAnimationFrame % frames.Length;
+        if (frames[frame] == null) return; // saltar frames nulos (hojas con sprites no recortados)
+        el.style.backgroundImage = new StyleBackground(frames[frame]);
+    }
+
+    private void OpenCharSelection()
+    {
+        if (_screenMenu != null) _screenMenu.style.display = DisplayStyle.None;
+        if (_screenCharSelect != null) _screenCharSelect.style.display = DisplayStyle.Flex;
+        UpdateCharUI();
+    }
+
+    private void CloseCharSelection()
+    {
+        if (_screenCharSelect != null) _screenCharSelect.style.display = DisplayStyle.None;
+        if (_screenMenu != null) _screenMenu.style.display = DisplayStyle.Flex;
+    }
+
+    private void PlayGame()
+    {
+        Debug.Log($"[CharSelect] Iniciando con: {selectedClass} color {colorNames[selectedColorIndex]}");
+        PlayerPrefs.SetString("SelectedClass", selectedClass);
+        PlayerPrefs.SetString("SelectedColor", colorNames[selectedColorIndex]);
+        
+        if (_playOverlay != null)
+        {
+            _playOverlay.style.display = DisplayStyle.Flex;
+            _playOverlay.schedule.Execute(() => _playOverlay.AddToClassList("show")).ExecuteLater(16);
+            _loadingActive = true;
+        }
+        StartCoroutine(LoadGameRoutine());
     }
 
     // ----------------------------- THEME -----------------------------
@@ -134,7 +299,6 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    /// <summary>Cambia de tema en runtime (A/B/C) y lo persiste.</summary>
     public void SetTheme(Theme t)
     {
         theme = t;
@@ -146,7 +310,6 @@ public class MainMenuController : MonoBehaviour
 
     private void SetupAmbient(VisualElement root)
     {
-        // glows: assign texture + tint + flicker params
         AddGlow(root, "glow-moon", new Color(0.59f, 0.67f, 1f, 0.6f), 0.7f, breathe: true);
         AddGlow(root, "glow-gate", new Color(1f, 0.75f, 0.35f, 0.95f), 2.5f, false);
         AddGlow(root, "glow-path", new Color(1f, 0.7f, 0.3f, 0.9f), 2.2f, false);
@@ -160,7 +323,6 @@ public class MainMenuController : MonoBehaviour
             if (vig != null) vig.style.backgroundImage = new StyleBackground(vignetteTexture);
         }
 
-        // embers
         if (_embersHost != null && glowTexture != null)
         {
             Color emberColor = theme == Theme.Astral ? new Color(0.72f, 0.55f, 1f) : new Color(1f, 0.7f, 0.29f);
@@ -200,30 +362,22 @@ public class MainMenuController : MonoBehaviour
     {
         float t = Time.unscaledTime;
 
-        // ---- glow flicker ----
         for (int i = 0; i < _glows.Count; i++)
         {
             var g = _glows[i];
             float n;
             if (g.breathe)
-            {
-                // Luna: respiración suave y constante
                 n = 0.5f + 0.35f * (0.5f + 0.5f * Mathf.Sin(t * (6.28f / 6f)));
-            }
             else
             {
-                // Antorchas: parpadeo más dramático y visible
                 float raw = Mathf.PerlinNoise(g.seed, t * g.speed * 0.8f);
-                // Stepped flicker con más pasos para suavidad + mayor rango de contraste
                 n = Mathf.Lerp(0.35f, 1.1f, Mathf.Round(raw * 10f) / 10f);
             }
             g.el.style.opacity = n;
-            // Mayor escala dinámica para más impacto visual
             float s = g.breathe ? Mathf.Lerp(0.98f, 1.08f, n) : Mathf.Lerp(0.92f, 1.12f, n);
             g.el.style.scale = new StyleScale(new Scale(new Vector3(s, s, 1f)));
         }
 
-        // ---- embers ----
         if (_embersActive && _embers.Count > 0)
         {
             float dt = Time.unscaledDeltaTime;
@@ -237,8 +391,8 @@ public class MainMenuController : MonoBehaviour
                 var e = _embers[i];
                 e.life += dt;
                 if (e.life > e.maxLife) e.life -= e.maxLife;
-                float p = e.life / e.maxLife;            // 0..1 progress
-                float y = h - p * (h + 40f);             // bottom -> top
+                float p = e.life / e.maxLife;
+                float y = h - p * (h + 40f);
                 float x = e.baseX * w + e.drift * p;
                 float a = p < 0.1f ? p / 0.1f : (p > 0.8f ? Mathf.Max(0f, (1f - p) / 0.2f) : 0.85f);
 
@@ -251,15 +405,12 @@ public class MainMenuController : MonoBehaviour
             }
         }
 
-        // ---- dots jumping animation ----
         if (_loadingActive && _dots.Count > 0)
         {
             for (int i = 0; i < _dots.Count; i++)
             {
-                // Sinusoidal movement with offset per dot
                 float offset = i * 0.4f;
                 float jump = Mathf.Sin((t * 6f) - offset) * 15f;
-                // Only jump upwards
                 jump = Mathf.Min(0, jump); 
                 _dots[i].style.translate = new StyleTranslate(new Translate(0, jump, 0));
             }
@@ -270,14 +421,13 @@ public class MainMenuController : MonoBehaviour
 
     private void WireButtons(VisualElement root)
     {
-        OnClick(root, "btn-play", DoPlay);
+        OnClick(root, "btn-play", OpenCharSelection); // Modified to open character selection
         OnClick(root, "btn-settings", OpenSettings);
         OnClick(root, "btn-back", CloseSettings);
         OnClick(root, "btn-exit", ShowModal);
         OnClick(root, "btn-exit-yes", () => { HideModal(); DoExit(); });
         OnClick(root, "btn-exit-no", HideModal);
 
-        // close modal when clicking the dark backdrop
         if (_modal != null)
         {
             _modal.RegisterCallback<ClickEvent>(evt =>
@@ -299,20 +449,8 @@ public class MainMenuController : MonoBehaviour
     private void ShowModal() { if (_modal != null) _modal.style.display = DisplayStyle.Flex; }
     private void HideModal() { if (_modal != null) _modal.style.display = DisplayStyle.None; }
 
-    private void DoPlay()
-    {
-        if (_playOverlay != null)
-        {
-            _playOverlay.style.display = DisplayStyle.Flex;
-            _playOverlay.schedule.Execute(() => _playOverlay.AddToClassList("show")).ExecuteLater(16);
-            _loadingActive = true;
-        }
-        StartCoroutine(LoadGameRoutine());
-    }
-
     private IEnumerator LoadGameRoutine()
     {
-        // Wait longer to show the loading animation (jumping cubes)
         yield return new WaitForSecondsRealtime(2.0f);
         if (Application.CanStreamedLevelBeLoaded(gameSceneName))
         {
@@ -320,9 +458,7 @@ public class MainMenuController : MonoBehaviour
             while (op != null && !op.isDone) yield return null;
         }
         else
-        {
             Debug.LogWarning($"[MainMenu] La escena '{gameSceneName}' no está en Build Settings.");
-        }
     }
 
     private void DoExit()
@@ -342,6 +478,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (_modal != null && _modal.resolvedStyle.display == DisplayStyle.Flex) { HideModal(); return; }
         if (_screenSettings != null && _screenSettings.resolvedStyle.display == DisplayStyle.Flex) CloseSettings();
+        if (_screenCharSelect != null && _screenCharSelect.resolvedStyle.display == DisplayStyle.Flex) CloseCharSelection();
     }
 
     // --------------------------- SEGMENT ----------------------------

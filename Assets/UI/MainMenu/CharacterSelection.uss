@@ -1,0 +1,201 @@
+/*
+2026-05-29 AI-Tag
+This was created with the help of Assistant, a Unity Artificial Intelligence product.
+*/
+/* ===========================================================
+   CHARACTER SELECTION — Astral Swarm
+   Hereda estilos de MainMenu.uss + Theme.Grimoire.uss
+   Diseñado para el escenario de 1408x768 (PanelSettings).
+   Todo el contenido cabe en alto sin recortarse.
+   =========================================================== */
+
+/* ===================== SCREEN ===================== */
+.screen--char-select {
+    justify-content: center;
+    align-items: center;
+    padding: 40px 60px;
+    background-color: rgba(15, 10, 20, 0.78);
+}
+
+/* ============ TÍTULO ============ */
+.char-title {
+    color: var(--title-color);
+    margin-bottom: 22px;
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/UnifrakturCook.asset");
+    font-size: 54px;
+    -unity-font-style: bold;
+    letter-spacing: 2px;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: var(--title-stroke);
+    text-shadow: 0 4px 0 var(--title-stroke);
+    -unity-text-align: middle-center;
+}
+
+/* ============ ETIQUETAS DE SECCIÓN ("CLASE" / "SKIN") ============ */
+.char-section-label {
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Silkscreen.asset");
+    font-size: 14px;
+    letter-spacing: 6px;
+    color: var(--tagline-color);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
+    margin-bottom: 12px;
+    -unity-text-align: middle-center;
+}
+
+/* ============ SELECCIÓN DE CLASE (3 cards) ============ */
+.class-selection {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 26px;
+}
+
+.class-card {
+    width: 200px;
+    height: 196px;
+    margin: 0 14px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* recorta la lanza del lancero al ampliarlo */
+    background-color: var(--btn-bg);
+    border-width: 3px;
+    border-left-color: var(--btn-bevel-hi);
+    border-top-color: var(--btn-bevel-hi);
+    border-right-color: var(--btn-bevel-lo);
+    border-bottom-color: var(--btn-bevel-lo);
+    transition-property: translate, background-color, border-color, scale;
+    transition-duration: 0.12s;
+}
+
+.class-card:hover {
+    translate: -2px -2px;
+    background-color: var(--btn-bg-hi);
+    border-color: var(--accent);
+}
+
+.class-card:active {
+    translate: 0 0;
+    scale: 0.98 0.98;
+}
+
+.class-card--active {
+    background-color: var(--play-bg);
+    translate: -3px -3px;
+    border-width: 3px;
+    border-left-color: var(--play-bevel-hi);
+    border-top-color: var(--play-bevel-hi);
+    border-right-color: var(--play-bevel-lo);
+    border-bottom-color: var(--play-bevel-lo);
+}
+
+.class-card--active:hover {
+    background-color: var(--play-bg-hi);
+    border-color: var(--accent);
+}
+
+.class-icon {
+    width: 128px;
+    height: 128px;
+    margin-bottom: 10px;
+    -unity-background-scale-mode: scale-to-fit;
+    /* Zoom uniforme para guerrero y arquero: el personaje ocupa ~46% de su celda. */
+    scale: 1.45 1.45;
+}
+
+/* El cuerpo del lancero solo ocupa ~21% de su celda (el resto es lanza y aire),
+   así que necesita bastante más zoom para igualar el cuerpo de los otros dos.
+   La lanza sobrante se recorta con el overflow:hidden de la tarjeta.
+   El translate centra el cuerpo y lo baja un poco. */
+#class-icon-lancer {
+    scale: 2.1 2.1;
+    translate: 4px 8px;
+}
+
+.class-name {
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Jersey25.asset");
+    font-size: 24px;
+    -unity-font-style: bold;
+    letter-spacing: 2px;
+    color: var(--btn-text);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 1);
+}
+
+.class-card--active .class-name {
+    color: var(--play-text);
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+/* ============ SELECCIÓN DE COLOR (5 cards) ============ */
+.color-selection {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 34px;
+}
+
+.color-card {
+    width: 100px;
+    height: 100px;
+    margin: 0 10px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* recorta la lanza del lancero al ampliarlo */
+    background-color: var(--btn-bg);
+    border-width: 3px;
+    border-left-color: var(--btn-bevel-hi);
+    border-top-color: var(--btn-bevel-hi);
+    border-right-color: var(--btn-bevel-lo);
+    border-bottom-color: var(--btn-bevel-lo);
+    transition-property: translate, background-color, border-color, scale;
+    transition-duration: 0.1s;
+}
+
+.color-card:hover {
+    translate: -2px -2px;
+    background-color: var(--btn-bg-hi);
+    border-color: var(--accent);
+}
+
+.color-card:active {
+    translate: 0 0;
+    scale: 0.96 0.96;
+}
+
+.color-card--active {
+    background-color: var(--play-bg);
+    translate: -2px -2px;
+    border-width: 3px;
+    border-color: var(--accent);
+}
+
+.color-card--active:hover {
+    background-color: var(--play-bg-hi);
+    border-color: var(--accent);
+}
+
+.color-preview {
+    width: 84px;
+    height: 84px;
+    -unity-background-scale-mode: scale-to-fit;
+    scale: 1.45 1.45;
+}
+
+/* ============ BOTONES (Volver y Jugar) ============ */
+.char-buttons {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.char-buttons .mbtn {
+    width: 270px;
+    height: 64px;
+    margin: 0 30px;
+    margin-bottom: 0;
+}
+
+.char-buttons .mbtn__label {
+    -unity-font-definition: url("project://database/Assets/Fonts/UITK/Jersey25.asset");
+    font-size: 28px;
+}

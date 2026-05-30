@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEditor;
 using System.IO;
+using System.Linq;
 
 /// <summary>
 /// Editor script para configurar el terreno automáticamente en la escena

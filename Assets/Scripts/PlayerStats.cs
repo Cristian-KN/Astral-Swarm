@@ -7,6 +7,9 @@ public class PlayerStats : MonoBehaviour
     [Header("Estadísticas de Vida")]
     public float maxHealth = 100;
     private float currentHealth;
+    public float CurrentHealth => currentHealth;
+
+    public static System.Action<float, float> onHealthChanged;
 
     [Header("Feedback")]
     [SerializeField] private float invulnerabilityTime = 1f;
@@ -15,10 +18,11 @@ public class PlayerStats : MonoBehaviour
     [Header("Estadísticas de Combate")]
     public float attackPower = 10f;
     public float attackSpeed = 1f;
+    public float attackRange = 5f;
     public float luck = 1f;
-    public float defense = 0f; // Reducción plana o porcentual
-    public float cooldownReduction = 0f; // 0 a 1 (0.2 = 20% menos)
-    public float difficulty = 0f; // Aumenta con items de Sacrificio
+    public float defense = 0f; 
+    public float cooldownReduction = 0f; 
+    public float difficulty = 0f; 
 
     [Header("Multiplicadores (Suma de objetos)")]
     public float attackMultiplier = 1f;
@@ -26,16 +30,50 @@ public class PlayerStats : MonoBehaviour
     public float luckMultiplier = 1f;
     public float difficultyMultiplier = 1f;
 
+    public struct StatChangeInfo
+    {
+        public string statName;
+        public float newValue;
+        public float difference;
+    }
+
+    public static System.Action<StatChangeInfo> onStatChanged;
+
     private SpriteRenderer spriteRenderer;
     private bool isInvulnerable = false;
-    private UIManager uiManager;
+
+    // Base values to reset during calculation
+    [HideInInspector] public float baseAttackPower = 10f;
+    [HideInInspector] public float baseAttackSpeed = 1f;
+    [HideInInspector] public float baseAttackRange = 5f;
+    [HideInInspector] public float baseLuck = 1f;
+    [HideInInspector] public float baseDefense = 0f;
+    [HideInInspector] public float baseDifficulty = 0f;
+
+    private void Awake()
+    {
+        baseAttackPower = attackPower;
+        baseAttackSpeed = attackSpeed;
+        baseAttackRange = attackRange;
+        baseLuck = luck;
+        baseDefense = defense;
+        baseDifficulty = difficulty;
+    }
+
+    public void NotifyStatChange(string name, float newVal, float diff)
+    {
+        if (diff == 0) return;
+        onStatChanged?.Invoke(new StatChangeInfo { statName = name, newValue = newVal, difference = diff });
+    }
 
     private void Start()
     {
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        uiManager = FindObjectOfType<UIManager>();
-        uiManager?.UpdateHealth(currentHealth, maxHealth);
+        onHealthChanged?.Invoke(currentHealth, maxHealth);
+
+        // Si tenemos UI asiganada, la actualizamos al inicio
+        // if (healthSlider != null) { healthSlider.maxValue = maxHealth; healthSlider.value = currentHealth; }
     }
 
     /// <summary>
@@ -49,7 +87,13 @@ public class PlayerStats : MonoBehaviour
         float finalDamage = Mathf.Max(1, damage - defense);
         currentHealth -= finalDamage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        uiManager?.UpdateHealth(currentHealth, maxHealth);
+        onHealthChanged?.Invoke(currentHealth, maxHealth);
+
+        Debug.Log("Vida actual del jugador: " + currentHealth);
+        // if (healthSlider != null) healthSlider.value = currentHealth;
+
+        // Feedback Auditivo
+        // if (hitSound != null) AudioSource.PlayOneShot(hitSound);
 
         if (currentHealth <= 0)
         {

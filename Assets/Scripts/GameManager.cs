@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,31 +23,42 @@ public class GameManager : MonoBehaviour
     [Header("Pool de Items para Level Up")]
     [SerializeField] private List<ItemData> itemPool = new List<ItemData>();
 
-    private UIManager uiManager;
+    private HUDController hud;
 
     private void Start()
     {
-        uiManager = FindObjectOfType<UIManager>();
+        hud = FindObjectOfType<HUDController>();
         timeRemaining = timeToSurvive;
 
-        if (uiManager != null)
+        if (hud != null)
         {
-            uiManager.UpdateLevelText(currentLevel);
-            uiManager.UpdateExperienceBar(currentExp, expToNextLevel);
-            uiManager.UpdateTimer(timeRemaining);
-            uiManager.UpdateGold(currentGold);
+            hud.UpdateLevelText(currentLevel);
+            hud.UpdateExperienceBar(currentExp, expToNextLevel);
+            hud.UpdateTimer(timeRemaining);
+            hud.UpdateGold(currentGold);
         }
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
+        {
+            bool levelingUp = hud != null && hud.IsLevelUpOpen;
+
+            if (!levelingUp)
+            {
+                if (isPaused) ResumeGame();
+                else { PauseGame(); hud?.ShowPauseMenu(true); }
+            }
+        }
+
         if (isGameOver || isPaused) return;
 
         timeRemaining -= Time.deltaTime;
         elapsedTime += Time.deltaTime;
 
-        if (uiManager != null)
-            uiManager.UpdateTimer(timeRemaining);
+        if (hud != null)
+            hud.UpdateTimer(elapsedTime); // Display elapsed time instead of remaining
 
         if (timeRemaining <= 0)
             TriggerVictory();
@@ -57,7 +67,7 @@ public class GameManager : MonoBehaviour
     public void AddGold(int amount)
     {
         currentGold += amount;
-        uiManager?.UpdateGold(currentGold);
+        hud?.UpdateGold(currentGold);
     }
     public float GetElapsedTime() => elapsedTime;
     public int GetCurrentLevel() => currentLevel;
@@ -71,8 +81,8 @@ public class GameManager : MonoBehaviour
         if (currentExp >= expToNextLevel)
             LevelUp();
 
-        if (uiManager != null)
-            uiManager.UpdateExperienceBar(currentExp, expToNextLevel);
+        if (hud != null)
+            hud.UpdateExperienceBar(currentExp, expToNextLevel);
     }
 
     private void LevelUp()
@@ -81,97 +91,54 @@ public class GameManager : MonoBehaviour
         currentExp -= expToNextLevel;
         expToNextLevel = Mathf.RoundToInt(expToNextLevel * expScalingFactor);
 
-        if (uiManager != null)
+        if (hud != null)
         {
-            uiManager.UpdateLevelText(currentLevel);
-            uiManager.UpdateExperienceBar(currentExp, expToNextLevel);
-            ItemData[] choices = GenerateLevelUpChoices();
-            uiManager.ShowLevelUpChoices(choices, OnItemChosen);
+            hud.UpdateLevelText(currentLevel);
+            hud.UpdateExperienceBar(currentExp, expToNextLevel);
         }
 
-        PauseGame();
+        ItemData[] choices = GenerateLevelUpChoices();
+
+        if (hud != null && hud.CanShowLevelUp)
+        {
+            PauseGame();
+            hud.ShowLevelUpChoices(choices, OnItemChosen);
+        }
+        else if (choices.Length > 0)
+        {
+            // UI no disponible: auto-elige el primer item sin pausar
+            OnItemChosen(choices[0]);
+        }
     }
+
+    public ItemData[] RollNewChoices() => GenerateLevelUpChoices();
 
     private ItemData[] GenerateLevelUpChoices()
     {
-        InventoryManager inv = FindObjectOfType<InventoryManager>();
-        if (inv == null) return new ItemData[0];
-
-        List<ItemData> candidates = new List<ItemData>();
-        var owned = inv.GetOwnedItems();
-
-        // 1. Upgrades and Evolutions of owned items
-        foreach (var item in owned)
-        {
-            if (item.nextRarityUpgrade != null) candidates.Add(item.nextRarityUpgrade);
-            
-            if (item.evolutionTarget != null)
-            {
-                // Evolution requirement: owning the required passive (Megabonk)
-                if (item.requiredPassive == null || owned.Contains(item.requiredPassive))
-                {
-                    candidates.Add(item.evolutionTarget);
-                }
-            }
-        }
-
-        // 2. New items from pool (if slots available)
-        foreach (var pItem in itemPool)
-        {
-            if (owned.Contains(pItem)) continue; // Already have this version
-
-            bool canAdd = false;
-            switch (pItem.type)
-            {
-                case ItemType.Weapon: if (inv.HasWeaponSpace()) canAdd = true; break;
-                case ItemType.ActiveSkill: if (inv.HasActiveSpace()) canAdd = true; break;
-                case ItemType.Passive:
-                case ItemType.Growth: canAdd = true; break;
-            }
-
-            if (canAdd)
-            {
-                // Only allow adding the "Common" or "Starting" version from pool
-                // Higher rarities are reached through upgrades
-                if (pItem.rarity == ItemRarity.Common)
-                {
-                    candidates.Add(pItem);
-                }
-            }
-        }
-
-        // 3. Select 3 unique random choices
+        // Filter out null entries before picking
+        List<ItemData> pool = itemPool.FindAll(item => item != null);
         List<ItemData> choices = new List<ItemData>();
-        candidates = candidates.Distinct().ToList(); // Remove duplicates
-        
-        int count = Mathf.Min(3, candidates.Count);
+        int count = Mathf.Min(3, pool.Count);
         for (int i = 0; i < count; i++)
         {
-            int idx = Random.Range(0, candidates.Count);
-            choices.Add(candidates[idx]);
-            candidates.RemoveAt(idx);
+            int idx = Random.Range(0, pool.Count);
+            choices.Add(pool[idx]);
+            pool.RemoveAt(idx);
         }
-
         return choices.ToArray();
     }
 
     private void OnItemChosen(ItemData chosen)
     {
+        if (chosen == null) { ResumeGame(); return; }
+
         InventoryManager inv = FindObjectOfType<InventoryManager>();
         if (inv != null)
         {
-            // Check if this is an upgrade for an existing item
-            var owned = inv.GetOwnedItems();
-            ItemData baseItem = owned.Find(o => o.nextRarityUpgrade == chosen || o.evolutionTarget == chosen);
-            
-            if (baseItem != null)
-            {
-                inv.UpgradeItem(baseItem, chosen);
-            }
+            if (chosen.type == ItemType.Weapon)
+                inv.AddWeapon(chosen);
             else
-            {
                 inv.AddItem(chosen);
-            }
         }
         ResumeGame();
     }
@@ -186,22 +153,25 @@ public class GameManager : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1f;
-        if (uiManager != null)
-            uiManager.ShowLevelUpMenu(false);
+        if (hud != null)
+        {
+            hud.ShowLevelUpMenu(false);
+            hud.ShowPauseMenu(false);
+        }
     }
 
     public void TriggerGameOver()
     {
         isGameOver = true;
         PauseGame();
-        if (uiManager != null) uiManager.ShowGameOver();
+        if (hud != null) hud.ShowGameOver();
     }
 
     public void TriggerVictory()
     {
         isGameOver = true;
         PauseGame();
-        if (uiManager != null) uiManager.ShowVictory();
+        if (hud != null) hud.ShowVictory();
     }
 
     public void RestartGame()

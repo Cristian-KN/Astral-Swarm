@@ -1,0 +1,82 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="MainMenu.uss" />
+    <ui:Style src="CharacterSelection.uss" />
+    <ui:Style src="Theme.Grimoire.uss" />
+
+    <ui:VisualElement name="stage" class="stage theme-grimoire">
+        <ui:VisualElement name="bg" picking-mode="Ignore" class="bg"/>
+        <ui:VisualElement name="vignette" picking-mode="Ignore" class="vignette"/>
+
+        <ui:VisualElement name="screen-character-select" class="screen screen--char-select">
+
+            <!-- Título -->
+            <ui:Label text="Elige tu héroe" class="char-title"/>
+
+            <!-- Selección de CLASE (3 cards) -->
+            <ui:Label text="CLASE" class="char-section-label"/>
+            <ui:VisualElement name="class-selection" class="class-selection">
+
+                <ui:VisualElement name="class-warrior" tabindex="0" focusable="true" class="class-card class-card--active" data-class="warrior">
+                    <ui:VisualElement name="class-icon-warrior" picking-mode="Ignore" class="class-icon"/>
+                    <ui:Label text="GUERRERO" picking-mode="Ignore" class="class-name"/>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="class-archer" tabindex="0" focusable="true" class="class-card" data-class="archer">
+                    <ui:VisualElement name="class-icon-archer" picking-mode="Ignore" class="class-icon"/>
+                    <ui:Label text="ARQUERO" picking-mode="Ignore" class="class-name"/>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="class-lancer" tabindex="0" focusable="true" class="class-card" data-class="lancer">
+                    <ui:VisualElement name="class-icon-lancer" picking-mode="Ignore" class="class-icon"/>
+                    <ui:Label text="LANCERO" picking-mode="Ignore" class="class-name"/>
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+
+            <!-- Selección de COLOR (5 cards: Blue, Yellow, Red, Purple, Black) -->
+            <ui:Label text="SKIN" class="char-section-label"/>
+            <ui:VisualElement name="color-selection" class="color-selection">
+
+                <ui:VisualElement name="color-blue" tabindex="0" focusable="true" class="color-card color-card--active" data-color="blue">
+                    <ui:VisualElement name="color-preview-0" picking-mode="Ignore" class="color-preview"/>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="color-yellow" tabindex="0" focusable="true" class="color-card" data-color="yellow">
+                    <ui:VisualElement name="color-preview-1" picking-mode="Ignore" class="color-preview"/>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="color-red" tabindex="0" focusable="true" class="color-card" data-color="red">
+                    <ui:VisualElement name="color-preview-2" picking-mode="Ignore" class="color-preview"/>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="color-purple" tabindex="0" focusable="true" class="color-card" data-color="purple">
+                    <ui:VisualElement name="color-preview-3" picking-mode="Ignore" class="color-preview"/>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="color-black" tabindex="0" focusable="true" class="color-card" data-color="black">
+                    <ui:VisualElement name="color-preview-4" picking-mode="Ignore" class="color-preview"/>
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+
+            <!-- Botones (Volver y Jugar) -->
+            <ui:VisualElement class="char-buttons">
+
+                <ui:VisualElement name="btn-back" tabindex="0" focusable="true" class="mbtn">
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--l"/>
+                    <ui:Label text="VOLVER" picking-mode="Ignore" class="mbtn__label"/>
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--r"/>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="btn-play" tabindex="0" focusable="true" class="mbtn mbtn--play">
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--l"/>
+                    <ui:Label text="JUGAR" picking-mode="Ignore" class="mbtn__label"/>
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--r"/>
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

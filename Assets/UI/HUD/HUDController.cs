@@ -48,6 +48,10 @@ public class HUDController : MonoBehaviour
     private Label _lvlNum, _timerClock, _goldAmt, _rerollBadge;
     private Label _psTime, _psLevel, _psGold, _endTitle;
 
+    // ---- stats elements ----
+    private Dictionary<string, Label> _statValueLabels = new Dictionary<string, Label>();
+    private Dictionary<string, Label> _statModLabels = new Dictionary<string, Label>();
+
     // ---- estado overlays ----
     private Action<ItemData> _onChosen;
     private int _rerollsLeft;
@@ -68,12 +72,14 @@ public class HUDController : MonoBehaviour
         // Suscribir eventos estáticos cuanto antes para no perder la primera emisión
         PlayerStats.onHealthChanged += SetHearts;
         InventoryManager.onInventoryChanged += RefreshLoadout;
+        PlayerStats.onStatChanged += HandleStatChanged;
     }
 
     private void OnDisable()
     {
         PlayerStats.onHealthChanged -= SetHearts;
         InventoryManager.onInventoryChanged -= RefreshLoadout;
+        PlayerStats.onStatChanged -= HandleStatChanged;
     }
 
     private void Start()
@@ -105,6 +111,18 @@ public class HUDController : MonoBehaviour
         inventory    = FindObjectOfType<InventoryManager>();
         var p = GameObject.FindWithTag("Player");
         if (p) playerTransform = p.transform;
+
+        // stats init
+        var stats = FindObjectOfType<PlayerStats>();
+        if (stats != null)
+        {
+            UpdateStatLabel("attack", stats.attackPower);
+            UpdateStatLabel("attack-speed", stats.attackSpeed);
+            UpdateStatLabel("range", stats.attackRange);
+            UpdateStatLabel("speed", stats.speedMultiplier);
+            UpdateStatLabel("luck", stats.luck);
+            UpdateStatLabel("difficulty", stats.difficulty);
+        }
 
         // icons
         SetIcon(_coinIco, coinIcon);
@@ -150,6 +168,40 @@ public class HUDController : MonoBehaviour
         _endTitle      = _root.Q<Label>("end-title");
         _dmgVignette   = _root.Q<VisualElement>("dmg-vignette");
         _settingsOverlay = _root.Q<VisualElement>("settings-overlay");
+
+        // Stat labels
+        string[] statKeys = { "attack", "attack-speed", "range", "speed", "luck", "difficulty" };
+        foreach (var key in statKeys)
+        {
+            _statValueLabels[key] = _root.Q<Label>($"stat-val-{key}");
+            _statModLabels[key] = _root.Q<Label>($"stat-mod-{key}");
+        }
+    }
+
+    private void HandleStatChanged(PlayerStats.StatChangeInfo info)
+    {
+        UpdateStatLabel(info.statName, info.newValue);
+        ShowStatMod(info.statName, info.difference);
+    }
+
+    private void UpdateStatLabel(string key, float val)
+    {
+        if (_statValueLabels.TryGetValue(key, out var label) && label != null)
+        {
+            label.text = val.ToString("F1");
+        }
+    }
+
+    private void ShowStatMod(string key, float diff)
+    {
+        if (_statModLabels.TryGetValue(key, out var label) && label != null)
+        {
+            label.text = (diff > 0 ? "+" : "") + diff.ToString("F1");
+            label.AddToClassList("show");
+            
+            // Hide after 3 seconds
+            label.schedule.Execute(() => label.RemoveFromClassList("show")).ExecuteLater(3000);
+        }
     }
 
     private void WireButtons()
@@ -336,7 +388,22 @@ public class HUDController : MonoBehaviour
         tier.AddToClassList("card-tier");
         card.Add(tier);
 
-        var desc = new Label(item.description);
+        // Generate Stat-rich description
+        string fullDesc = item.description;
+        string statInfo = "";
+        if (item.attackBoost != 0) statInfo += $"\nATK: {(item.attackBoost > 0 ? "+" : "")}{item.attackBoost}";
+        if (item.attackSpeedBoost != 0) statInfo += $"\nVEL ATK: {(item.attackSpeedBoost > 0 ? "+" : "")}{item.attackSpeedBoost}";
+        if (item.rangeBoost != 0) statInfo += $"\nRANGO: {(item.rangeBoost > 0 ? "+" : "")}{item.rangeBoost}";
+        if (item.speedBoost != 0) statInfo += $"\nVELOCIDAD: {(item.speedBoost > 0 ? "+" : "")}{item.speedBoost}";
+        if (item.luckBoost != 0) statInfo += $"\nSUERTE: {(item.luckBoost > 0 ? "+" : "")}{item.luckBoost}";
+        if (item.difficultyIncrease != 0) statInfo += $"\nDIFICULTAD: {(item.difficultyIncrease > 0 ? "+" : "")}{item.difficultyIncrease}";
+        
+        if (!string.IsNullOrEmpty(statInfo))
+        {
+            fullDesc += "\n" + statInfo;
+        }
+
+        var desc = new Label(fullDesc);
         desc.AddToClassList("card-desc");
         card.Add(desc);
 

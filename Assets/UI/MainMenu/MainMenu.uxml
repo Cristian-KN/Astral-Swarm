@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=28c90baa4c8b85648a6018c51a045231&amp;type=3#MainMenu"/>
-    <Style src="project://database/Assets/UI/MainMenu/Theme.Forged.uss?fileID=7433441132597879392&amp;guid=19042621de7cbca4da97aac19a6e14e8&amp;type=3#Theme.Forged"/>
+    <Style src="project://database/Assets/UI/MainMenu/CharacterSelection.uss?fileID=7433441132597879392&amp;guid=82d8357d00fe4264c9185a0315548790&amp;type=3#CharacterSelection"/>
+<Style src="project://database/Assets/UI/MainMenu/Theme.Forged.uss?fileID=7433441132597879392&amp;guid=19042621de7cbca4da97aac19a6e14e8&amp;type=3#Theme.Forged"/>
     <Style src="project://database/Assets/UI/MainMenu/Theme.Grimoire.uss?fileID=7433441132597879392&amp;guid=7fba7b97faa30ef498196780f1a7b28c&amp;type=3#Theme.Grimoire"/>
     <Style src="project://database/Assets/UI/MainMenu/Theme.Astral.uss?fileID=7433441132597879392&amp;guid=e322ec6677160724caac9bedd135b4dd&amp;type=3#Theme.Astral"/>
     <ui:VisualElement name="stage" class="stage theme-forged">
@@ -43,7 +44,55 @@
                 <ui:Label text="v0.1.0 · ALPHA" class="version"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="screen-settings" class="screen screen--settings" style="display: none;">
+
+        <!-- CHARACTER SELECTION -->
+        <ui:VisualElement name="screen-character-select" class="screen screen--char-select" style="display: none;">
+            <ui:Label text="Elige tu héroe" class="char-title"/>
+            <ui:VisualElement name="class-selection" class="class-selection">
+                <ui:VisualElement name="class-warrior" tabindex="0" focusable="true" class="class-card class-card--active" data-class="warrior">
+                    <ui:VisualElement name="class-icon-warrior" picking-mode="Ignore" class="class-icon"/>
+                    <ui:Label text="GUERRERO" picking-mode="Ignore" class="class-name"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="class-archer" tabindex="0" focusable="true" class="class-card" data-class="archer">
+                    <ui:VisualElement name="class-icon-archer" picking-mode="Ignore" class="class-icon"/>
+                    <ui:Label text="ARQUERO" picking-mode="Ignore" class="class-name"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="class-lancer" tabindex="0" focusable="true" class="class-card" data-class="lancer">
+                    <ui:VisualElement name="class-icon-lancer" picking-mode="Ignore" class="class-icon"/>
+                    <ui:Label text="LANCERO" picking-mode="Ignore" class="class-name"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="color-selection" class="color-selection">
+                <ui:VisualElement name="color-blue" tabindex="0" focusable="true" class="color-card color-card--active" data-color="blue">
+                    <ui:VisualElement name="color-preview-0" picking-mode="Ignore" class="color-preview"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="color-yellow" tabindex="0" focusable="true" class="color-card" data-color="yellow">
+                    <ui:VisualElement name="color-preview-1" picking-mode="Ignore" class="color-preview"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="color-red" tabindex="0" focusable="true" class="color-card" data-color="red">
+                    <ui:VisualElement name="color-preview-2" picking-mode="Ignore" class="color-preview"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="color-purple" tabindex="0" focusable="true" class="color-card" data-color="purple">
+                    <ui:VisualElement name="color-preview-3" picking-mode="Ignore" class="color-preview"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="color-black" tabindex="0" focusable="true" class="color-card" data-color="black">
+                    <ui:VisualElement name="color-preview-4" picking-mode="Ignore" class="color-preview"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="char-buttons">
+                <ui:VisualElement name="btn-char-back" tabindex="0" focusable="true" class="mbtn">
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--l"/>
+                    <ui:Label text="VOLVER" picking-mode="Ignore" class="mbtn__label"/>
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--r"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="btn-char-play" tabindex="0" focusable="true" class="mbtn mbtn--play">
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--l"/>
+                    <ui:Label text="JUGAR" picking-mode="Ignore" class="mbtn__label"/>
+                    <ui:Label text="◆" picking-mode="Ignore" class="mbtn__tick mbtn__tick--r"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+<ui:VisualElement name="screen-settings" class="screen screen--settings" style="display: none;">
             <ui:VisualElement name="settings-panel" class="panel">
                 <ui:VisualElement picking-mode="Ignore" class="stud stud--l"/>
                 <ui:VisualElement picking-mode="Ignore" class="stud stud--r"/>

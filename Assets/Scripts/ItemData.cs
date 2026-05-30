@@ -13,14 +13,17 @@ public class ItemData : ScriptableObject
     
     [Header("Stat Boosts (Flat)")]
     public float attackBoost = 0;
+    public float attackSpeedBoost = 0;
+    public float rangeBoost = 0;
     public float speedBoost = 0;
+    public float luckBoost = 0;
     public float defenseBoost = 0;
-    
+
     [Header("Multipliers")]
     public float statMultiplier = 1f;
 
     [Header("Sacrifice / Difficulty")]
-    public float difficultyIncrease = 0f; // Los items de Sacrificio aumentan esto
+    public float difficultyIncrease = 0f; 
 
     [Header("Weapon Config (type == Weapon)")]
     public GameObject projectilePrefab;

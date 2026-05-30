@@ -11,34 +11,84 @@ public class PlayerAttack : MonoBehaviour
         public float timer = 0f;
     }
 
-    [Header("Arma inicial")]
-    [SerializeField] private ItemData defaultWeapon;
+    [Header("Armas por Clase")]
+    [SerializeField] private ItemData swordWeapon;
+    [SerializeField] private ItemData bowWeapon;
+    [SerializeField] private ItemData spearWeapon;
     [SerializeField] private LayerMask enemyLayer;
 
     private readonly List<WeaponSlot> weaponSlots = new List<WeaponSlot>();
     public IReadOnlyList<WeaponSlot> WeaponSlots => weaponSlots;
 
-    private void Start()
-    {
-        if (defaultWeapon != null)
-            EquipWeapon(defaultWeapon);
-    }
-
     private Animator animator;
+
+    private PlayerStats playerStats;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        playerStats = GetComponent<PlayerStats>();
+    }
+
+    // ---- Stats del jugador aplicadas al combate (pasivas) ----
+
+    /// <summary>Multiplicador de daño según attackPower relativo a su base (PowerCrystal, etc.).</summary>
+    private float DamageMultiplier()
+    {
+        if (playerStats == null) return 1f;
+        float baseAtk = playerStats.baseAttackPower > 0f ? playerStats.baseAttackPower : 10f;
+        return (playerStats.attackPower / baseAtk) * Mathf.Max(1f, playerStats.attackMultiplier);
+    }
+
+    /// <summary>Radio de detección escalado por attackRange relativo a su base.</summary>
+    private float ScaledRadius(float baseRadius)
+    {
+        if (playerStats == null) return baseRadius;
+        float baseRange = playerStats.baseAttackRange > 0f ? playerStats.baseAttackRange : 5f;
+        return baseRadius * (playerStats.attackRange / baseRange);
+    }
+
+    /// <summary>Daño final de un golpe del arma, ya escalado por las stats del jugador.</summary>
+    private int ComputeDamage(WeaponSlot slot)
+        => Mathf.RoundToInt(slot.weaponData.weaponDamage * slot.level * DamageMultiplier());
+
+    private void Start()
+    {
+        string selectedClass = PlayerPrefs.GetString("SelectedClass", "warrior").ToLower();
+        ItemData weaponToEquip = null;
+        
+        switch (selectedClass)
+        {
+            case "warrior": weaponToEquip = swordWeapon; break;
+            case "archer": weaponToEquip = bowWeapon; break;
+            case "lancer": weaponToEquip = spearWeapon; break;
+        }
+
+        if (weaponToEquip != null)
+            EquipWeapon(weaponToEquip);
     }
 
     private void Update()
     {
+        float speedMod = (playerStats != null) ? playerStats.attackSpeed : 1f;
+
+        if (animator != null)
+        {
+            // Sync animator speed with attack speed stat
+            animator.speed = speedMod;
+        }
+
         for (int i = 0; i < weaponSlots.Count; i++)
         {
             WeaponSlot slot = weaponSlots[i];
             if (slot.weaponData == null) continue;
+            
             slot.timer += Time.deltaTime;
-            if (slot.timer >= slot.weaponData.weaponCooldown)
+
+            // Attack speed formula: lower cooldown as attackSpeed increases
+            float effectiveCooldown = slot.weaponData.weaponCooldown / speedMod;
+
+            if (slot.timer >= effectiveCooldown)
             {
                 slot.timer = 0f;
                 ExecuteAttack(slot);
@@ -67,7 +117,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (slot.weaponData.projectilePrefab != null)
         {
-            FireRanged(slot);
+            StartCoroutine(RangedAttackCoroutine(slot));
         }
         else
         {
@@ -79,24 +129,21 @@ public class PlayerAttack : MonoBehaviour
     {
         if (animator != null)
         {
-            // Reset trigger to ensure it doesn't queue up
             animator.ResetTrigger("Attack");
             animator.SetTrigger("Attack");
         }
 
-        // Damage is now handled in a Coroutine to sync with animation frames
         StartCoroutine(MeleeDamageCoroutine(slot));
     }
 
     private System.Collections.IEnumerator MeleeDamageCoroutine(WeaponSlot slot)
     {
-        // Small delay so the damage hits when the sword is actually swinging (middle of animation)
-        // TinySwords attack animations are roughly 0.3s long. 
-        // 0.1s is usually the "swing" moment.
-        yield return new WaitForSeconds(0.1f);
+        float speedMod = (playerStats != null) ? playerStats.attackSpeed : 1f;
+        // Base delay is 0.2s for Warrior/Lancer, scaled by attack speed
+        yield return new WaitForSeconds(0.2f / speedMod);
 
         Collider2D[] nearby = Physics2D.OverlapCircleAll(
-            transform.position, slot.weaponData.weaponDetectionRadius, enemyLayer);
+            transform.position, ScaledRadius(slot.weaponData.weaponDetectionRadius), enemyLayer);
 
         if (nearby.Length == 0) yield break;
 
@@ -113,17 +160,18 @@ public class PlayerAttack : MonoBehaviour
             EnemyStats stats = nearest.GetComponent<EnemyStats>();
             if (stats != null)
             {
-                stats.TakeDamage(slot.weaponData.weaponDamage * slot.level);
+                stats.TakeDamage(ComputeDamage(slot));
             }
         }
     }
 
-    private void FireRanged(WeaponSlot slot)
+    private System.Collections.IEnumerator RangedAttackCoroutine(WeaponSlot slot)
     {
+        float radius = ScaledRadius(slot.weaponData.weaponDetectionRadius);
         Collider2D[] nearby = Physics2D.OverlapCircleAll(
-            transform.position, slot.weaponData.weaponDetectionRadius, enemyLayer);
+            transform.position, radius, enemyLayer);
 
-        if (nearby.Length == 0) return;
+        if (nearby.Length == 0) yield break;
 
         Transform nearest = null;
         float shortest = Mathf.Infinity;
@@ -133,7 +181,32 @@ public class PlayerAttack : MonoBehaviour
             if (d < shortest) { shortest = d; nearest = col.transform; }
         }
 
-        if (nearest == null) return;
+        if (nearest == null) yield break;
+
+        // Trigger animation
+        if (animator != null)
+        {
+            animator.ResetTrigger("Attack");
+            animator.SetTrigger("Attack");
+        }
+
+        float speedMod = (playerStats != null) ? playerStats.attackSpeed : 1f;
+        // Wait for the release frame (base 0.3s), scaled by attack speed
+        yield return new WaitForSeconds(0.3f / speedMod);
+
+        // Re-check nearest target
+        nearby = Physics2D.OverlapCircleAll(
+            transform.position, radius, enemyLayer);
+
+        nearest = null;
+        shortest = Mathf.Infinity;
+        foreach (Collider2D col in nearby)
+        {
+            float d = Vector2.Distance(transform.position, col.transform.position);
+            if (d < shortest) { shortest = d; nearest = col.transform; }
+        }
+
+        if (nearest == null) yield break;
 
         GameObject proj = Instantiate(slot.weaponData.projectilePrefab, transform.position, Quaternion.identity);
         Vector2 dir = (nearest.position - transform.position).normalized;
@@ -142,7 +215,7 @@ public class PlayerAttack : MonoBehaviour
         if (projScript != null)
         {
             projScript.SetDirection(dir);
-            projScript.SetDamage(slot.weaponData.weaponDamage * slot.level);
+            projScript.SetDamage(ComputeDamage(slot));
         }
     }
 

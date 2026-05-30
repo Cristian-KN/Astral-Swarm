@@ -8,14 +8,14 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] private GameObject[] rockPrefabs;
 
     [Header("Settings")]
-    [SerializeField] private int minTrees = 4;
-    [SerializeField] private int maxTrees = 6;
-    [SerializeField] private int minRocks = 10;
-    [SerializeField] private int maxRocks = 16;
+    [SerializeField] private int minTrees = 10;
+    [SerializeField] private int maxTrees = 15;
+    [SerializeField] private int minRocks = 15;
+    [SerializeField] private int maxRocks = 20;
 
-    [SerializeField] private float spawnRadiusMin = 10f;
-    [SerializeField] private float spawnRadiusMax = 15f;
-    [SerializeField] private float despawnRadius = 20f;
+    [SerializeField] private float spawnRadiusMin = 5f;
+    [SerializeField] private float spawnRadiusMax = 12f;
+[SerializeField] private float despawnRadius = 20f;
     [SerializeField] private float overlapCheckRadius = 1.5f;
 
     private Transform playerTransform;
@@ -121,7 +121,15 @@ public class ObstacleSpawner : MonoBehaviour
         {
             GameObject prefab = prefabs[Random.Range(0, prefabs.Length)];
             GameObject instance = Instantiate(prefab, spawnPos, Quaternion.identity, transform);
+            
+            // Set sorting order
+            SpriteRenderer sr = instance.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                sr.sortingOrder = Mathf.RoundToInt(-spawnPos.y * 100);
+            }
+            
             activeList.Add(instance);
         }
-    }
+}
 }
